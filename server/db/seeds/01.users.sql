@@ -1,0 +1,10 @@
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Easthope', 'user1@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', false);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Tytherton', 'user2@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', true);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Linforth', 'user3@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', true);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Keir', 'user4@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', true);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Mathie', 'user5@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', false);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Croyser', 'user6@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', false);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Boole', 'user7@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', false);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Jankowski', 'user8@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', false);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Frigot', 'user9@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', false);
+insert into users ( name, email, phone, password_digest, in_person) values ( 'Mayston', 'user10@example.com', '+1 123-234-567', 'IjZAgcfl7p92ldGxad68LJZdL17lhWy', true);
