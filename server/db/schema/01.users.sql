@@ -7,5 +7,6 @@ CREATE TABLE users (
   image_url TEXT DEFAULT NULL,
   password_digest VARCHAR(255) NOT NULL,
   online BOOLEAN NOT NULL DEFAULT true,
-  in_person BOOLEAN NOT NULL DEFAULT false
+  in_person BOOLEAN NOT NULL DEFAULT false,
+  created_at timestamp default current_timestamp
 );
