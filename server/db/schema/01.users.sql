@@ -8,5 +8,5 @@ CREATE TABLE users (
   password_digest VARCHAR(255) NOT NULL,
   online BOOLEAN NOT NULL DEFAULT true,
   in_person BOOLEAN NOT NULL DEFAULT false,
-  created_at timestamp default current_timestamp
+  created_at TIMESTAMP DEFAULT current_timestamp
 );
