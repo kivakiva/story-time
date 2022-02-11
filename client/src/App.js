@@ -10,7 +10,7 @@ function App() {
       </main>
       <nav>
         <Link to="/">🏡</Link> | <Link to="/listens">📚</Link> |{" "}
-        <Link to="/messages">💬</Link> | <Link to="/profile">🐼</Link>
+        <Link to="/conversations">💬</Link> | <Link to="/profile">🐼</Link>
       </nav>
     </div>
   );
