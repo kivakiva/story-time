@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const Conversations = (props) => {
-  const conversations = [];
-  axios.get('./messages/')
+  // const conversations = [];
+  axios.get('./users/')
   .then(res => 
     console.log(res.data)
     
