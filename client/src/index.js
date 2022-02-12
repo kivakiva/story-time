@@ -11,6 +11,7 @@ import Conversations from "./routes/Conversations";
 import Conversation from "./routes/Conversation";
 import Profile from "./routes/Profile";
 import ReadExpand from "./routes/myreads/ReadExpand";
+import ListenExpand from "./routes/myreads/ListenExpand";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.render(
           <Route path="conversations/:conversation_id" element={<Conversation />} />
           <Route path="profile" element={<Profile />} />
           <Route path="read/:readId" element={<ReadExpand />} />
+          <Route path="listen/:listenId" element={<ListenExpand />} />
           <Route
             path="*"
             element={
