@@ -5,10 +5,10 @@ const { MessagesController } = require("../controllers"); // require MessagesCon
 // CREATE
 router.post("/", MessagesController.create);
 
-// READ ALL
+// READ ALL BY USER
 router.get("/", MessagesController.getAllByUserID);
 
-// READ ONE
+// READ ALL BY USER AND PARTNER
 router.get("/:partnerID", MessagesController.getAllByPartnerID);
 
 // DELETE ONE
