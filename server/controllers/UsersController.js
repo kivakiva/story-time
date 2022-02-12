@@ -47,8 +47,7 @@ const login = (req, res) => {
           .status(404)
           .send({ message: "User with this email does not exist" });
       }
-      console.log("user", user);
-      req.session.userID = user.userID;
+      req.session.userID = user.id;
       return res
         .status(200)
         .send({ message: "Login successful", cookies: req.session });
