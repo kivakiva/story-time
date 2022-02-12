@@ -26,10 +26,14 @@ const Reads = (props) => {
     return <Read key={read.id} {...read} />;
   });
 
+  const loggedIn = false;
+
   return (
     <div>
-      <div>public reading requests :</div>
+      {!loggedIn && <div>Welcome! Here at Story Time we connect readers and listeners together. If you want to read to someone, check out the requests below! :</div> }
+      <div>🎙 Reading Requests</div>
       {parsedReads}
+      <div>Make your own reading request</div>
     </div>
   );
 };

@@ -1,9 +1,15 @@
-const Read = (props) => {
+import { useNavigate } from "react-router-dom";
 
-  const { title, reader, status } = props;
+const Listen = (props) => {
+
+  const { title, reader, status, id } = props;
+
+  const navigate = useNavigate()
 
   return (
-    <div>
+    <div
+      onClick={()=>navigate(`/listen/${id}`)}
+    >
       <span>
       { title } | 
       </span>
@@ -18,4 +24,4 @@ const Read = (props) => {
   )
 
 }
-export default Read
+export default Listen

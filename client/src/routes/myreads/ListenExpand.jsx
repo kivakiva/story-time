@@ -16,14 +16,14 @@ const Read = (props) => {
     }
   ]
 
-  const id = params.readId
+  const id = params.listenId
   const { title, listener, listenNumber, type, author, message } = dataPlaceholder[0];
   console.log("id: ", id);
 
   return (
     <ul>
       <li>
-      Expanded read view for read id: {id}
+      Expanded listen view for listen id: {id}
       </li>
       <li>
     Listener name: { listener }

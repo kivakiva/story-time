@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Read = (props) => {
 
   const { title, reader, status, id } = props;
 
+  const navigate = useNavigate()
+
   return (
-    <Link to={`/read/${id}`}>
+    <div 
+      onClick={()=> navigate(`/read/${id}`)}
+      >
       <span>
       { title } | 
       </span>
@@ -15,7 +19,7 @@ const Read = (props) => {
       status: {status }
       </span>
       <br/>
-    </Link>
+    </div>
   )
 
 }
