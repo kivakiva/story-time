@@ -15,11 +15,13 @@ app.use(express.json());
 const usersRoutes = require("./routes/UsersRouter");
 const messagesRoutes = require("./routes/MessagesRouter");
 const ratingsRoutes = require("./routes/RatingsRouter");
+const readsRoutes = require("./routes/ReadsRouter");
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/ratings", ratingsRoutes);
+app.use("/api/reads", readsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
