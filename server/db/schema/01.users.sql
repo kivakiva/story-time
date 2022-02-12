@@ -5,7 +5,7 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   image_url TEXT DEFAULT NULL,
-  password_digest VARCHAR(255) NOT NULL,
+  password VARCHAR(255) DEFAULT NULL,
   online BOOLEAN NOT NULL DEFAULT true,
   in_person BOOLEAN NOT NULL DEFAULT false,
   created_at TIMESTAMP DEFAULT current_timestamp
