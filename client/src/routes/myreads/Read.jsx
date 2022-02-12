@@ -4,7 +4,7 @@ const Read = (props) => {
   const { title, reader, status, id } = props;
 
   return (
-    <Link to={`read/${id}`}>
+    <Link to={`/read/${id}`}>
       <span>
       { title } | 
       </span>

@@ -10,6 +10,7 @@ import PublicReads from "./routes/PublicReads";
 import Conversations from "./routes/Conversations";
 import Conversation from "./routes/Conversation";
 import Profile from "./routes/Profile";
+import ReadExpand from "./routes/myreads/ReadExpand";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,13 +18,11 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<PublicReads />} />
-          <Route path="myreads" element={<MyReads />} >
-            <Route path="listens" element={<Listens />} />
-            <Route path="reads" element={<Reads />} />
-          </Route>
+          <Route path="myreads" element={<MyReads />} />
           <Route path="conversations" element={<Conversations />} />
           <Route path="conversations/:conversation_id" element={<Conversation />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="read/:readId" element={<ReadExpand />} />
           <Route
             path="*"
             element={
