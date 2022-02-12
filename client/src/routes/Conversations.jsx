@@ -8,6 +8,9 @@ const Conversations = (props) => {
     
     )
   .catch(err => console.log(err))
-  return <p>Conversations</p>;
+
+  return (
+  <p>Conversations</p>
+    );
 };
 export default Conversations

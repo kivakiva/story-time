@@ -9,7 +9,7 @@ function App() {
         <Outlet />
       </main>
       <nav>
-        <Link to="/">🏡</Link> | <Link to="/listens">📚</Link> |{" "}
+        <Link to="/">🏡</Link> | <Link to="/myreads/listens">📚</Link> |{" "}
         <Link to="/conversations">💬</Link> | <Link to="/profile">🐼</Link>
       </nav>
     </div>
