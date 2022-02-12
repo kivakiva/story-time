@@ -3,7 +3,7 @@ const Read = (props) => {
   const { title, reader, status } = props;
 
   return (
-    <container>
+    <div>
       <span>
       { title } | 
       </span>
@@ -14,7 +14,7 @@ const Read = (props) => {
       status: {status }
       </span>
       <br/>
-    </container>
+    </div>
   )
 
 }

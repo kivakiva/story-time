@@ -23,7 +23,7 @@ const Listens = (props) => {
   ];
 
   const parsedListens = testListens.map((listen) => {
-    return <Listen {...listen} />;
+    return <Listen key={listen.id} {...listen} />;
   });
 
   return (

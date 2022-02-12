@@ -6,6 +6,7 @@ import App from "./App";
 import Reads from "./routes/Reads";
 import Listens from "./routes/Listens";
 import MyReads from "./routes/MyReads";
+import PublicReads from "./routes/PublicReads";
 import Conversations from "./routes/Conversations";
 import Conversation from "./routes/Conversation";
 import Profile from "./routes/Profile";
@@ -15,6 +16,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
+          <Route index element={<PublicReads />} />
           <Route path="myreads" element={<MyReads />} >
             <Route path="listens" element={<Listens />} />
             <Route path="reads" element={<Reads />} />

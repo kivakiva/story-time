@@ -6,13 +6,13 @@ const Reads = (props) => {
       id: 1,
       title: "moby dick",
       listener: "donny phan",
-      status: "active",
+      status: "pending",
     },
     {
       id: 2,
       title: "harry potter",
       listener: "ruta reiso",
-      status: "active",
+      status: "pending",
     },
     {
       id: 3,
@@ -28,8 +28,9 @@ const Reads = (props) => {
 
   return (
     <div>
-      { parsedReads }
+      <div>public reads :</div>
+      {parsedReads}
     </div>
-    );
+  );
 };
 export default Reads;
