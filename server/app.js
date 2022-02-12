@@ -1,6 +1,8 @@
 // load .env data into process.env
 require("dotenv").config();
 
+const cookieSession = require("cookie-session");
+
 // Web server config
 const PORT = process.env.PORT || 8079;
 const morgan = require("morgan");
@@ -9,6 +11,12 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["veryImportantKey1", "veryImportantKey2"],
+  })
+);
 app.use(express.json());
 
 // Separated Routes for each Resource

@@ -1,5 +1,5 @@
-insert into users ( name, email, phone, password, in_person) values ( 'Easthope', 'user1example.com', '+1 123-234-567', 'password', false);
-insert into users ( name, email, phone, password, in_person) values ( 'Tytherton', 'use2@example.com', '+1 123-234-567', 'password', true);
+insert into users ( name, email, phone, password, in_person) values ( 'Easthope', 'user1@example.com', '+1 123-234-567', 'password', false);
+insert into users ( name, email, phone, password, in_person) values ( 'Tytherton', 'user2@example.com', '+1 123-234-567', 'password', true);
 insert into users ( name, email, phone, password, in_person) values ( 'Linforth', 'user3@example.com', '+1 123-234-567', 'password', true);
 insert into users ( name, email, phone, password, in_person) values ( 'Keir', 'user4@example.com', '+1 123-234-567', 'password', true);
 insert into users ( name, email, phone, password, in_person) values ( 'Mathie', 'user5@example.com', '+1 123-234-567', 'password', false);

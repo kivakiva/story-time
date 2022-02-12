@@ -34,25 +34,35 @@ const create = (req, res) => {
 };
 
 const login = (req, res) => {
-  const { email, password } = req.body;
+  const { email } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).send({ message: "Missing email or password" });
+  if (!email) {
+    return res.status(400).send({ message: "Missing email" });
   }
 
-  //TODO: Find user in db
+  UsersModel.findByEmail(email)
+    .then((user) => {
+      if (!user) {
+        return res
+          .status(404)
+          .send({ message: "User with this email does not exist" });
+      }
+      console.log("user", user);
+      req.session.userID = user.userID;
+      return res
+        .status(200)
+        .send({ message: "Login successful", cookies: req.session });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not login user",
+        error: err.message,
+      });
+    });
 
-  // if (!user) {
-  //     return res.status(404).send({ message: 'User does not exist' });
-  //   }
-
-  //   if (user.password !== password) {
-  //     return res.status(400).send({ message: 'Wrong password' });
-  //   }
-
-  return res
-    .status(200)
-    .send({ message: "Last night I dreamt I went to Manderley again." });
+  // if (user.password !== password) {
+  //   return res.status(400).send({ message: "Wrong password" });
+  // }
 };
 
 const getByID = (req, res) => {
