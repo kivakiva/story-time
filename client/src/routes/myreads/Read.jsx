@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 const Read = (props) => {
 
-  const { title, reader, status, id } = props;
+  const { title, listener, status, id } = props;
 
   const navigate = useNavigate()
 
@@ -9,16 +9,7 @@ const Read = (props) => {
     <div 
       onClick={()=> navigate(`/read/${id}`)}
       >
-      <span>
-      { title } | 
-      </span>
-      <span>
-      { reader } | 
-      </span>
-      <span>
-      status: {status }
-      </span>
-      <br/>
+      { title } | { listener } | status: {status }
     </div>
   )
 

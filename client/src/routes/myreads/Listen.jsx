@@ -10,15 +10,7 @@ const Listen = (props) => {
     <div
       onClick={()=>navigate(`/listen/${id}`)}
     >
-      <span>
-      { title } | 
-      </span>
-      <span>
-      { reader } | 
-      </span>
-      <span>
-      status: {status }
-      </span>
+      { title } | { reader } | status: {status }
       <br/>
     </div>
   )
