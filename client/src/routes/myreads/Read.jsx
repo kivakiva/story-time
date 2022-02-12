@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 const Read = (props) => {
 
-  const { title, reader, status } = props;
+  const { title, reader, status, id } = props;
 
   return (
-    <div>
+    <Link to={`read/${id}`}>
       <span>
       { title } | 
       </span>
@@ -14,7 +15,7 @@ const Read = (props) => {
       status: {status }
       </span>
       <br/>
-    </div>
+    </Link>
   )
 
 }

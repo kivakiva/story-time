@@ -28,7 +28,7 @@ const Reads = (props) => {
 
   return (
     <div>
-      <div>public reads :</div>
+      <div>public reading requests :</div>
       {parsedReads}
     </div>
   );
