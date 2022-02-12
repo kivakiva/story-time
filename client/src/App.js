@@ -1,17 +1,16 @@
 import { Link, Outlet } from "react-router-dom";
+import Header from './Components/Header'
+import Footer from "./Components/Footer";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <h1>StoryTime</h1>
+      <Header></Header>
       <main>
         <Outlet />
       </main>
-      <nav>
-        <Link to="/">🏡</Link> | <Link to="/myreads">📚</Link> |{" "}
-        <Link to="/conversations">💬</Link> | <Link to="/profile">🐼</Link>
-      </nav>
+      <Footer></Footer>
     </div>
   );
 }
