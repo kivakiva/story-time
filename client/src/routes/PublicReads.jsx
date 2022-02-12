@@ -1,4 +1,5 @@
 import Read from "./myreads/Read";
+import { Link } from "react-router-dom";
 
 const Reads = (props) => {
   const testReads = [
@@ -33,7 +34,7 @@ const Reads = (props) => {
       {!loggedIn && <div>Welcome! Here at Story Time we connect readers and listeners together. If you want to read to someone, check out the requests below! :</div> }
       <div>🎙 Reading Requests</div>
       {parsedReads}
-      <div>Make your own reading request</div>
+      <Link to="/listen/create">Make your own reading request</Link> 
     </div>
   );
 };
