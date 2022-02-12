@@ -19,7 +19,12 @@ const MyReads = (props) => {
   return (
     <main>
       <p>MyReads</p> 
-      <span onClick={()=> listening()}>Listening</span> | <span onClick={() => reading()}>Reading</span>
+      <span onClick={()=> listening()}>
+        {state === "listening" ? <b>Listening</b> : <>Listening</> }
+      </span> | 
+      <span onClick={() => reading()}>
+        { state === "reading" ? <b>Reading</b> : <>Reading</> }
+      </span>
       { state === "reading" && <Reads /> }
       { state === "listening" && <Listens /> }
     </main>
