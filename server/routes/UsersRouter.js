@@ -3,13 +3,19 @@ const router = express.Router();
 const { UsersController } = require("../controllers"); // require UsersController from all controllers (default import - index.js)
 
 // CREATE
-router.post("/", UsersController.create);
+router.post("/signup", UsersController.create);
+
+// LOGIN
+router.post("/login", UsersController.login);
+
+// LOGOUT
+// router.post("/logout", UsersController.logout);
 
 // READ ALL
 router.get("/", UsersController.getAll);
 
 // READ ONE
-// router.get("/:id", UsersController.getByID);
+router.get("/:id", UsersController.getByID);
 
 // UPDATE ONE
 // router.put("/:id", UsersController.update);
