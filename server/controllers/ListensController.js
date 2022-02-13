@@ -129,21 +129,21 @@ const update = async (req, res) => {
       }
       if (readRequest.completed_at) {
         return res.status(400).send({
-          error: `Read request ${id} has already been completed`,
+          message: `Read request ${id} has already been completed`,
           completed_at: readRequest.completed_at,
         });
       }
 
       if (readRequest.cancelled_at) {
         return res.status(400).send({
-          error: "Cannot complete a cancelled read request",
+          message: "Cannot complete a cancelled read request",
           cancelled_at: readRequest.cancelled_at,
         });
       }
 
       if (!readRequest.accepted_at) {
         return res.status(400).send({
-          error: "Cannot complete a read request that has not been accepted",
+          message: "Cannot complete a read request that has not been accepted",
         });
       }
 
@@ -169,14 +169,14 @@ const update = async (req, res) => {
       }
       if (readRequest.accepted_at) {
         return res.status(400).send({
-          error: `Read request ${id} has already been accepted`,
+          message: `Read request ${id} has already been accepted`,
           accepted_at: readRequest.accepted_at,
         });
       }
 
       if (readRequest.cancelled_at) {
         return res.status(400).send({
-          error: "Cannot accept a cancelled read request",
+          message: "Cannot accept a cancelled read request",
           cancelled_at: readRequest.cancelled_at,
         });
       }
@@ -230,21 +230,21 @@ const update = async (req, res) => {
 
       if (readRequest.cancelled_at) {
         return res.status(400).send({
-          error: `Read request ${id} has already been cancelled`,
+          message: `Read request ${id} has already been cancelled`,
           cancelled_at: readRequest.cancelled_at,
         });
       }
 
       if (readRequest.completed_at) {
         return res.status(400).send({
-          error: "Cannot cancel a completed read request",
+          message: "Cannot cancel a completed read request",
           completed_at: readRequest.completed_at,
         });
       }
 
       if (!readRequest.accepted_at && userID !== readRequest.listener_id) {
         return res.status(400).send({
-          error:
+          message:
             "Only listener can cancel a request that has not been accepted",
         });
       }
