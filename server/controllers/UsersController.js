@@ -1,14 +1,40 @@
-const UsersModel = require("../models/UsersModel"); // db queries
+// db queries
+const UsersModel = require("../models/UsersModel");
+const ListensModel = require("../models/ListensModel");
+const RatingsModel = require("../models/RatingsModel");
+const ReadsModel = require("../models/ReadsModel");
 
 const getAll = (req, res) => {
-  UsersModel.getAll()
+  const { userID } = req.session;
+
+  if (!userID) {
+    return res.status(400).send({ message: "Must be logged in!" });
+  }
+
+  UsersModel.findByID(userID)
+    .then((user) => {
+      if (!user) {
+        res.status(404).send({ message: "User not found" });
+        return;
+      }
+
+      if (user.email !== "admin@example.com") {
+        res.status(403).send({ message: "Forbidden" });
+        return;
+      }
+
+      return UsersModel.getAll();
+    })
     .then((users) => {
+      if (!users) return;
+
       return res.status(200).send({ message: "Users", users });
     })
     .catch((err) => {
-      res
-        .status(500)
-        .send({ message: "Could not retrieve users", error: err.message });
+      res.status(500).send({
+        message: "Could not retrieve users",
+        error: err.message,
+      });
     });
 };
 
@@ -34,10 +60,12 @@ const create = (req, res) => {
 };
 
 const login = (req, res) => {
-  const { email } = req.body;
+  const { email, password } = req.body;
 
-  if (!email) {
-    return res.status(400).send({ message: "Missing email" });
+  if (!email || !password) {
+    return res
+      .status(400)
+      .send({ message: "Missing required data (email, password)" });
   }
 
   UsersModel.findByEmail(email)
@@ -45,6 +73,11 @@ const login = (req, res) => {
       if (!user) {
         return res.status(404).send({ message: "User not found" });
       }
+
+      if (user.password !== password) {
+        return res.status(400).send({ message: "Wrong password" });
+      }
+
       req.session.userID = user.id;
       return res
         .status(200)
@@ -56,10 +89,6 @@ const login = (req, res) => {
         error: err.message,
       });
     });
-
-  // if (user.password !== password) {
-  //   return res.status(400).send({ message: "Wrong password" });
-  // }
 };
 
 // Quick user login for development
@@ -90,21 +119,79 @@ const logout = (req, res) => {
   return res.status(200).send({ message: "User logged out!" });
 };
 
-const getByID = (req, res) => {
+const getByID = async (req, res) => {
   const { id } = req.params;
+  const { userID } = req.session;
 
   //TODO: If id matches logged in users id => full info
   //      if id does not match logged in users id => basic info
 
-  // const user = UsersModel.getByID(id);
-  // if (!user) {
-  //   return res.status(404).send({ message: "User not found" });
-  // }
+  try {
+    const user = await UsersModel.findByID(id);
 
-  return res.status(200).send({
-    message:
-      "And so we beat on, boats against the current, borne back ceaselessly into the past.",
-  });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    // response.message = `User id:${id}`;
+    // response.user = { id: user.id, name: user.name, image_url: user.image_url };
+
+    // if (userID !== Number(id)) {
+
+    // }
+
+    const acceptedReads = await ListensModel.findAcceptedOffersByReaderID(id);
+    const acceptedListens = await ListensModel.findAcceptedRequestsByReaderID(
+      id
+    );
+
+    const allReadRequests = await ListensModel.findAllByListenerID(id);
+    const allRequestOffers = await ReadsModel.findAllByReaderID(id);
+
+    // set state for each offer
+    for (const offer of allRequestOffers) {
+      const request = await ListensModel.findByID(offer.request_id);
+      if (request.request_offer_id === offer.id) {
+        offer.sate = "accepted";
+      } else if (!request.request_offer_id) {
+        offer.state = "pending";
+      } else {
+        offer.state = "cancelled";
+      }
+    }
+
+    const readerRating = await RatingsModel.getAvgReaderRating(id);
+    const listenerRating = await RatingsModel.getAvgListenerRating(id);
+
+    const response = {
+      message: `User id:${id}`,
+      user: {
+        id: user.id,
+        name: user.name,
+        image_url: user.image_url,
+        accepted_reads: acceptedReads.length,
+        accepted_listens: acceptedListens.length,
+        reader_rating: readerRating.avg,
+        listener_rating: listenerRating.avg,
+      },
+    };
+    if (userID !== Number(id)) {
+      return res.status(200).send(response);
+    }
+
+    response.user = {
+      ...response.user,
+      email: user.email,
+      all_read_requests: allReadRequests,
+      all_request_offers: allRequestOffers,
+    };
+    return res.status(200).send(response);
+  } catch (err) {
+    res.status(500).send({
+      message: "Could not retrieve user",
+      error: err.message,
+    });
+  }
 };
 
 module.exports = {

@@ -8,3 +8,4 @@ insert into users ( name, email, phone, password, in_person) values ( 'Boole', '
 insert into users ( name, email, phone, password, in_person) values ( 'Jankowski', 'user8@example.com', '+1 123-234-567', 'password', false);
 insert into users ( name, email, phone, password, in_person) values ( 'Frigot', 'user9@example.com', '+1 123-234-567', 'password', false);
 insert into users ( name, email, phone, password, in_person) values ( 'Mayston', 'user10@example.com', '+1 123-234-567', 'password', true);
+insert into users ( name, email, phone, password, in_person) values ( 'Admin', 'admin@example.com', '+1 123-234-567', 'password', false);

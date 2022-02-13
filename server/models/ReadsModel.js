@@ -12,4 +12,10 @@ const getOneByID = (id) => {
     .then((result) => result.rows[0]);
 };
 
-module.exports = { getAllByRequestID, getOneByID };
+const findAllByReaderID = (id) => {
+  return db
+    .query("SELECT * FROM request_offers WHERE reader_id = $1", [id])
+    .then((result) => result.rows);
+};
+
+module.exports = { getAllByRequestID, getOneByID, findAllByReaderID };

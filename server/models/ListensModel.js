@@ -46,6 +46,30 @@ const cancelReadRequest = (request_id, who_cancelled_id) => {
     .then((result) => result.rows[0]);
 };
 
+const findAcceptedOffersByReaderID = (id) => {
+  return db
+    .query(
+      "SELECT * FROM requests WHERE reader_id = $1 AND accepted_at IS NOT NULL",
+      [id]
+    )
+    .then((result) => result.rows);
+};
+
+const findAcceptedRequestsByReaderID = (id) => {
+  return db
+    .query(
+      "SELECT * FROM requests WHERE listener_id = $1 AND accepted_at IS NOT NULL",
+      [id]
+    )
+    .then((result) => result.rows);
+};
+
+const findAllByListenerID = (id) => {
+  return db
+    .query("SELECT * FROM requests WHERE listener_id = $1", [id])
+    .then((result) => result.rows);
+};
+
 module.exports = {
   create,
   getAll,
@@ -53,4 +77,7 @@ module.exports = {
   completeReadRequest,
   acceptReadRequest,
   cancelReadRequest,
+  findAcceptedOffersByReaderID,
+  findAcceptedRequestsByReaderID,
+  findAllByListenerID,
 };
