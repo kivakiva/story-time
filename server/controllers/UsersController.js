@@ -43,9 +43,7 @@ const login = (req, res) => {
   UsersModel.findByEmail(email)
     .then((user) => {
       if (!user) {
-        return res
-          .status(404)
-          .send({ message: "User with this email does not exist" });
+        return res.status(404).send({ message: "User not found" });
       }
       req.session.userID = user.id;
       return res
@@ -62,6 +60,34 @@ const login = (req, res) => {
   // if (user.password !== password) {
   //   return res.status(400).send({ message: "Wrong password" });
   // }
+};
+
+// Quick user login for development
+const devlog = (req, res) => {
+  const { id } = req.params;
+
+  UsersModel.findByID(id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      req.session.userID = user.id;
+      return res
+        .status(200)
+        .send({ message: "Login successful", cookies: req.session });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not login user",
+        error: err.message,
+      });
+    });
+};
+
+const logout = (req, res) => {
+  req.session = null;
+
+  return res.status(200).send({ message: "User logged out!" });
 };
 
 const getByID = (req, res) => {
@@ -86,4 +112,6 @@ module.exports = {
   create,
   login,
   getByID,
+  devlog,
+  logout,
 };

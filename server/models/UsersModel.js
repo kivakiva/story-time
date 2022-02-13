@@ -23,8 +23,15 @@ const findByEmail = (email) => {
     .then((result) => result.rows[0]);
 };
 
+const findByID = (id) => {
+  return db
+    .query("SELECT * FROM users WHERE id = $1", [id])
+    .then((result) => result.rows[0]);
+};
+
 module.exports = {
   create,
   getAll,
   findByEmail,
+  findByID,
 };

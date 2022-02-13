@@ -5,11 +5,14 @@ const { UsersController } = require("../controllers"); // require UsersControlle
 // CREATE
 router.post("/signup", UsersController.create);
 
+// DEVELOPMENT LOGIN
+router.get("/devlog/:id", UsersController.devlog);
+
 // LOGIN
 router.post("/login", UsersController.login);
 
 // LOGOUT
-// router.post("/logout", UsersController.logout);
+router.post("/logout", UsersController.logout);
 
 // READ ALL
 router.get("/", UsersController.getAll);
