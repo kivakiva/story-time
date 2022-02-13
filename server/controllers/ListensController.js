@@ -1,5 +1,4 @@
 // db queries
-const UsersModel = require("../models/UsersModel");
 const ReadsModel = require("../models/ReadsModel");
 const ListensModel = require("../models/ListensModel");
 
@@ -50,22 +49,10 @@ const getByID = (req, res) => {
   const { userID } = req.session;
   const response = {};
 
-  if (!userID) {
-    return res.status(400).send({
-      message: "Must be logged in!",
-    });
-  }
-
   ListensModel.findByID(id)
     .then((request) => {
       if (!request) {
         res.status(404).send({ message: "Read request not found" });
-        return;
-      }
-      if (userID !== request.listener_id) {
-        res
-          .status(400)
-          .send({ message: "User not authorised to view this read request" });
         return;
       }
       response.request = request;
@@ -73,10 +60,21 @@ const getByID = (req, res) => {
     })
     .then((offers) => {
       if (!offers) return;
+
+      // send general information if user IS NOT the creator of read request:
+      if (userID !== response.request.listener_id) {
+        response.request.total_offers = offers.length;
+        return res
+          .status(200)
+          .send({ message: `Read request id:${id}`, response });
+      }
+
+      // send full information inlcuding offers if user IS the creator of read request:
       response.offers = offers;
-      return res
-        .status(200)
-        .send({ message: `Read request id:${id}`, response });
+      return res.status(200).send({
+        message: `Read request id:${id} and it's associated offers`,
+        response,
+      });
     })
     .catch((err) => {
       res.status(500).send({
@@ -88,7 +86,7 @@ const getByID = (req, res) => {
 
 const update = async (req, res) => {
   const { id } = req.params;
-  const { action, reader_id, who_cancelled_id, request_offer_id } = req.body;
+  const { action, who_cancelled_id, request_offer_id } = req.body;
   const { userID } = req.session;
 
   if (!userID) {
@@ -129,7 +127,7 @@ const update = async (req, res) => {
       }
       if (readRequest.completed_at) {
         return res.status(400).send({
-          message: `Read request ${id} has already been completed`,
+          message: `Read request id:${id} has already been completed`,
           completed_at: readRequest.completed_at,
         });
       }
@@ -155,7 +153,7 @@ const update = async (req, res) => {
         });
       } catch (err) {
         return res.status(500).send({
-          message: "Could not retrieve read request data",
+          message: "Could not update read request",
           error: err.message,
         });
       }
@@ -169,7 +167,7 @@ const update = async (req, res) => {
       }
       if (readRequest.accepted_at) {
         return res.status(400).send({
-          message: `Read request ${id} has already been accepted`,
+          message: `Read request id:${id} has already been accepted`,
           accepted_at: readRequest.accepted_at,
         });
       }
@@ -212,7 +210,7 @@ const update = async (req, res) => {
         });
       } catch (err) {
         return res.status(500).send({
-          message: "Could not retrieve read request data",
+          message: "Could not update read request",
           error: err.message,
         });
       }
@@ -230,7 +228,7 @@ const update = async (req, res) => {
 
       if (readRequest.cancelled_at) {
         return res.status(400).send({
-          message: `Read request ${id} has already been cancelled`,
+          message: `Read request id:${id} has already been cancelled`,
           cancelled_at: readRequest.cancelled_at,
         });
       }
@@ -276,12 +274,12 @@ const update = async (req, res) => {
         });
       } catch (err) {
         return res.status(500).send({
-          message: "Could not retrieve read request data",
+          message: "Could not update read request",
           error: err.message,
         });
       }
     default:
-      res.send({ message: "Wrong action" });
+      res.status(400).send({ message: "Wrong action" });
   }
 };
 
