@@ -13,11 +13,6 @@ const getAll = (req, res) => {
 
   UsersModel.findByID(userID)
     .then((user) => {
-      if (!user) {
-        res.status(404).send({ message: "User not found" });
-        return;
-      }
-
       if (user.email !== "admin@example.com") {
         res.status(403).send({ message: "Forbidden" });
         return;
@@ -123,22 +118,12 @@ const getByID = async (req, res) => {
   const { id } = req.params;
   const { userID } = req.session;
 
-  //TODO: If id matches logged in users id => full info
-  //      if id does not match logged in users id => basic info
-
   try {
     const user = await UsersModel.findByID(id);
 
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
-
-    // response.message = `User id:${id}`;
-    // response.user = { id: user.id, name: user.name, image_url: user.image_url };
-
-    // if (userID !== Number(id)) {
-
-    // }
 
     const acceptedReads = await ListensModel.findAcceptedOffersByReaderID(id);
     const acceptedListens = await ListensModel.findAcceptedRequestsByReaderID(

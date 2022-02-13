@@ -58,7 +58,7 @@ const getByID = (req, res) => {
       response.request = request;
       return ReadsModel.getAllByRequestID(request.id);
     })
-    .then((offers) => {
+    .then(async (offers) => {
       if (!offers) return;
 
       // send general information if user IS NOT the creator of read request:
@@ -70,6 +70,24 @@ const getByID = (req, res) => {
       }
 
       // send full information inlcuding offers if user IS the creator of read request:
+      try {
+        for (const offer of offers) {
+          const request = await ListensModel.findByID(offer.request_id);
+          if (request.request_offer_id === offer.id) {
+            offer.sate = "accepted";
+          } else if (!request.request_offer_id) {
+            offer.state = "pending";
+          } else {
+            offer.state = "cancelled";
+          }
+        }
+      } catch (err) {
+        res.status(500).send({
+          message: "Could not retrieve read request data",
+          error: err.message,
+        });
+      }
+
       response.offers = offers;
       return res.status(200).send({
         message: `Read request id:${id} and it's associated offers`,
