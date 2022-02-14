@@ -2,7 +2,7 @@ import React from "react";
 
 function Test() {
   return (
-    <div>
+    <div className="test">
       insert test Daisy Component here
       
     </div>

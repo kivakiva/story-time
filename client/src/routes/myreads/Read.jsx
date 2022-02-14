@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import CardBase from "../../Components/Cards/CardBase";
 import CardHomePageReadingRequest from "../../Components/Cards/CardHomePageReadingRequest";
 
 const Read = (props) => {

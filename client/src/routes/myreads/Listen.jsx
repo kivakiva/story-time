@@ -1,19 +1,17 @@
 import { useNavigate } from "react-router-dom";
+import CardListenRequest from "../../Components/Cards/CardListenRequest";
 
 const Listen = (props) => {
-
   const { title, reader, status, id } = props;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  return (
-    <div
-      onClick={()=>navigate(`/listen/${id}`)}
-    >
-      { title } | { reader } | status: {status }
-      <br/>
-    </div>
-  )
-
-}
-export default Listen
+  // <div
+  //   onClick={()=>navigate(`/listen/${id}`)}
+  // >
+  //   { title } | { reader } | status: {status }
+  //   <br/>
+  // </div>
+  return <CardListenRequest {...props} />;
+};
+export default Listen;

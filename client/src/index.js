@@ -15,7 +15,6 @@ import ListenNew from "./routes/myreads/ListenNew";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Test></Test>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
@@ -41,6 +40,7 @@ ReactDOM.render(
         </Route>
       </Routes>
     </BrowserRouter>
+    <Test></Test>
   </React.StrictMode>,
   document.getElementById("root")
 );

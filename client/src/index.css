@@ -17,12 +17,18 @@ code {
 @tailwind utilities;
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.test {
+  margin-top: 20px;
+  text-align: center;
 }
 
 .footer {
   border-top: 1px black solid;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   display: flex;
   flex-direction: row;
@@ -30,11 +36,9 @@ body {
 }
 
 .header {
-  /* position: absolute; */
-  bottom: top;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  position: fixed;
+  left: 0;
+  right: 0;
 }
 
 .app-name {
