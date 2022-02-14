@@ -1,6 +1,6 @@
 const db = require("../db"); // default import - index.js
 
-const getAvgReaderRating = (id) => {
+const avgReaderRating = (id) => {
   return db
     .query(
       "SELECT AVG(rating) FROM requests JOIN reader_ratings ON request_id = requests.id WHERE reader_id = $1;",
@@ -9,7 +9,7 @@ const getAvgReaderRating = (id) => {
     .then((result) => result.rows[0]);
 };
 
-const getAvgListenerRating = (id) => {
+const avgListenerRating = (id) => {
   return db
     .query(
       "SELECT AVG(rating) FROM requests JOIN listener_ratings ON request_id = requests.id WHERE listener_id = $1;",
@@ -18,4 +18,4 @@ const getAvgListenerRating = (id) => {
     .then((result) => result.rows[0]);
 };
 
-module.exports = { getAvgReaderRating, getAvgListenerRating };
+module.exports = { avgReaderRating, avgListenerRating };

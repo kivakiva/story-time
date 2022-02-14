@@ -18,7 +18,7 @@ const getAll = (req, res) => {
         return;
       }
 
-      return UsersModel.getAll();
+      return UsersModel.findAll();
     })
     .then((users) => {
       if (!users) return;
@@ -137,16 +137,16 @@ const getByID = async (req, res) => {
     for (const offer of allRequestOffers) {
       const request = await ListensModel.findByID(offer.request_id);
       if (request.request_offer_id === offer.id) {
-        offer.sate = "accepted";
-      } else if (!request.request_offer_id) {
+        offer.state = "accepted";
+      } else if (!request.request_offer_id && !request.cancelled_at) {
         offer.state = "pending";
       } else {
         offer.state = "cancelled";
       }
     }
 
-    const readerRating = await RatingsModel.getAvgReaderRating(id);
-    const listenerRating = await RatingsModel.getAvgListenerRating(id);
+    const readerRating = await RatingsModel.avgReaderRating(id);
+    const listenerRating = await RatingsModel.avgListenerRating(id);
 
     const response = {
       message: `User id:${id}`,

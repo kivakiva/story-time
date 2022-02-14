@@ -32,7 +32,7 @@ const create = (req, res) => {
 };
 
 const getAll = (req, res) => {
-  ListensModel.getAll()
+  ListensModel.findAll()
     .then((readRequests) => {
       return res.status(200).send({ message: "Read requests", readRequests });
     })
@@ -56,7 +56,7 @@ const getByID = (req, res) => {
         return;
       }
       response.request = request;
-      return ReadsModel.getAllByRequestID(request.id);
+      return ReadsModel.findAllByRequestID(request.id);
     })
     .then(async (offers) => {
       if (!offers) return;
@@ -74,8 +74,8 @@ const getByID = (req, res) => {
         for (const offer of offers) {
           const request = await ListensModel.findByID(offer.request_id);
           if (request.request_offer_id === offer.id) {
-            offer.sate = "accepted";
-          } else if (!request.request_offer_id) {
+            offer.state = "accepted";
+          } else if (!request.request_offer_id && !request.cancelled_at) {
             offer.state = "pending";
           } else {
             offer.state = "cancelled";
@@ -104,7 +104,15 @@ const getByID = (req, res) => {
 
 const update = async (req, res) => {
   const { id } = req.params;
-  const { action, who_cancelled_id, request_offer_id } = req.body;
+  const {
+    action,
+    who_cancelled_id,
+    request_offer_id,
+    request_text,
+    book_title,
+    online,
+    in_person,
+  } = req.body;
   const { userID } = req.session;
 
   if (!userID) {
@@ -125,23 +133,21 @@ const update = async (req, res) => {
     readRequest = await ListensModel.findByID(id);
   } catch (err) {
     return res.status(500).send({
-      message: "Could not retrieve read request data",
+      message: "Could not retrieve read request",
       error: err.message,
     });
   }
 
   if (!readRequest) {
-    res.status(404).send({ message: "Read request not found" });
-    return;
+    return res.status(404).send({ message: "Read request not found" });
   }
 
   switch (action) {
     case "COMPLETE":
       if (userID !== readRequest.listener_id) {
-        res.status(400).send({
+        return res.status(400).send({
           message: "User not authorized to complete this read request",
         });
-        return;
       }
       if (readRequest.completed_at) {
         return res.status(400).send({
@@ -167,7 +173,7 @@ const update = async (req, res) => {
         const updatedRequest = await ListensModel.completeReadRequest(id);
         return res.status(200).send({
           message: "Read request completed!",
-          updatedRequest,
+          request: updatedRequest,
         });
       } catch (err) {
         return res.status(500).send({
@@ -178,11 +184,11 @@ const update = async (req, res) => {
 
     case "ACCEPT":
       if (userID !== readRequest.listener_id) {
-        res.status(400).send({
+        return res.status(400).send({
           message: "User not authorized to start this read request session",
         });
-        return;
       }
+
       if (readRequest.accepted_at) {
         return res.status(400).send({
           message: `Read request id:${id} has already been accepted`,
@@ -204,7 +210,7 @@ const update = async (req, res) => {
       }
 
       try {
-        const correctOffer = await ReadsModel.getOneByID(request_offer_id);
+        const correctOffer = await ReadsModel.findOneByID(request_offer_id);
         if (!correctOffer) {
           return res.status(404).send({
             message: "Request offer not found",
@@ -224,7 +230,7 @@ const update = async (req, res) => {
         );
         return res.status(200).send({
           message: "Read request accepted!",
-          updatedRequest,
+          request: updatedRequest,
         });
       } catch (err) {
         return res.status(500).send({
@@ -238,10 +244,9 @@ const update = async (req, res) => {
         userID !== readRequest.listener_id &&
         userID !== readRequest.reader_id
       ) {
-        res
+        return res
           .status(400)
           .send({ message: "User not authorized to cancel this read request" });
-        return;
       }
 
       if (readRequest.cancelled_at) {
@@ -288,7 +293,45 @@ const update = async (req, res) => {
         );
         return res.status(200).send({
           message: "Read request cancelled!",
-          updatedRequest,
+          request: updatedRequest,
+        });
+      } catch (err) {
+        return res.status(500).send({
+          message: "Could not update read request",
+          error: err.message,
+        });
+      }
+    case "UPDATE":
+      if (userID !== readRequest.listener_id) {
+        return res.status(400).send({
+          message: "User not authorized to edit this read request",
+        });
+      }
+      if (readRequest.accepted_at || readRequest.cancelled_at) {
+        return res.status(400).send({
+          message: "Cannot edit accepted or cancelled read_request",
+        });
+      }
+
+      if (!request_text && !book_title && !online && !in_person) {
+        return res.status(400).send({
+          message:
+            "Must be present at least one of the following: request_text, book_title, online, in_person)",
+        });
+      }
+
+      try {
+        const updatedRequest = await ListensModel.updateReadRequest(
+          id,
+          request_text,
+          book_title,
+          online,
+          in_person
+        );
+
+        return res.status(200).send({
+          message: "Read request updated!",
+          request: updatedRequest,
         });
       } catch (err) {
         return res.status(500).send({
