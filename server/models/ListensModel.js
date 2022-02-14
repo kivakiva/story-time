@@ -9,7 +9,7 @@ const create = (user_id, request_text, book_title, online, in_person) => {
     .then((result) => result.rows[0]);
 };
 
-const getAll = () => {
+const findAll = () => {
   return db.query("SELECT * FROM requests").then((result) => result.rows);
 };
 
@@ -70,9 +70,26 @@ const findAllByListenerID = (id) => {
     .then((result) => result.rows);
 };
 
+const updateReadRequest = (id, request_text, book_title, online, in_person) => {
+  return db
+    .query(
+      `
+      UPDATE requests SET
+      request_text = COALESCE($1, request_text),
+      book_title = COALESCE($2, book_title),
+      online = COALESCE($3, online),
+      in_person = COALESCE($4, in_person)
+      WHERE id = $5
+      RETURNING *
+    `,
+      [request_text, book_title, online, in_person, id]
+    )
+    .then((result) => result.rows[0]);
+};
+
 module.exports = {
   create,
-  getAll,
+  findAll,
   findByID,
   completeReadRequest,
   acceptReadRequest,
@@ -80,4 +97,5 @@ module.exports = {
   findAcceptedOffersByReaderID,
   findAcceptedRequestsByReaderID,
   findAllByListenerID,
+  updateReadRequest,
 };

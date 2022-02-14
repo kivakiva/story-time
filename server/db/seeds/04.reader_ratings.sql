@@ -4,3 +4,7 @@ insert into reader_ratings (request_id, rating) values (5, 4);
 insert into reader_ratings (request_id, rating) values (7, 2);
 insert into reader_ratings (request_id, rating) values (11, 3);
 insert into reader_ratings (request_id, rating) values (19, 1);
+insert into reader_ratings (request_id, rating) values (21, 3);
+insert into reader_ratings (request_id, rating) values (22, 5);
+insert into reader_ratings (request_id, rating) values (23, 4);
+insert into reader_ratings (request_id, rating) values (24, 3);

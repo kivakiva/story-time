@@ -13,7 +13,7 @@ const create = (name, email, phone, image_url, in_person, password_digest) => {
     .then((result) => result.rows[0]);
 };
 
-const getAll = () => {
+const findAll = () => {
   return db.query("SELECT * FROM users").then((result) => result.rows);
 };
 
@@ -31,7 +31,7 @@ const findByID = (id) => {
 
 module.exports = {
   create,
-  getAll,
+  findAll,
   findByEmail,
   findByID,
 };
