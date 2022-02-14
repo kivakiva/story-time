@@ -1,17 +1,17 @@
 import { useNavigate } from "react-router-dom";
-const Read = (props) => {
+import CardBase from "../../Components/Cards/CardBase";
+import CardHomePageReadingRequest from "../../Components/Cards/CardHomePageReadingRequest";
 
+const Read = (props) => {
   const { title, listener, status, id } = props;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <div 
-      onClick={()=> navigate(`/read/${id}`)}
-      >
-      { title } | { listener } | status: {status }
-    </div>
-  )
-
-}
-export default Read
+    <CardHomePageReadingRequest
+      {...props}
+      onClick={() => navigate(`/read/${id}`)}
+    ></CardHomePageReadingRequest>
+  );
+};
+export default Read;

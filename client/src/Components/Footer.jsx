@@ -11,7 +11,7 @@ function Footer() {
         <i className="fa-solid fa-book-open footer-icon"></i>
       </Link>
       <Link to="/conversations">
-        <i class="fa-solid fa-comment footer-icon"></i>
+        <i className="fa-solid fa-comment footer-icon"></i>
       </Link>
       <Link to="/profile">
         <i className="fa-solid fa-user footer-icon"></i>
