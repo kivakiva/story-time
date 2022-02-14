@@ -1,8 +1,26 @@
 import Read from "./myreads/Read";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import fortmatResponse from "./helpers/formatResponse";
 
 const PublicReads = (props) => {
   const userID = localStorage.getItem("userID");
+  const [allListens, setAllListens] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`../listens`)
+      .then((res) => {
+        console.log(res.data);
+        setAllListens([...res.data.readRequests]);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        console.log(err);
+      });
+  }, []);
+
   const testReads = [
     {
       id: 1,
@@ -32,8 +50,6 @@ const PublicReads = (props) => {
     return <Read key={read.id} {...read} />;
   });
 
-  const loggedIn = false;
-
   return (
     <div>
       {!userID && (
@@ -46,8 +62,8 @@ const PublicReads = (props) => {
       <div>
         <i className="fa-solid fa-microphone"></i> Reading Requests
       </div>
-      {parsedReads}
-      <Link to="/listen/create">Make your own reading request</Link>
+      {userID && <Link to="/listen/create">Make your own reading request</Link>}
+      {!userID && <Link to="/login">Make your own reading </Link>}
     </div>
   );
 };
