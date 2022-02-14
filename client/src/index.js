@@ -12,6 +12,7 @@ import ReadExpand from "./views/myreads/ReadExpand";
 import ListenExpand from "./views/myreads/ListenExpand";
 import Test from "./views/shared/Test";
 import ListenNew from "./views/myreads/ListenNew";
+import Login from "./views/Login";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -38,6 +39,7 @@ ReactDOM.render(
             }
           />
         </Route>
+        <Route path="login/:userId" element={<Login />} />
       </Routes>
     </BrowserRouter>
     <Test></Test>

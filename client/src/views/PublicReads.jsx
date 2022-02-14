@@ -1,7 +1,8 @@
 import Read from "./myreads/Read";
 import { Link } from "react-router-dom";
 
-const Reads = (props) => {
+const PublicReads = (props) => {
+  const userID = localStorage.getItem("userID");
   const testReads = [
     {
       id: 1,
@@ -35,12 +36,13 @@ const Reads = (props) => {
 
   return (
     <div>
-      {!loggedIn && (
+      {!userID && (
         <div>
           Welcome! Here at Story Time we connect readers and listeners together.
           If you want to read to someone, check out the requests below! :
         </div>
       )}
+      {userID && <div>Logged in as user:{userID}</div>}
       <div>
         <i className="fa-solid fa-microphone"></i> Reading Requests
       </div>
@@ -49,4 +51,4 @@ const Reads = (props) => {
     </div>
   );
 };
-export default Reads;
+export default PublicReads;
