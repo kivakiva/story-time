@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
-import MyReads from "./routes/MyReads";
-import PublicReads from "./routes/PublicReads";
-import Conversations from "./routes/Conversations";
-import Conversation from "./routes/Conversation";
-import Profile from "./routes/Profile";
-import ReadExpand from "./routes/myreads/ReadExpand";
-import ListenExpand from "./routes/myreads/ListenExpand";
-import Test from "./Components/Test";
-import ListenNew from "./routes/myreads/ListenNew";
+import MyReads from "./views/MyReads";
+import PublicReads from "./views/PublicReads";
+import Conversations from "./views/Conversations";
+import Conversation from "./views/Conversation";
+import Profile from "./views/Profile";
+import ReadExpand from "./views/myreads/ReadExpand";
+import ListenExpand from "./views/myreads/ListenExpand";
+import Test from "./views/shared/Test";
+import ListenNew from "./views/myreads/ListenNew";
 
 ReactDOM.render(
   <React.StrictMode>

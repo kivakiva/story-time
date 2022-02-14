@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import CardHomePageReadingRequest from "../../Components/Cards/CardHomePageReadingRequest";
+import CardHomePageReadingRequest from "../shared/Cards/CardHomePageReadingRequest";
 
 const Read = (props) => {
   const { title, listener, status, id } = props;

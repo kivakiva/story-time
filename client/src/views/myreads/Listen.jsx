@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import CardListenRequest from "../../Components/Cards/CardListenRequest";
+import CardListenRequest from "../shared/Cards/CardListenRequest";
 
 const Listen = (props) => {
   const { title, reader, status, id } = props;
