@@ -1,4 +1,4 @@
-import Listen from "./myreads/Listen"
+import Listen from "./myreads/Listen";
 
 const Listens = (props) => {
   const testListens = [
@@ -26,10 +26,6 @@ const Listens = (props) => {
     return <Listen key={listen.id} {...listen} />;
   });
 
-  return (
-    <div>
-      { parsedListens }
-    </div>
-    );
-}
-export default Listens
+  return <div>{parsedListens}</div>;
+};
+export default Listens;
