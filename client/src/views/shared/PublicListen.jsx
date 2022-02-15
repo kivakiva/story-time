@@ -3,17 +3,8 @@ import React, { useEffect, useState } from "react";
 import capitalize from "../helpers/capitalize";
 
 const PublicListen = (props) => {
-  const {
-    id,
-    request_text,
-    book_title,
-    online,
-    in_person,
-    accepted_at,
-    created_at,
-    cancelled_at,
-    listener_id,
-  } = props;
+  const { request_text, book_title, accepted_at, cancelled_at, listener_id } =
+    props;
   const [listener, setListener] = useState("");
 
   useEffect(() => {
