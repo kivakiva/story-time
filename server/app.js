@@ -45,7 +45,7 @@ app.listen(PORT, () => {
 
 //! WEBSOCKET SERVER
 const server = http.createServer(app);
-/** ALLOW INCOMING from Client on PORT 3000 */ 
+/** ALLOW INCOMING from Client on PORT 3000 */
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
@@ -65,6 +65,7 @@ io.on("connection", (socket) => {
 
   // SEND TO ALL CHAT MEMBERS (except sender) */
   socket.on("send_message", (data) => {
+    // console.log("INCOMING MESSAGE!", data);
     socket.to(data.room).emit("receive_message", data);
   });
 
