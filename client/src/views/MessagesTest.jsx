@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import axios from "axios";
 
 /** CONNECT to WebSocket */
 const socket = io.connect("http://localhost:3001");
-const room = 1; // TODO will need to create room based on both sender_id & recipient_id
-const recipient_id = 2;
-const sender_id = 6;
-// TODO "sender_id" is currently in MessagesController. Will need to get it from cookie
 
-function ConversationsTest() {
+let sender_id = localStorage.getItem("userID");
+let recipient_id;
+
+function MessagesTest() {
   const [messagesData, setMessagesData] = useState([]);
   const [message, setMessage] = useState("");
 
+  const conversation_id = useLocation().pathname.split("/").slice(-1)[0];
+  const conversation_ids_array = conversation_id.split("_");
+
+  console.log();
+
+  recipient_id =
+    sender_id === conversation_ids_array[0]
+      ? conversation_ids_array[1]
+      : conversation_ids_array[0];
+
+  console.log(sender_id, recipient_id);
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `messages/${recipient_id}`,
-      headers: {},
-      data: {
-        // This is the body part
-        recipient_id,
-        sender_id,
-      },
-    })
+    axios
+      .get(`/messages/${recipient_id}`)
       .then((result) => {
         console.log(result.data);
         setMessagesData(result.data);
@@ -33,7 +36,7 @@ function ConversationsTest() {
 
   /** JOIN ROOM on Component Load */
   useEffect(() => {
-    socket.emit("join_room", room);
+    socket.emit("join_room", conversation_id);
 
     //! remember to cleanup/remove connection => w/ return?
   }, []);
@@ -55,13 +58,15 @@ function ConversationsTest() {
     if (message !== "") {
       // SETUP Msg Data
       const messageData = {
-        room: room,
-        // author: username,
+        room: conversation_id,
+        recipient_id,
+        sender_id,
         message_text: message,
         time:
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
+        id: Math.random(),
       };
 
       // SEND Msg
@@ -70,14 +75,9 @@ function ConversationsTest() {
         method: "post",
         url: "/messages",
         headers: {},
-        data: {
-          // This is the body part
-          recipient_id,
-          sender_id,
-          message_text: messageData.message_text,
-        },
+        data: messageData,
       }); // TODO need .then.catch
-      setMessagesData((list) => [...list, { message_text: message, id: 20 }]);
+      setMessagesData((list) => [...list, messageData]);
       setMessage("");
     }
   };
@@ -98,4 +98,4 @@ function ConversationsTest() {
   );
 }
 
-export default ConversationsTest;
+export default MessagesTest;
