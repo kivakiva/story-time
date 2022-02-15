@@ -15,7 +15,6 @@ import ListenNew from "./views/myreads/ListenNew";
 import DevLogin from "./views/DevLogin";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
-import Offers from "./views/Offers";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -47,7 +46,6 @@ ReactDOM.render(
         </Route>
       </Routes>
     </BrowserRouter>
-    <Test></Test>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -3,6 +3,7 @@ import Offer from "./Offer";
 
 const Offers = ({ offers }) => {
   let parsedOffers = "";
+  console.log("offers :>> ", offers);
   if (offers) {
     parsedOffers = JSON.parse(offers).map((offer) => {
       console.log("offer :>> ", offer);

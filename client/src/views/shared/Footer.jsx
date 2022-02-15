@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <nav className="footer bg-base-100">
+    <nav className="footer bg-base-100 gap-2">
       <Link to="/">
         <i className="fa-solid fa-house footer-icon"></i>
       </Link>
