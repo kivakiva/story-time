@@ -29,7 +29,7 @@ const SingleListen = ({
   }, [listener_id]);
 
   return (
-    <Link className="grow" to={`/listen/${id}`}>
+    <Link className="grow max-w-md " to={`/listen/${id}`}>
       {!accepted_at && !cancelled_at && (
         <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-1 shadow-xl">
           <figure>

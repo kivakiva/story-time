@@ -52,7 +52,9 @@ const PublicListens = () => {
       <div style={{ color: "#7A1C00" }} className="font-bold m-1 mt-8">
         <i className="fa-solid fa-microphone"></i> Reading Requests
       </div>
-      <div className="m-2 flex flex-wrap">{parsedListens}</div>
+      <div className="m-2 flex items-center justify-evenly flex-wrap">
+        {parsedListens}
+      </div>
       {error && <Error error={error} />}
       {userID && (
         <Link className="mb-16 btn btn-lg btn-primary" to="/listen/create">
