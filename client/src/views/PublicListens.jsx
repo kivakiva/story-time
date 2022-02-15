@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import PublicListen from "./shared/PublicListen";
+import SingleListen from "./SingleListen";
 import { TiArrowDownOutline } from "react-icons/ti";
 import Error from "./shared/Error";
 
-const PublicReads = () => {
+const PublicListens = () => {
   const userID = localStorage.getItem("userID");
   const [allListens, setAllListens] = useState([]);
   const [error, setError] = useState("");
@@ -26,7 +26,7 @@ const PublicReads = () => {
   }, []);
 
   const parsedListens = allListens.map((listen) => {
-    return <PublicListen key={listen.id} {...listen} />;
+    return <SingleListen key={listen.id} {...listen} />;
   });
 
   return (
@@ -67,4 +67,4 @@ const PublicReads = () => {
     </>
   );
 };
-export default PublicReads;
+export default PublicListens;

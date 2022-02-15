@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import MyReads from "./views/MyReads";
-import PublicReads from "./views/PublicReads";
+import PublicListens from "./views/PublicListens";
 import Conversations from "./views/Conversations";
 import Conversation from "./views/Conversation";
 import Profile from "./views/Profile";
@@ -21,7 +21,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<PublicReads />} />
+          <Route index element={<PublicListens />} />
           <Route path="myreads" element={<MyReads />} />
           <Route path="conversations" element={<Conversations />} />
           <Route
