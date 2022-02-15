@@ -6,7 +6,7 @@ import axios from "axios";
 const socket = io.connect("http://localhost:3001");
 const room = 1; // TODO will need to create room based on both sender_id & recipient_id
 const recipient_id = 2;
-const sender_id = 6
+const sender_id = 6;
 // TODO "sender_id" is currently in MessagesController. Will need to get it from cookie
 
 function ConversationsTest() {
@@ -23,10 +23,12 @@ function ConversationsTest() {
         recipient_id,
         sender_id,
       },
-    }).then((result) => {
-      console.log(result.data)
-      setMessagesData(result.data);
-    }).catch(err => console.log(err.message))
+    })
+      .then((result) => {
+        console.log(result.data);
+        setMessagesData(result.data);
+      })
+      .catch((err) => console.log(err.message));
   }, []);
 
   /** JOIN ROOM on Component Load */
@@ -43,7 +45,8 @@ function ConversationsTest() {
   /** RECEIVE incoming messages */
   useEffect(() => {
     socket.on("receive_message", (msgData) => {
-      setMessagesData((list) => [...list, msgData.message]);
+      console.log("msgData", msgData);
+      setMessagesData((list) => [...list, msgData]);
     });
   }, [socket]);
 

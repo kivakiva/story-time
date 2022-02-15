@@ -20,11 +20,10 @@ const create = (req, res) => {
     .catch((err) => console.log(err.message));
 };
 
-const getConversation = (req, res) => {
-  const recipient_id = req.body.recipient_id;
-  const sender_id = req.body.sender_id
-  console.log(recipient_id, sender_id, req.params.partnerID)
-  MessagesModel.getConversation(sender_id, recipient_id)
+const getAllByPartnerID = (req, res) => {
+  const recipient_id = req.params.partnerID;
+  const sender_id = 6; // TODO need to RETRIVE user_id from SESSION
+  MessagesModel.getAllByPartnerID(sender_id, recipient_id)
     .then((result) => {
       return res.status(200).send(result);
     })
@@ -42,6 +41,6 @@ const destroy = (req, res) => {
 module.exports = {
   getAllByUserID,
   create,
-  getConversation,
+  getAllByPartnerID,
   destroy,
 };

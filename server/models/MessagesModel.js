@@ -1,6 +1,6 @@
 const db = require("../db"); // default import - index.js
 
-const getConversation = (sender_id, recipient_id) => {
+const getAllByPartnerID = (sender_id, recipient_id) => {
   return db
     .query(
       "SELECT * FROM messages WHERE recipient_id = $1 AND sender_id = $2",
@@ -23,6 +23,6 @@ const create = (sender_id, recipient_id, message) => {
 };
 
 module.exports = {
-  getConversation,
+  getAllByPartnerID,
   create,
 };
