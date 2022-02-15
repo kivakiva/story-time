@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const Logout = () => {
-  const userID = localStorage.getItem("userID");
   const navigate = useNavigate();
 
   useEffect(() => {
