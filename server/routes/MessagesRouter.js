@@ -9,7 +9,7 @@ router.post("/", MessagesController.create);
 router.get("/", MessagesController.getAllByUserID);
 
 // READ ALL BY USER AND PARTNER
-router.get("/:partnerID", MessagesController.getAllByPartnerID);
+router.get("/:partnerID", MessagesController.getConversation);
 
 // DELETE ONE
 router.delete("/:id", MessagesController.destroy);

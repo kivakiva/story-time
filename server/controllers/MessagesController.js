@@ -9,15 +9,26 @@ const getAllByUserID = (req, res) => {
 };
 
 const create = (req, res) => {
-  return res
-    .status(201)
-    .send({ message: "Love is or it ain’t. Thin love ain’t love at all." });
+  const message = req.body.message_text;
+  const recipient_id = req.body.recipient_id;
+  const sender_id = req.body.sender_id;
+  MessagesModel.create(sender_id, recipient_id, message)
+    .then((result) => {
+      console.log(result)
+      return res.status(201).send("message created!");
+    })
+    .catch((err) => console.log(err.message));
 };
 
-const getAllByPartnerID = (req, res) => {
-  return res.status(200).send({
-    message: "Whatever our souls are made of, his and mine are the same.",
-  });
+const getConversation = (req, res) => {
+  const recipient_id = req.body.recipient_id;
+  const sender_id = req.body.sender_id
+  console.log(recipient_id, sender_id, req.params.partnerID)
+  MessagesModel.getConversation(sender_id, recipient_id)
+    .then((result) => {
+      return res.status(200).send(result);
+    })
+    .catch((err) => err.message);
 };
 
 const destroy = (req, res) => {
@@ -31,6 +42,6 @@ const destroy = (req, res) => {
 module.exports = {
   getAllByUserID,
   create,
-  getAllByPartnerID,
+  getConversation,
   destroy,
 };

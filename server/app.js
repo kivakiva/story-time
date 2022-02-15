@@ -8,11 +8,9 @@ const PORT = process.env.PORT || 8079;
 const morgan = require("morgan");
 const express = require("express");
 
-//! WebSocket - START
-const http = require("http");
-const cors = require("cors");
-const { Server } = require("socket.io");
-//! WebSocket - END
+const http = require("http"); //! for WS
+const cors = require("cors"); //! for WS
+const { Server } = require("socket.io"); //! for WS
 
 const app = express();
 
@@ -45,6 +43,7 @@ app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
+//! WEBSOCKET SERVER
 const server = http.createServer(app);
 /** ALLOW INCOMING from Client on PORT 3000 */ 
 const io = new Server(server, {
@@ -63,7 +62,6 @@ io.on("connection", (socket) => {
     socket.join(room);
     console.log(`User with ID: ${socket.id} joined room: ${room}`);
   });
-
 
   // SEND TO ALL CHAT MEMBERS (except sender) */
   socket.on("send_message", (data) => {
