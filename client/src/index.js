@@ -12,6 +12,9 @@ import ReadExpand from "./views/myreads/ReadExpand";
 import ListenExpand from "./views/myreads/ListenExpand";
 import Test from "./views/shared/Test";
 import ListenNew from "./views/myreads/ListenNew";
+import DevLogin from "./views/DevLogin";
+import Login from "./views/Login";
+import Logout from "./views/Logout";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -38,6 +41,9 @@ ReactDOM.render(
             }
           />
         </Route>
+        <Route path="login/:userId" element={<DevLogin />} />
+        <Route path="logout/" element={<Logout />} />
+        <Route path="login/" element={<Login />} />
       </Routes>
     </BrowserRouter>
     <Test></Test>
