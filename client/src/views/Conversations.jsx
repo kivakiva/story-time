@@ -1,16 +1,6 @@
 import Conversation from "./Conversation";
-import axios from "axios";
 
 const Conversations = (props) => {
-  // const conversations = [];
-  // axios
-  //   .get("./users/")
-  //   .then((res) => {
-  //     console.log(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.response.data);
-  //   });
   const testConversations = [
     {
       id: 1,
