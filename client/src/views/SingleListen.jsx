@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import capitalize from "./helpers/capitalize";
-import roundRating from "./helpers/roundRating";
+import renderRating from "./helpers/renderRating";
 
 const SingleListen = ({
+  id,
   request_text,
   book_title,
   accepted_at,
@@ -28,23 +28,10 @@ const SingleListen = ({
       });
   }, [listener_id]);
 
-  const renderRating = (listenerRating) => {
-    const stars = [];
-    const rating = roundRating(listenerRating);
-    const emptyStars = 5 - rating;
-    for (let i = 0; i < rating; i++) {
-      stars.push(<TiStarFullOutline />);
-    }
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(<TiStarOutline />);
-    }
-    return stars;
-  };
-
   return (
-    <Link to="/">
+    <Link className="grow" to={`/listen/${id}`}>
       {!accepted_at && !cancelled_at && (
-        <div className="card border-solid border-stone-400 border grow card-side bg-base-300 m-2 my-3 p-1 shadow-xl">
+        <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-1 shadow-xl">
           <figure>
             <img
               className="pl-3 py-3"
@@ -61,7 +48,7 @@ const SingleListen = ({
               <span className="badge badge-accent font-semibold">
                 {listener}
               </span>
-              <span style={{ color: "#f4d325" }} className="flex justify-end">
+              <span className="flex justify-end py-2">
                 {listenerRating && renderRating(listenerRating)}
               </span>
             </p>
