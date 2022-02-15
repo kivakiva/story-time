@@ -95,13 +95,17 @@ const ListenExpand = () => {
         </form>
       )}
       {userID && Number(userID) === listen.listener_id && (
-        <Link
-          className="btn btn-primary mb-16 self-start mx-8 my-1"
-          to={`./offers`}
-          offers={offers}
-        >
-          See read offers
-        </Link>
+        <div className="flex justify-evenly my-3 mx-8">
+          <Link
+            className="btn btn-primary m-1 px-1"
+            to={`./offers`}
+            offers={offers}
+          >
+            See read offers
+          </Link>
+          <button className="btn m-1 px-4">Edit</button>
+          <button className="btn btn-secondary m-1 px-1">Cancel request</button>
+        </div>
       )}
       {!userID && (
         <Link
