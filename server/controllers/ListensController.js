@@ -62,8 +62,8 @@ const getByID = (req, res) => {
       if (!offers) return;
 
       // send general information if user IS NOT the creator of read request:
+      response.request.total_offers = offers.length;
       if (userID !== response.request.listener_id) {
-        response.request.total_offers = offers.length;
         return res
           .status(200)
           .send({ message: `Read request id:${id}`, response });

@@ -1,11 +1,11 @@
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'Dakota Easthope', 'user1@example.com', '+1 123-234-567', 'password', false, 'https://api.lorem.space/image/face?hash=3174');
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'Justice Tytherton', 'user2@example.com', '+1 123-234-567', 'password', true, 'https://api.lorem.space/image/face?hash=3175');
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'River Linforth', 'user3@example.com', '+1 123-234-567', 'password', true, 'https://api.lorem.space/image/face?hash=3176');
-insert into users ( name, email, phone, password, in_person, image_url) values ( 'Skyler Keir', 'user4@example.com', '+1 123-234-567', 'password', true, 'https://api.lorem.space/image/face?hash=3174');
+insert into users ( name, email, phone, password, in_person, image_url) values ( 'Skyler Keir', 'user4@example.com', '+1 123-234-567', 'password', true, 'https://api.lorem.space/image/face?hash=3170');
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'Jessie Mathie', 'user5@example.com', '+1 123-234-567', 'password', false, 'https://api.lorem.space/image/face?hash=3177');
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'Marion Croyser', 'user6@example.com', '+1 123-234-567', 'password', false, 'https://api.lorem.space/image/face?hash=3178');
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'Cleo Boole', 'user7@example.com', '+1 123-234-567', 'password', false, 'https://api.lorem.space/image/face?hash=3179');
-insert into users ( name, email, phone, password, in_person, image_url) values ( 'Kerry Jankowski', 'user8@example.com', '+1 123-234-567', 'password', false, 'https://api.lorem.space/image/face?hash=3174');
+insert into users ( name, email, phone, password, in_person, image_url) values ( 'Kerry Jankowski', 'user8@example.com', '+1 123-234-567', 'password', false, 'https://api.lorem.space/image/face?hash=3172');
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'Kai Frigot', 'user9@example.com', '+1 123-234-567', 'password', false, 'https://api.lorem.space/image/face?hash=3173');
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'Santana Mayston', 'user10@example.com', '+1 123-234-567', 'password', true, 'https://api.lorem.space/image/face?hash=3172');
 insert into users ( name, email, phone, password, in_person, image_url) values ( 'Admin', 'admin@example.com', '+1 123-234-567', 'password', false, 'https://api.lorem.space/image/face?hash=3171');
