@@ -50,3 +50,9 @@ body {
   font-size: 40px;
   padding: 20px;
 }
+
+.click-shadow:focus-visible,
+.click-shadow:active {
+  box-shadow: 0 0 0 0.2rem #354b32d7;
+  -webkit-box-shadow: 0 0 0 0.2rem #71816f;
+}

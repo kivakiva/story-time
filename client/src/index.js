@@ -15,6 +15,7 @@ import ListenNew from "./views/myreads/ListenNew";
 import DevLogin from "./views/DevLogin";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
+import Offers from "./views/Offers";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -32,6 +33,10 @@ ReactDOM.render(
           <Route path="listen/create" element={<ListenNew />} />
           <Route path="read/:readId" element={<ReadExpand />} />
           <Route path="listen/:listenId" element={<ListenExpand />} />
+          <Route path="listen/:listenId/offers" element={<Offers />} />
+          <Route path="login/:userId" element={<DevLogin />} />
+          <Route path="logout/" element={<Logout />} />
+          <Route path="login/" element={<Login />} />
           <Route
             path="*"
             element={
@@ -41,9 +46,6 @@ ReactDOM.render(
             }
           />
         </Route>
-        <Route path="login/:userId" element={<DevLogin />} />
-        <Route path="logout/" element={<Logout />} />
-        <Route path="login/" element={<Login />} />
       </Routes>
     </BrowserRouter>
     <Test></Test>
