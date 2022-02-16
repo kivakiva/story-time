@@ -334,6 +334,7 @@ const ListenExpand = () => {
 
           {
             // Render cancel button if the logged in user is the reader of the request
+            // or the listener(creator) of the request
             // and the request status is active (ongoing session)
             reqStatus.active && (correctReader() || correctListener()) && (
               <button className="m-3 self-center btn btn-primary">
@@ -356,7 +357,7 @@ const ListenExpand = () => {
           {/* ---------- RENDER READ OFFERS ---------- */}
 
           {
-            // Render offers if logged in user is the listener
+            // Render offers if logged in user is the listener and the request status is 'pending'
             correctListener() && reqStatus.pending && (
               <Offers offers={offers} reqStatus={reqStatus} />
             )
