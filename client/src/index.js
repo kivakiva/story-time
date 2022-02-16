@@ -8,7 +8,6 @@ import PublicListens from "./views/PublicListens";
 import Conversations from "./views/Conversations";
 import ConversationTest from "./views/ConversationTest";
 import Conversation from "./views/Conversation";
-import Messages from "./views/Messages";
 import Profile from "./views/Profile";
 import ReadExpand from "./views/myreads/ReadExpand";
 import ListenExpand from "./views/myreads/ListenExpand";
@@ -28,7 +27,10 @@ ReactDOM.render(
           <Route path="myreads" element={<MyReads />} />
           <Route path="conversations" element={<Conversations />} />
           {/* <Route path="conversations" element={<ConversationTest />} /> */}
-          <Route path="conversations/:conversation_id" element={<Messages />} />
+          <Route
+            path="conversations/:conversation_id"
+            element={<Conversation />}
+          />
           <Route path="profile" element={<Profile />} />
           <Route path="listen/create" element={<ListenNew />} />
           <Route path="read/:readId" element={<ReadExpand />} />
