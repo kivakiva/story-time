@@ -8,13 +8,11 @@ const PORT = process.env.PORT || 8079;
 const morgan = require("morgan");
 const express = require("express");
 
-const http = require("http"); //! for WS
-const cors = require("cors"); //! for WS
-const { Server } = require("socket.io"); //! for WS
+// P2P server
+const { webSocketComponent } = require("./webSocketComponent");
 
 const app = express();
 
-app.use(cors()); //! for WS
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -43,39 +41,5 @@ app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-//! WEBSOCKET SERVER
-const server = http.createServer(app);
-/** ALLOW INCOMING from Client on PORT 3000 */
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
-});
-
-/** ON CONNECTION TO SERVER */
-io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
-
-  // JOIN A ROOM */
-  socket.on("join_room", (room) => {
-    socket.join(room);
-    console.log(`User with ID: ${socket.id} joined room: ${room}`);
-  });
-
-  // SEND TO ALL CHAT MEMBERS (except sender) */
-  socket.on("send_message", (data) => {
-    // console.log("INCOMING MESSAGE!", data);
-    socket.to(data.room).emit("receive_message", data);
-  });
-
-  // DISCONNECT */
-  socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
-  });
-});
-
-/** SERVER PORT */
-server.listen(3001, () => {
-  console.log("Messenger Server Running on PORT 3001");
-});
+// P2P chat server
+webSocketComponent(app);
