@@ -36,18 +36,18 @@ const ListenInfo = ({
       <p className="mb-3">by Famous Author</p>
       {offer ? (
         <div className="my-3 text-left">
-          <p style={{ color: "#2F4858" }} className="font-semibold ">
-            YOUR REQUEST:
+          <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
+            Listener:
           </p>
-          <p className="pb-2">{listen.request_text}</p>
-          <p style={{ color: "#2F4858" }} className="font-semibold">
-            OFFER TO READ:
+          <p className="pb-2">"{listen.request_text}"</p>
+          <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
+            Reader:
           </p>
-          <p>{offer.offer_text}</p>
+          <p>"{offer.offer_text}"</p>
         </div>
       ) : (
         <p className="text-left py-2 my-1 text-lg leading-5">
-          {listen.request_text}
+          "{listen.request_text}"
         </p>
       )}
       {totalOffers && (
