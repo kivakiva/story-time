@@ -7,6 +7,10 @@ const cookieSession = require("cookie-session");
 const PORT = process.env.PORT || 8079;
 const morgan = require("morgan");
 const express = require("express");
+
+// P2P server
+const { webSocketComponent } = require("./webSocketComponent");
+
 const app = express();
 
 app.use(morgan("dev"));
@@ -36,3 +40,6 @@ app.use("/api/listens", listensRoutes);
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+// P2P chat server
+webSocketComponent(app);
