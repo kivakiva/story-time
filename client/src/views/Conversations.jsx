@@ -1,4 +1,4 @@
-import Conversation from "./Conversation";
+import ConversationsItem from "./ConversationsItem";
 
 const Conversations = (props) => {
   const testConversations = [
@@ -52,7 +52,7 @@ const Conversations = (props) => {
     },
   ];
   const parsedConversations = testConversations.map((conversation) => (
-    <Conversation key={conversation.id} {...conversation} />
+    <ConversationsItem key={conversation.id} {...conversation} />
   ));
   return (
     <div>
