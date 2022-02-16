@@ -21,7 +21,7 @@ router.get("/", UsersController.getAll);
 router.get("/:id", UsersController.getByID);
 
 // UPDATE ONE
-// router.put("/:id", UsersController.update);
+router.put("/:id", UsersController.update);
 
 // DELETE ONE
 // router.delete("/:id", UsersController.destroy);
