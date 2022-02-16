@@ -1,9 +1,9 @@
 import React from "react";
 
 function StarRating(props) {
-  console.log(props)
+  // console.log(props)
   const rating_number = Number(props.rating);
-  console.log(rating_number)
+  // console.log(rating_number)
 
   let parsedRating;
   if (rating_number <= 1) {

@@ -19,7 +19,7 @@ const Profile = (props) => {
     if (saved) {
       axios.get(`/users/${userID}`).then((result) => {
         setProfile({ ...result.data.user });
-        console.log({ ...result.data.user });
+        // console.log({ ...result.data.user });
         setSaved(false);
       });
     }
@@ -27,7 +27,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     if (profile) {
-      console.log(profile);
+      // console.log(profile);
     }
   }, [profile]);
 
