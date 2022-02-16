@@ -83,115 +83,144 @@ const ListenExpand = () => {
     return userID === listen.reader_id;
   };
 
+  const whoCancelled = () => {
+    if (listen.who_cancelled_id === listen.listener_id) {
+      return "listener";
+    }
+    return "reader";
+  };
+
   const reqStatus = {
     accepted: listen.accepted_at !== null,
-    acctive: listen.accepted_at && !listen.completed_at && !listen.cancelled_at,
+    active: listen.accepted_at && !listen.completed_at && !listen.cancelled_at,
     cancelled: listen.cancelled_at !== null,
     completed: listen.completed_at !== null,
     pending: !listen.accepted_at && !listen.completed_at,
   };
 
   return (
-    <div className="flex flex-col max-w-lg mx-auto rounded-sm mt-8">
-      <ListenerCard listen={listen} listener={listener} />
-      {reqStatus.pending && (
-        <ListenInfo
-          listen={listen}
-          totalOffers={totalOffers}
-          tagLine="would like to listen to"
-          status="pending"
-        />
-      )}
-      {reqStatus.completed && (
-        <ListenInfo
-          listen={listen}
-          totalOffers={totalOffers}
-          tagLine="was listening to"
-          status="completed"
-        />
-      )}
-      {reqStatus.active && (
-        <ListenInfo
-          listen={listen}
-          totalOffers={totalOffers}
-          tagLine="is listening to"
-          status="active"
-        />
-      )}
-      {reqStatus.cancelled && (
-        <ListenInfo
-          listen={listen}
-          totalOffers={totalOffers}
-          tagLine="is listening to"
-          status="cancelled"
-        />
-      )}
+    <>
+      {!error && (
+        <div className="flex flex-col max-w-lg mx-auto rounded-sm mt-8">
+          <ListenerCard listen={listen} listener={listener} />
 
-      {
-        // Render form if reader is not the same as listener and has not yet submitted an offer for this request
-        !wrongUser() &&
-          reader &&
-          !correctListener() &&
-          !hasAlreadyOffered() && (
-            <OfferSubmitForm
-              request_id={listenId}
-              setTotalOffers={setTotalOffers}
+          {/* Render request info according to the request status: */}
+          {reqStatus.pending && (
+            <ListenInfo
+              listen={listen}
+              totalOffers={totalOffers}
+              tagLine="would like to listen to"
+              status="pending"
             />
-          )
-      }
+          )}
+          {reqStatus.completed && (
+            <ListenInfo
+              listen={listen}
+              totalOffers={totalOffers}
+              tagLine="was listening to"
+              status="completed"
+            />
+          )}
+          {reqStatus.active && (
+            <ListenInfo
+              listen={listen}
+              totalOffers={totalOffers}
+              tagLine="is listening to"
+              status="active"
+            />
+          )}
+          {reqStatus.cancelled && (
+            <ListenInfo
+              listen={listen}
+              totalOffers={totalOffers}
+              tagLine="wanted to listen to"
+              status="cancelled"
+              whoCancelled={whoCancelled()}
+            />
+          )}
 
-      {
-        // Render notice if reader is not the same as listener and the reader has already submitted an offer for this request
-        reqStatus.pending &&
-          reader &&
-          !correctListener() &&
-          hasAlreadyOffered() && (
-            <>
-              <Notice message="You have already submitted an offer for this request!" />
-              <UpdateOfferButtons />
-            </>
-          )
-      }
+          {
+            // Render form if reader is not the same as listener and has not yet submitted an offer for this request
+            !wrongUser() &&
+              reader &&
+              !correctListener() &&
+              !hasAlreadyOffered() && (
+                <OfferSubmitForm
+                  request_id={listenId}
+                  setTotalOffers={setTotalOffers}
+                />
+              )
+          }
 
-      {
-        // Render notice if reader is not the same as listener and the reader has already submitted an offer for this request
-        reqStatus.completed && correctReader && (
-          <>
-            <Notice message="You have completed this reading request!" />
-          </>
-        )
-      }
+          {
+            // Render notice if reader is not the same as listener and the reader has already submitted an offer for this request
+            reqStatus.pending &&
+              reader &&
+              !correctListener() &&
+              hasAlreadyOffered() && (
+                <div className="mb-24">
+                  <Notice message="You have already submitted an offer for this request!" />
+                  <UpdateOfferButtons />
+                </div>
+              )
+          }
 
-      {
-        // Render offers if logged in user is the listener
-        correctListener() && <Offers offers={offers} />
-      }
+          {
+            // Render notice if the logged in user is the reader of the request and the reading session has been completed
+            reqStatus.completed && correctReader() && (
+              <Notice
+                className="mb-24"
+                message="You have completed this reading request!"
+              />
+            )
+          }
 
-      {
-        // Render link to /login if user is not logged in
-        !userID && !wrongUser() && (
-          <Link
-            to="/login"
-            className="btn btn-primary mb-16 self-start mx-8 my-1"
-          >
-            Offer to Read
-          </Link>
-        )
-      }
+          {
+            // Render cancel button if the logged in user is the reader of the request
+            // and the request status is active (ongoing session)
+            reqStatus.active && correctReader() && (
+              <button className="m-3 self-center btn btn-primary">
+                Cancel reading
+              </button>
+            )
+          }
 
-      {
-        // Render 'not available' notice if the user is not the reader and not the listener
-        // and read request has been accepted or cancelled
-        wrongUser() && (
-          <Notice message="This read request is no longer available!" />
-        )
-      }
+          {
+            // Render offers if logged in user is the listener
+            correctListener() && (
+              <Offers offers={offers} reqStatus={reqStatus} />
+            )
+          }
 
+          {
+            // Render link to /login if user is not logged in
+            !userID && !wrongUser() && (
+              <Link
+                to="/login"
+                className="btn btn-primary mb-16 self-start mx-8 my-1"
+              >
+                Offer to Read
+              </Link>
+            )
+          }
+
+          {
+            // Render 'not available' notice if the user is not the reader and not the listener
+            // and read request has been accepted or cancelled
+            wrongUser() && (
+              <Notice
+                className="mb-24"
+                message="This read request is no longer available!"
+              />
+            )
+          }
+        </div>
+      )}
       {
         // Render error if cannot fetch data
         error && <Error error={error} />
       }
-    </div>
+    </>
   );
 };
 export default ListenExpand;

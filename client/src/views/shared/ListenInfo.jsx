@@ -1,17 +1,17 @@
 import React from "react";
 import capitalize from "../helpers/capitalize";
 
-const ListenInfo = ({ listen, tagLine, totalOffers, status }) => {
+const ListenInfo = ({ listen, tagLine, totalOffers, status, whoCancelled }) => {
   let badgeClass = "";
   switch (status) {
-    case "completed":
-      badgeClass = "primary";
-      break;
     case "active":
       badgeClass = "secondary";
       break;
     case "pending":
       badgeClass = "accent";
+      break;
+    case "cancelled":
+      badgeClass = "primary";
       break;
     default:
       badgeClass = "badge";
@@ -28,7 +28,17 @@ const ListenInfo = ({ listen, tagLine, totalOffers, status }) => {
         {listen.request_text}
       </p>
       <p className="font-semibold text-sm">Total offers: {totalOffers}</p>
-      <p className={`badge badge-${badgeClass} py-3 my-3`}>{status}</p>
+      <p>
+        <span className={`badge badge-${badgeClass} py-3 my-3`}> {status}</span>
+        {whoCancelled && (
+          <span
+            style={{ color: "#7A1C00" }}
+            className="px-1 text-sm font-semibold"
+          >
+            by {whoCancelled}
+          </span>
+        )}
+      </p>
     </div>
   );
 };

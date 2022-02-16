@@ -1,7 +1,7 @@
 import React from "react";
 import Offer from "./Offer";
 
-const Offers = ({ offers }) => {
+const Offers = ({ offers, reqStatus }) => {
   let parsedOffers = "";
   console.log("offers :>> ", offers);
   console.log("HELLO");
