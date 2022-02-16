@@ -8,5 +8,6 @@ CREATE TABLE users (
   password VARCHAR(255) DEFAULT NULL,
   online BOOLEAN NOT NULL DEFAULT true,
   in_person BOOLEAN NOT NULL DEFAULT false,
+  intro VARCHAR(255) DEFAULT NULL,
   created_at TIMESTAMP DEFAULT current_timestamp
 );

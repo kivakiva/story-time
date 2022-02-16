@@ -159,6 +159,7 @@ const getByID = async (req, res) => {
         reader_rating: readerRating.avg,
         listener_rating: listenerRating.avg,
         created_at: user.created_at,
+        intro: user.intro,
       },
     };
     if (userID !== Number(id)) {
@@ -182,9 +183,9 @@ const getByID = async (req, res) => {
 
 const update = (req, res) => {
   const { id } = req.params;
-  const { name, email, image_url } = req.body;
+  const { name, email, image_url, intro } = req.body;
 
-  UsersModel.update({ id, image_url, name, email })
+  UsersModel.update({ id, image_url, name, email, intro })
     .then((user) => {
       return res.status(200).send(user);
     })
