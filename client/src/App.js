@@ -6,13 +6,14 @@ import { useState } from "react";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [navLoc, setNavLoc] = useState()
   return (
     <div className="App">
       <Header></Header>
       <main>
-        <Outlet context={{ loggedIn, setLoggedIn }} />
+        <Outlet context={{ loggedIn, setLoggedIn, navLoc, setNavLoc }} />
       </main>
-      <Footer {...{ loggedIn, setLoggedIn }}></Footer>
+      <Footer {...{ loggedIn, setLoggedIn, navLoc, setNavLoc }}></Footer>
     </div>
   );
 }
