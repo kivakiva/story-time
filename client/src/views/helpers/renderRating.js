@@ -1,9 +1,9 @@
 import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 import roundRating from "./roundRating";
 
-const renderRating = (listenerRating) => {
+const renderRating = (userRating) => {
   const stars = [];
-  const rating = roundRating(listenerRating);
+  const rating = roundRating(userRating);
   const emptyStars = 5 - rating;
   for (let i = 0; i < rating; i++) {
     stars.push(<TiStarFullOutline style={{ color: "#f4d325" }} key={i} />);
