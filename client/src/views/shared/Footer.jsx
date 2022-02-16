@@ -1,28 +1,37 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Footer(props) {
   const { loggedIn, setLoggedIn, navLoc, setNavLoc } = props;
+  const pathname = useLocation().pathname;
+  console.log(pathname);
 
-  const navColorController = (location) => {
-    return location !== navLoc && "text-base-300";
+  const greyOutNavIconIfPathDoesNotContain = (locations) => {
+    const locationMatchesIconArr = locations.filter((location) =>
+      pathname.includes(location)
+    );
+    return locationMatchesIconArr.length === 0 && "text-base-300";
+  };
+
+  const greyOutHomeIfPathIsNotHome = () => {
+    if (pathname !== "/") {
+      return "text-base-300";
+    }
   };
 
   return (
     <nav className="footer bg-base-100 gap-2">
       <Link to="/">
         <i
-          className={`fa-solid fa-house footer-icon ${navColorController(
-            "home"
-          )}`}
+          className={`fa-solid fa-house footer-icon ${greyOutHomeIfPathIsNotHome()}`}
           onClick={() => setNavLoc("home")}
         ></i>
       </Link>
       {loggedIn ? (
         <Link to="/myreads">
           <i
-            className={`fa-solid fa-book-open footer-icon ${navColorController(
-              "myreads"
+            className={`fa-solid fa-book-open footer-icon ${greyOutNavIconIfPathDoesNotContain(
+              ["myreads"]
             )}`}
             onClick={() => setNavLoc("myreads")}
           ></i>
@@ -33,8 +42,8 @@ function Footer(props) {
       {loggedIn ? (
         <Link to="/conversations">
           <i
-            className={`fa-solid fa-comment footer-icon ${navColorController(
-              "conversations"
+            className={`fa-solid fa-comment footer-icon ${greyOutNavIconIfPathDoesNotContain(
+              ["conversations"]
             )}`}
             onClick={() => setNavLoc("conversations")}
           ></i>
@@ -44,8 +53,8 @@ function Footer(props) {
       )}
       <Link to="/profile">
         <i
-          className={`fa-solid fa-user footer-icon ${navColorController(
-            "profile"
+          className={`fa-solid fa-user footer-icon ${greyOutNavIconIfPathDoesNotContain(
+            ["profile"]
           )}`}
           onClick={() => setNavLoc("profile")}
         ></i>

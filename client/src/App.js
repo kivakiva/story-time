@@ -5,8 +5,8 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [navLoc, setNavLoc] = useState()
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("userID"));
+  const [navLoc, setNavLoc] = useState();
   return (
     <div className="App">
       <Header></Header>
