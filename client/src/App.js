@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Header></Header>
-      <main>
+      <main className="mb-[81px]">
         <Outlet />
       </main>
       <Footer></Footer>

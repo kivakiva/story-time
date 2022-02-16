@@ -47,7 +47,7 @@ ReactDOM.render(
         </Route>
       </Routes>
     </BrowserRouter>
-    <Test></Test>
+    {/* <Test></Test> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

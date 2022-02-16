@@ -64,7 +64,7 @@ const Messages = (props) => {
       <div className="fixed left-0 right-0 ">
         Chatting with <b>Andy Newman</b>
       </div>
-      <div className="pt-8">{parsedMessages}</div>
+      <div className="pt-8 pb-4">{parsedMessages}</div>
     </div>
   );
 };
