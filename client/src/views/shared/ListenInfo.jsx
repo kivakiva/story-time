@@ -1,7 +1,22 @@
 import React from "react";
 import capitalize from "../helpers/capitalize";
 
-const ListenInfo = ({ listen, tagLine }) => {
+const ListenInfo = ({ listen, tagLine, totalOffers, status }) => {
+  let badgeClass = "";
+  switch (status) {
+    case "completed":
+      badgeClass = "primary";
+      break;
+    case "active":
+      badgeClass = "secondary";
+      break;
+    case "pending":
+      badgeClass = "accent";
+      break;
+    default:
+      badgeClass = "badge";
+  }
+
   return (
     <div className="flex flex-col items-start mb-2 mx-8">
       <p className=" text-sm font-semibold">{tagLine}</p>
@@ -12,9 +27,8 @@ const ListenInfo = ({ listen, tagLine }) => {
       <p className="text-left py-2 my-1 text-lg leading-5">
         {listen.request_text}
       </p>
-      <p className="font-semibold text-sm">
-        Total offers: {listen.total_offers}
-      </p>
+      <p className="font-semibold text-sm">Total offers: {totalOffers}</p>
+      <p className={`badge badge-${badgeClass} py-3 my-3`}>{status}</p>
     </div>
   );
 };

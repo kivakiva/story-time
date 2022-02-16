@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Error from "./Error";
+import UpdateOfferButtons from "./UpdateOfferButtons";
 
-const OfferSubmitForm = ({ request_id }) => {
+const OfferSubmitForm = ({ request_id, setTotalOffers }) => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -12,10 +13,10 @@ const OfferSubmitForm = ({ request_id }) => {
 
     const body = { offer_text: msg, request_id };
     try {
-      const res = await axios.post("../reads", body);
+      await axios.post("../reads", body);
       setError("");
       setIsSubmitted(true);
-      console.log("res :>> ", res);
+      setTotalOffers((prev) => prev + 1);
     } catch (err) {
       setError("Error creating offer. Try again later!");
       console.log(err);
@@ -43,12 +44,12 @@ const OfferSubmitForm = ({ request_id }) => {
         </form>
       )}
       {isSubmitted && (
-        <p
-          style={{ color: "#1B3D2F" }}
-          className="font-semibold bg-accent p-4 mt-8 text-lg mb-24"
-        >
-          Offer submitted!
-        </p>
+        <div className="bg-accent p-4 mt-8 mb-24">
+          <p style={{ color: "#1B3D2F" }} className="font-semibold  text-lg ">
+            Offer submitted!
+          </p>
+          <UpdateOfferButtons />
+        </div>
       )}
     </>
   );
