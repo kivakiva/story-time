@@ -3,7 +3,7 @@ import renderRating from "../helpers/renderRating";
 
 const UserCard = ({ listen, user }) => {
   return (
-    <div className="flex bg-base-300 mb-4 pb-2 items-center justify-evenly">
+    <div className="flex bg-base-300 pb-2 items-center justify-evenly">
       <div className="flex flex-col p-1 m-1 mx-2 items-start">
         <p className="pb-2 text-lg font-semibold ">{user.name}</p>
         <div className="avatar">

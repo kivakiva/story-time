@@ -26,7 +26,6 @@ const ListenExpand = () => {
       try {
         const requestRes = await axios.get(`../listens/${listenId}`);
         const { request, offers } = requestRes.data.response;
-        console.log("offers :>> ", offers);
         setListen(request);
 
         if (offers && offers.length) {
@@ -65,28 +64,28 @@ const ListenExpand = () => {
 
   //check if the logged in user is trying to access a read request that has been accepted
   // or cancelled and the user is not the reader and not the listener
-  const wrongUser = () => {
-    if (
-      (listen.accepted_at || listen.cancelled_at) &&
-      listen.reader_id !== userID &&
-      listen.listener_id !== userID
-    ) {
-      return true;
-    }
-    return false;
-  };
+  // const wrongUser = () => {
+  //   if (
+  //     (listen.accepted_at || listen.cancelled_at) &&
+  //     listen.reader_id !== userID &&
+  //     listen.listener_id !== userID
+  //   ) {
+  //     return true;
+  //   }
+  //   return false;
+  // };
 
   // check if reader has already submitted an offer for this request
-  const hasAlreadyOffered = () => {
+  const alreadyOfferedText = () => {
     const readOffers = JSON.parse(loggedInUser).all_request_offers;
     if (!readOffers) return false;
 
     for (const offer of readOffers) {
       if (offer.request_id === listen.id && offer.reader_id === userID) {
-        return true;
+        return offer.offer_text;
       }
     }
-    return false;
+    return null;
   };
 
   // check if the logged in user is the creator of the read request
@@ -132,14 +131,12 @@ const ListenExpand = () => {
       {!error && (
         <div className="flex flex-col max-w-lg mx-auto rounded-sm mt-8">
           {/* ---------- RENDER USER CARD ---------- */}
-          {
-            // Show listener card if nobody is logged in
-            !loggedInUser && <UserCard listen={listen} user={listener} />
-          }
-          {
-            // Show listener card if the user is not the listener (creator of request)
-            !correctListener() && <UserCard listen={listen} user={listener} />
-          }
+
+          {correctReader() && <UserCard listen={listen} user={listener} />}
+
+          {!correctReader() && !correctListener() && reqStatus.pending && (
+            <UserCard listen={listen} user={listener} />
+          )}
           {/* {
             // Show listener card if the reader is viewing the request (TODO - this redundant?)
             correctReader() && <UserCard listen={listen} user={listener} />
@@ -176,44 +173,47 @@ const ListenExpand = () => {
             />
           )}
 
-          {reqStatus.completed && !correctListener() && !correctReader() && (
-            <ListenInfo
-              listen={listen}
-              totalOffers={totalOffers}
-              tagLine="was listening to"
-              status="completed"
-            />
-          )}
+          {
+            // If the request is not pending and the user is not associated with this request
+            !reqStatus.pending && !correctListener() && !correctReader() && (
+              <>
+                <p className="text-lg font-semibold my-2">Nothing here</p>
+                <Link className="btn btn-secondary self-center" to="/">
+                  Home
+                </Link>
+              </>
+            )
+          }
 
           {reqStatus.completed && correctReader() && (
             <ListenInfo
               listen={listen}
               offer={chosenOffer}
               totalOffers={totalOffers}
-              tagLine="was listening to"
+              tagLine="was listening to you read"
               status="completed"
             />
           )}
 
-          {reqStatus.active && !correctListener() && !correctReader() && (
+          {/* {reqStatus.active && !correctListener() && !correctReader() && (
             <ListenInfo
               listen={listen}
               totalOffers={totalOffers}
-              tagLine="is listening to"
+              tagLine="is listening to "
               status="active"
             />
-          )}
+          )} */}
 
           {reqStatus.active && correctReader() && (
             <ListenInfo
               listen={listen}
               offer={chosenOffer}
               totalOffers={totalOffers}
-              tagLine="is listening to"
+              tagLine="is listening to you read"
               status="active"
             />
           )}
-
+          {/* 
           {reqStatus.cancelled && !correctListener() && !correctReader() && (
             <ListenInfo
               listen={listen}
@@ -222,14 +222,14 @@ const ListenExpand = () => {
               status="cancelled"
               whoCancelled={whoCancelled()}
             />
-          )}
+          )} */}
 
           {reqStatus.cancelled && correctReader() && (
             <ListenInfo
               listen={listen}
               totalOffers={totalOffers}
               offer={chosenOffer}
-              tagLine="was listening to"
+              tagLine="was listening to you read"
               status="cancelled"
               whoCancelled={whoCancelled()}
             />
@@ -242,7 +242,7 @@ const ListenExpand = () => {
               <ListenInfo
                 listen={listen}
                 totalOffers={totalOffers}
-                tagLine="wanted to listen to"
+                tagLine=" you wanted to listen to"
                 status="cancelled"
                 whoCancelled={whoCancelled()}
               />
@@ -259,7 +259,7 @@ const ListenExpand = () => {
                   listen={listen}
                   totalOffers={totalOffers}
                   offer={chosenOffer}
-                  tagLine="was reading"
+                  tagLine="was reading to you."
                   status="cancelled"
                   whoCancelled={whoCancelled()}
                 />
@@ -273,7 +273,7 @@ const ListenExpand = () => {
                 listen={listen}
                 totalOffers={totalOffers}
                 offer={chosenOffer}
-                tagLine="was reading"
+                tagLine="was reading to you."
                 status="completed"
               />
             )
@@ -286,7 +286,7 @@ const ListenExpand = () => {
                 listen={listen}
                 totalOffers={totalOffers}
                 offer={chosenOffer}
-                tagLine="is reading"
+                tagLine="is reading to you."
                 status="active"
               />
             )
@@ -296,10 +296,11 @@ const ListenExpand = () => {
 
           {
             // Render form if reader is not the same as listener and has not yet submitted an offer for this request
-            !wrongUser() &&
-              loggedInUser &&
+
+            loggedInUser &&
+              reqStatus.pending &&
               !correctListener() &&
-              !hasAlreadyOffered() && (
+              !alreadyOfferedText() && (
                 <OfferSubmitForm
                   request_id={listenId}
                   setTotalOffers={setTotalOffers}
@@ -314,9 +315,12 @@ const ListenExpand = () => {
             reqStatus.pending &&
               loggedInUser &&
               !correctListener() &&
-              hasAlreadyOffered() && (
-                <div className="mb-24">
-                  <Notice message="You have already submitted an offer for this request!" />
+              alreadyOfferedText() && (
+                <div>
+                  <div className="bg-base-300 p-4 px-10 mt-5 mb-3 text-left">
+                    <p className="font-semibold">Your request:</p>
+                    <p>{alreadyOfferedText()}</p>
+                  </div>
                   <UpdateOfferButtons />
                 </div>
               )
@@ -343,7 +347,7 @@ const ListenExpand = () => {
             )
           }
 
-          {
+          {/* {
             // Render 'not available' notice if the user is not the reader and not the listener
             // and read request has been accepted or cancelled
             wrongUser() && (
@@ -352,7 +356,7 @@ const ListenExpand = () => {
                 message="This read request is no longer available!"
               />
             )
-          }
+          } */}
 
           {/* ---------- RENDER READ OFFERS ---------- */}
 
@@ -367,7 +371,7 @@ const ListenExpand = () => {
 
           {
             // Render link to /login if user is not logged in
-            !userID && !wrongUser() && (
+            !userID && (
               <Link
                 to="/login"
                 className="btn btn-primary mb-16 self-start mx-8 my-1"
