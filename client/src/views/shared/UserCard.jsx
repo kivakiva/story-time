@@ -2,6 +2,7 @@ import React from "react";
 import renderRating from "../helpers/renderRating";
 
 const UserCard = ({ listen, user }) => {
+  console.log("user.listener_rating :>> ", user.listener_rating);
   return (
     <div className="flex bg-base-300 pb-2 items-center justify-evenly">
       <div className="flex flex-col p-1 m-1 mx-2 items-start">
@@ -13,13 +14,9 @@ const UserCard = ({ listen, user }) => {
         </div>
       </div>
       <div className="flex flex-col items-start  p-1 mt-3 m-1">
-        <div className="flex mt-1">
-          {user.listener_rating && renderRating(user.listener_rating)}
-        </div>
+        <div className="flex mt-1">{renderRating(user.listener_rating)}</div>
         <p className="mb-1">Listens: {user.accepted_listens}</p>
-        <div className="flex mt-1">
-          {user.reader_rating && renderRating(user.reader_rating)}
-        </div>
+        <div className="flex mt-1">{renderRating(user.reader_rating)}</div>
         <p className="mb-1">Reads: {user.accepted_reads}</p>
         <p className="flex my-1 flex-col items-start">
           <span>read type: </span>
