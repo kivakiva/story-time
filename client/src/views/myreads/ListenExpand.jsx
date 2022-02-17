@@ -169,7 +169,7 @@ const ListenExpand = () => {
             <ListenInfo
               listen={listen}
               totalOffers={totalOffers}
-              tagLine="would like to listen to"
+              actionLine="would like to listen to"
               status="pending"
             />
           )}
@@ -179,7 +179,7 @@ const ListenExpand = () => {
               listen={listen}
               offer={chosenOffer}
               totalOffers={totalOffers}
-              tagLine="was listening to you read"
+              actionLine="was listening to you read"
               status="completed"
             />
           )}
@@ -189,7 +189,7 @@ const ListenExpand = () => {
               listen={listen}
               offer={chosenOffer}
               totalOffers={totalOffers}
-              tagLine="is listening to you read"
+              actionLine="is listening to you read"
               status="active"
             />
           )}
@@ -199,7 +199,7 @@ const ListenExpand = () => {
               listen={listen}
               totalOffers={totalOffers}
               offer={chosenOffer}
-              tagLine="was listening to you read"
+              actionLine="was listening to you read"
               status="cancelled"
               whoCancelled={whoCancelled()}
             />
@@ -212,7 +212,7 @@ const ListenExpand = () => {
               <ListenInfo
                 listen={listen}
                 totalOffers={totalOffers}
-                tagLine=" you wanted to listen to"
+                actionLine=" you wanted to listen to"
                 status="cancelled"
                 whoCancelled={whoCancelled()}
               />
@@ -229,7 +229,7 @@ const ListenExpand = () => {
                   listen={listen}
                   totalOffers={totalOffers}
                   offer={chosenOffer}
-                  tagLine="was reading to you."
+                  actionLine="was reading to you."
                   status="cancelled"
                   whoCancelled={whoCancelled()}
                 />
@@ -243,7 +243,7 @@ const ListenExpand = () => {
                 listen={listen}
                 totalOffers={totalOffers}
                 offer={chosenOffer}
-                tagLine="was reading to you."
+                actionLine="was reading to you."
                 status="completed"
               />
             )
@@ -256,7 +256,7 @@ const ListenExpand = () => {
                 listen={listen}
                 totalOffers={totalOffers}
                 offer={chosenOffer}
-                tagLine="is reading to you."
+                actionLine="is reading to you."
                 status="active"
               />
             )
