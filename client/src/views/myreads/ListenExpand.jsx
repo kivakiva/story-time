@@ -81,7 +81,7 @@ const ListenExpand = () => {
 
     for (const offer of readOffers) {
       if (offer.request_id === listen.id && offer.reader_id === userID) {
-        return offer.offer_text || "You have not written a message";
+        return offer.offer_text || "You have made an offer without a message";
       }
     }
     return null;
