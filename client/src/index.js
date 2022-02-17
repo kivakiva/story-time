@@ -11,7 +11,6 @@ import Conversation from "./views/Conversation";
 import Profile from "./views/Profile";
 import ReadExpand from "./views/myreads/ReadExpand";
 import ListenExpand from "./views/myreads/ListenExpand";
-import Test from "./views/shared/Test";
 import ListenNew from "./views/myreads/ListenNew";
 import DevLogin from "./views/DevLogin";
 import Login from "./views/Login";
@@ -25,14 +24,14 @@ ReactDOM.render(
           <Route index element={<PublicListens />} />
           <Route path="myreads" element={<MyReads />} />
           <Route path="conversations" element={<Conversations />} />
-          <Route
-            path="conversations/:conversation_id"
-            element={<MessagesTest />}
-          />
           {/* <Route
             path="conversations/:conversation_id"
-            element={<Conversation />}
+            element={<MessagesTest />}
           /> */}
+          <Route
+            path="conversations/:conversation_id"
+            element={<Conversation />}
+          />
           <Route path="profile" element={<Profile />} />
           <Route path="listen/create" element={<ListenNew />} />
           <Route path="read/:readId" element={<ReadExpand />} />

@@ -1,12 +1,13 @@
 import { useState, useEffect, Fragment } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import StarRating from "./shared/StarRating";
 import { AiFillEdit } from "react-icons/ai";
-import { FcCancel } from "react-icons/fc";
+import { ImCancelCircle } from "react-icons/im";
 import Error from "./shared/Error";
 
 const Profile = (props) => {
+  const [error, setError] = useState("");
   const userID = localStorage.getItem("userID");
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -17,9 +18,15 @@ const Profile = (props) => {
   const [profile, setProfile] = useState();
   const [error, setError] = useState("");
 
-  console.log(localStorage)
+  const navigate = useNavigate();
+
+  console.log("userID => ", userID);
+  console.log("userID => ", localStorage);
 
   useEffect(() => {
+    if (!userID) {
+      navigate("/login");
+    }
     if (saved && userID) {
       axios
         .get(`/users/${userID}`)
@@ -29,9 +36,15 @@ const Profile = (props) => {
           setError("");
         })
         .catch((err) => {
-          setError("Error loading data");
           console.log(err);
+          setError("Profile did not load");
         });
+    }
+  }, [saved]);
+
+  useEffect(() => {
+    if (profile) {
+      console.log(profile);
     }
   }, [saved]);
 
@@ -82,8 +95,8 @@ const Profile = (props) => {
         setError("");
       })
       .catch((err) => {
-        setError("Error saving data");
         console.log(err);
+        setError("Changes could not be saved.");
       });
   };
 
@@ -134,7 +147,7 @@ const Profile = (props) => {
             ></textarea>
           </label>
         </div>
-        <div>
+        <div className="flex">
           <button
             className="btn btn-outline m-2"
             role="button"
@@ -150,7 +163,7 @@ const Profile = (props) => {
             aria-pressed="true"
             onClick={() => setEdit(false)}
           >
-            <FcCancel className="inline-block mr-2" />
+            <ImCancelCircle className="inline-block mr-2" />
             Cancel
           </button>
         </div>
@@ -184,7 +197,7 @@ const Profile = (props) => {
             )}
           </div>
         </div>
-        <p>"{profile.intro}"</p>
+        {profile.intro && <p>"{profile.intro}"</p>}
         <p className="m-4">
           Member since {new Date(profile.created_at).toDateString()}
         </p>
@@ -215,12 +228,9 @@ const Profile = (props) => {
 
   return (
     <div className="flex flex-col items-center p-10">
-      {userID && pageResponse}
-      {error && <Error>{error}</Error>}
+      {pageResponse}
+      {error && <Error error={error}></Error>}
     </div>
   );
 };
 export default Profile;
-
-/*
- */

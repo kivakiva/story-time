@@ -7,18 +7,26 @@ const create = (req, res) => {
   const { userID } = req.session;
 
   if (!userID) {
+    console('no userID')
     return res.status(400).send({
       message: "Must be logged in!",
     });
   }
 
-  if (!book_title || !online || !in_person) {
+  if (!book_title || (!online && !in_person)) {
+    console.log('no book OR neither online nor in person selected')
     return res.status(400).send({
       message: "Missing required information (book_title, online, in_person)!",
     });
   }
 
-  ListensModel.create(userID, request_text, book_title, online, in_person)
+  ListensModel.create({
+    user_id: userID,
+    request_text,
+    book_title,
+    online,
+    in_person,
+  })
     .then((request) => {
       return res
         .status(201)

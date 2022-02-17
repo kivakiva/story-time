@@ -1,16 +1,6 @@
-import Conversation from "./Conversation";
-import axios from "axios";
+import ConversationsItem from "./ConversationsItem";
 
 const Conversations = (props) => {
-  // const conversations = [];
-  // axios
-  //   .get("./users/")
-  //   .then((res) => {
-  //     console.log(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.response.data);
-  //   });
   const testConversations = [
     {
       id: 1,
@@ -62,7 +52,7 @@ const Conversations = (props) => {
     },
   ];
   const parsedConversations = testConversations.map((conversation) => (
-    <Conversation key={conversation.id} {...conversation} />
+    <ConversationsItem key={conversation.id} {...conversation} />
   ));
   return (
     <div>
