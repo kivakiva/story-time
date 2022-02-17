@@ -1,6 +1,6 @@
 const db = require("../db"); // default import - index.js
 
-const create = (user_id, request_text, book_title, online, in_person) => {
+const create = ({user_id, request_text, book_title, online, in_person}) => {
   return db
     .query(
       "INSERT INTO requests (listener_id, request_text, book_title, online, in_person) VALUES($1, $2, $3, $4, $5) RETURNING *",

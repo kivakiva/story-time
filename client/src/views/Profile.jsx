@@ -117,7 +117,7 @@ const Profile = (props) => {
           <label className="input-group input-group-vertical">
             <span>Introduction</span>
             <textarea
-              class="textarea textarea-bordered h-48"
+              className="textarea textarea-bordered h-48"
               value={intro}
               onChange={introChangeHandler}
             ></textarea>
