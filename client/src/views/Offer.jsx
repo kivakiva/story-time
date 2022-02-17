@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Timeago from "react-timeago";
+import renderRating from "./helpers/renderRating";
 
 const Offer = (props) => {
   console.log("props :>> ", props);
-  const { id, request_id, reader_id, offer_text, state } = props.offer;
+  const { id, request_id, created_at, reader_id, offer_text, state } =
+    props.offer;
   console.log("reader_id :>> ", reader_id);
   const [reader, setReader] = useState({});
 
@@ -21,14 +23,27 @@ const Offer = (props) => {
   }, [reader_id]);
 
   return (
-    <div style={{ border: "1px solid black" }}>
-      {/* <div>{name}</div> */}
-      {/* <div>Rating: {rating}</div> */}
-      {/* <div>Reads: {reads}</div> */}
-      <div>"{offer_text}"</div>
-      <button>Accept</button>
-      <button>Ignore</button>
-      <div>{/* <Timeago date={dateOffered} /> */}</div>
+    <div class="card bg-base-300 shadow-xl px-6 py-2 my-4 flex flex-row justify-between ">
+      <div className="my-1">
+        <p className="font-semibold">{reader.name}</p>
+        <div className="avatar p-2">
+          <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img src={reader.image_url} alt={reader.name} />
+          </div>
+        </div>
+        <p className="flex justify-center">
+          {renderRating(reader.reader_rating)}
+        </p>
+        <p>
+          <span>Reads: </span>
+          <span>{reader.accepted_reads}</span>
+        </p>
+      </div>
+      <div className="flex flex-col m-1 mt-3 py-1 pl-2 ml-2">
+        {offer_text && <p className="text-left">"{offer_text}"</p>}
+        <button className="btn btn-sm my-2 btn-primary">Accept</button>
+        <Timeago className="text-right" date={created_at} />
+      </div>
     </div>
   );
 };
