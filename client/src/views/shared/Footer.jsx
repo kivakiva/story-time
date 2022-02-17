@@ -19,7 +19,7 @@ function Footer(props) {
   };
 
   return (
-    <nav className="footer bg-base-100 gap-2">
+    <nav className="footer bg-base-100 gap-2 h-20">
       {isMessaging ? (
         <div>Message form</div>
       ) : (

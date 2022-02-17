@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <Header></Header>
-      <main className="mb-[81px]">
+      <main className="mb-20">
         <Outlet
           context={{
             loggedIn,
