@@ -188,12 +188,9 @@ const Profile = (props) => {
   }
 
   return (
-    <div div className="flex flex-col items-center p-10">
+    <div className="flex flex-col items-center p-10">
       {pageResponse}
     </div>
   );
 };
 export default Profile;
-
-/*
- */
