@@ -8,6 +8,7 @@ import ListenInfo from "../shared/ListenInfo";
 import OfferSubmitForm from "../shared/OfferSubmitForm";
 import UpdateOfferButtons from "../shared/UpdateOfferButtons";
 import Notice from "../shared/Notice";
+import Timeago from "react-timeago";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
@@ -131,12 +132,12 @@ const ListenExpand = () => {
             )
           }
 
-          {
+          {/* {
             // Show listener card if the listener is viewing their request and it is pending
             correctListener() && reqStatus.pending && (
               <UserCard listen={listen} user={listener} />
             )
-          }
+          } */}
           {
             // Show listener card if the listener is viewing their request and it was cancelled while pending
             correctListener() && reqStatus.cancelled && !listen.reader_id && (
@@ -165,7 +166,7 @@ const ListenExpand = () => {
             )
           }
 
-          {reqStatus.pending && (
+          {reqStatus.pending && !correctListener() && (
             <ListenInfo
               listen={listen}
               totalOffers={totalOffers}
@@ -323,7 +324,23 @@ const ListenExpand = () => {
           {
             // Render offers if logged in user is the listener and the request status is 'pending'
             correctListener() && reqStatus.pending && (
-              <Offers offers={offers} reqStatus={reqStatus} />
+              <div className="my-2 mx-8">
+                <div className="mb-4">
+                  <p className="text-xl">Your request to listen to</p>
+                  <h3
+                    style={{ color: "#005B45" }}
+                    className="text-3xl font-semibold my-3"
+                  >
+                    {listen.book_title}
+                  </h3>
+                  <p>
+                    <span>made </span>
+                    <Timeago date={listen.created_at} />
+                  </p>
+                </div>
+
+                <Offers offers={offers} reqStatus={reqStatus} />
+              </div>
             )
           }
 

@@ -1,10 +1,9 @@
 import React from "react";
 import Offer from "./Offer";
 
-const Offers = ({ offers, reqStatus }) => {
+const Offers = ({ offers }) => {
   let parsedOffers = "";
   console.log("offers :>> ", offers);
-  console.log("HELLO");
   if (offers) {
     parsedOffers = JSON.parse(offers).map((offer) => {
       console.log("offer :>> ", offer);
@@ -13,7 +12,7 @@ const Offers = ({ offers, reqStatus }) => {
     });
   }
 
-  return <>{offers && <div className="mb-16">{parsedOffers}</div>}</>;
+  return <>{offers && <div className="my-8">{parsedOffers}</div>}</>;
 };
 
 export default Offers;
