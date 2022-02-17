@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 const DevLogin = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const userID = pathname.substring(7);
+
+  const { loggedIn, setLoggedIn } = useOutletContext();
 
   useEffect(() => {
     axios
@@ -14,6 +16,7 @@ const DevLogin = () => {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("userID", res.data.cookies.userID);
+        setLoggedIn(true);
         navigate("/");
       })
       .catch((err) => {
