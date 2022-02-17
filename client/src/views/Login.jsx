@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Error from "./shared/Error";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loggedIn, setLoggedIn } = useOutletContext();
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -28,14 +29,14 @@ const Login = () => {
       },
     })
       .then((user) => {
-        console.log(user.data.cookies.userID);
         setError("");
-        setLoggedIn(user.data.cookies.userID);
-        console.log('login SUCCESSFUL!')
+        localStorage.setItem('userID', user.data.cookies.userID)
+        console.log("login SUCCESSFUL!");
+        navigate("/");
       })
       .catch((err) => {
-        console.log(err.message);
         setError("Log in failed");
+        console.log(err.message);
       });
   };
 

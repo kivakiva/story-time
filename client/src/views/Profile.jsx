@@ -16,7 +16,6 @@ const Profile = (props) => {
   const [edit, setEdit] = useState(false);
   const [saved, setSaved] = useState(true);
   const [profile, setProfile] = useState();
-  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -220,10 +219,6 @@ const Profile = (props) => {
         </button>
       </Fragment>
     );
-  }
-
-  if (!userID) {
-    return <Navigate to="/login"></Navigate>;
   }
 
   return (
