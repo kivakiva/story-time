@@ -1,10 +1,13 @@
 import { useState, useEffect, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import StarRating from "./shared/StarRating";
 import { AiFillEdit } from "react-icons/ai";
+import { ImCancelCircle } from "react-icons/im";
+import Error from "./shared/Error";
 
 const Profile = (props) => {
+  const [error, setError] = useState("");
   const userID = localStorage.getItem("userID");
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -15,18 +18,33 @@ const Profile = (props) => {
 
   const [profile, setProfile] = useState();
 
+  const navigate = useNavigate();
+
+  console.log("userID => ", userID);
+  console.log("userID => ", localStorage);
+
   useEffect(() => {
-    if (saved) {
-      axios.get(`/users/${userID}`).then((result) => {
-        setProfile({ ...result.data.user });
-        setSaved(false);
-      });
+    if (!userID) {
+      navigate("/login");
+    }
+    if (saved && userID) {
+      axios
+        .get(`/users/${userID}`)
+        .then((result) => {
+          setProfile({ ...result.data.user });
+          setSaved(false);
+          setError("");
+        })
+        .catch((err) => {
+          console.log(err);
+          setError("Profile did not load");
+        });
     }
   }, [saved]);
 
   useEffect(() => {
     if (profile) {
-      // console.log(profile);
+      console.log(profile);
     }
   }, [profile]);
 
@@ -69,11 +87,17 @@ const Profile = (props) => {
         email: email,
         intro: intro,
       },
-    }).then(() => {
-      console.log("SAVED!");
-      setSaved(true);
-      setEdit(false);
-    });
+    })
+      .then(() => {
+        console.log("SAVED!");
+        setSaved(true);
+        setEdit(false);
+        setError("");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Changes could not be saved.");
+      });
   };
 
   let pageResponse;
@@ -117,21 +141,32 @@ const Profile = (props) => {
           <label className="input-group input-group-vertical">
             <span>Introduction</span>
             <textarea
-              class="textarea textarea-bordered h-48"
+              className="textarea textarea-bordered h-48"
               value={intro}
               onChange={introChangeHandler}
             ></textarea>
           </label>
         </div>
-        <button
-          className="btn btn-outline m-2"
-          role="button"
-          aria-pressed="true"
-          onClick={saveProfile}
-        >
-          <AiFillEdit className="inline-block mr-2" />
-          Save Changes
-        </button>
+        <div className="flex">
+          <button
+            className="btn btn-outline m-2"
+            role="button"
+            aria-pressed="true"
+            onClick={saveProfile}
+          >
+            <AiFillEdit className="inline-block mr-2" />
+            Save Changes
+          </button>
+          <button
+            className="btn btn-outline m-2"
+            role="button"
+            aria-pressed="true"
+            onClick={() => setEdit(false)}
+          >
+            <ImCancelCircle className="inline-block mr-2" />
+            Cancel
+          </button>
+        </div>
       </Fragment>
     );
   } else if (profile) {
@@ -162,7 +197,7 @@ const Profile = (props) => {
             )}
           </div>
         </div>
-        <p>"{profile.intro}"</p>
+        {profile.intro && <p>"{profile.intro}"</p>}
         <p className="m-4">
           Member since {new Date(profile.created_at).toDateString()}
         </p>
@@ -188,12 +223,10 @@ const Profile = (props) => {
   }
 
   return (
-    <div div className="flex flex-col items-center p-10">
+    <div className="flex flex-col items-center p-10">
       {pageResponse}
+      {error && <Error error={error}></Error>}
     </div>
   );
 };
 export default Profile;
-
-/*
- */

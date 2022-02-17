@@ -1,35 +1,17 @@
-import Read from "./myreads/Read";
+import SingleReadOffer from "./SingleReadOffer";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Reads = (props) => {
-  const testReads = [
-    {
-      id: 1,
-      title: "moby dick",
-      listener: "donny phan",
-      status: "active",
-    },
-    {
-      id: 2,
-      title: "harry potter",
-      listener: "ruta reiso",
-      status: "active",
-    },
-    {
-      id: 3,
-      title: "the very hungry caterpillar",
-      listener: "adrian kiva",
-      status: "pending",
-    },
-  ];
-
-  const parsedReads = testReads.map((read) => {
-    return <Read key={read.id} {...read} />;
+  const { myReads } = props;
+  const parsedReads = myReads.map((listen) => {
+    return <SingleReadOffer key={listen.id} {...listen} />;
   });
-
   return (
-    <div>
-      { parsedReads }
+    <div className="m-2 flex items-center justify-evenly bg-base-200 mt-0 flex-wrap">
+      {/* {userID ? parsedReads : "you must be logged in to continue"} */}
+      {parsedReads}
     </div>
-    );
+  );
 };
 export default Reads;
