@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import StarRating from "./shared/StarRating";
 import { AiFillEdit } from "react-icons/ai";
@@ -16,6 +16,8 @@ const Profile = (props) => {
   const [saved, setSaved] = useState(true);
   const [profile, setProfile] = useState();
   const [error, setError] = useState("");
+
+  console.log(localStorage)
 
   useEffect(() => {
     if (saved && userID) {
@@ -205,6 +207,10 @@ const Profile = (props) => {
         </button>
       </Fragment>
     );
+  }
+
+  if (!userID) {
+    return <Navigate to="/login"></Navigate>;
   }
 
   return (
