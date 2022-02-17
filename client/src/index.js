@@ -24,14 +24,14 @@ ReactDOM.render(
           <Route index element={<PublicListens />} />
           <Route path="myreads" element={<MyReads />} />
           <Route path="conversations" element={<Conversations />} />
-          <Route
-            path="conversations/:conversation_id"
-            element={<MessagesTest />}
-          />
           {/* <Route
             path="conversations/:conversation_id"
-            element={<Conversation />}
+            element={<MessagesTest />}
           /> */}
+          <Route
+            path="conversations/:conversation_id"
+            element={<Conversation />}
+          />
           <Route path="profile" element={<Profile />} />
           <Route path="listen/create" element={<ListenNew />} />
           <Route path="read/:readId" element={<ReadExpand />} />
