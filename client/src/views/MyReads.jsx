@@ -45,7 +45,6 @@ const MyReads = (props) => {
 
   return (
     <main>
-      <p>MyReads</p>
       <span onClick={() => listening()} className={`${tab} ${listenTab()}`}>
         <>Listening</>
       </span>{" "}
