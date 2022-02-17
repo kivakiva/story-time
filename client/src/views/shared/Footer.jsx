@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 function Footer(props) {
   const { loggedIn, setLoggedIn, navLoc, setNavLoc } = props;
   const pathname = useLocation().pathname;
-  console.log(pathname);
 
   const greyOutNavIconIfPathDoesNotContain = (locations) => {
     const locationMatchesIconArr = locations.filter((location) =>

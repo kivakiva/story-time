@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import StarRating from "./shared/StarRating";
 import { AiFillEdit } from "react-icons/ai";
+import { FcCancel } from "react-icons/fc";
+import Error from "./shared/Error";
 
 const Profile = (props) => {
   const userID = localStorage.getItem("userID");
@@ -12,23 +14,24 @@ const Profile = (props) => {
   const [intro, setIntro] = useState();
   const [edit, setEdit] = useState(false);
   const [saved, setSaved] = useState(true);
-
   const [profile, setProfile] = useState();
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (saved) {
-      axios.get(`/users/${userID}`).then((result) => {
-        setProfile({ ...result.data.user });
-        setSaved(false);
-      });
+    if (saved && userID) {
+      axios
+        .get(`/users/${userID}`)
+        .then((result) => {
+          setProfile({ ...result.data.user });
+          setSaved(false);
+          setError("");
+        })
+        .catch((err) => {
+          setError("Error loading data");
+          console.log(err);
+        });
     }
   }, [saved]);
-
-  useEffect(() => {
-    if (profile) {
-      // console.log(profile);
-    }
-  }, [profile]);
 
   const signout = () => {
     axios.post("/api/users/logout");
@@ -69,11 +72,17 @@ const Profile = (props) => {
         email: email,
         intro: intro,
       },
-    }).then(() => {
-      console.log("SAVED!");
-      setSaved(true);
-      setEdit(false);
-    });
+    })
+      .then(() => {
+        console.log("Profile Changes SAVED!");
+        setSaved(true);
+        setEdit(false);
+        setError("");
+      })
+      .catch((err) => {
+        setError("Error loading data");
+        console.log(err);
+      });
   };
 
   let pageResponse;
@@ -117,21 +126,32 @@ const Profile = (props) => {
           <label className="input-group input-group-vertical">
             <span>Introduction</span>
             <textarea
-              class="textarea textarea-bordered h-48"
+              className="textarea textarea-bordered h-48"
               value={intro}
               onChange={introChangeHandler}
             ></textarea>
           </label>
         </div>
-        <button
-          className="btn btn-outline m-2"
-          role="button"
-          aria-pressed="true"
-          onClick={saveProfile}
-        >
-          <AiFillEdit className="inline-block mr-2" />
-          Save Changes
-        </button>
+        <div>
+          <button
+            className="btn btn-outline m-2"
+            role="button"
+            aria-pressed="true"
+            onClick={saveProfile}
+          >
+            <AiFillEdit className="inline-block mr-2" />
+            Save Changes
+          </button>
+          <button
+            className="btn btn-outline m-2"
+            role="button"
+            aria-pressed="true"
+            onClick={() => setEdit(false)}
+          >
+            <FcCancel className="inline-block mr-2" />
+            Cancel
+          </button>
+        </div>
       </Fragment>
     );
   } else if (profile) {
@@ -188,8 +208,9 @@ const Profile = (props) => {
   }
 
   return (
-    <div div className="flex flex-col items-center p-10">
-      {pageResponse}
+    <div className="flex flex-col items-center p-10">
+      {userID && pageResponse}
+      {error && <Error>{error}</Error>}
     </div>
   );
 };
