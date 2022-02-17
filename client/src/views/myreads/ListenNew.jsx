@@ -1,16 +1,14 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Error from "../shared/Error";
 import axios from "axios";
 
 const ListenNew = (props) => {
-  //if not logged in redirect to login
-  const loggedIn = true;
-
+  const userID = localStorage.getItem("userID")
   const navigate = useNavigate();
-
-  if (!loggedIn) {
-    navigate("/login");
+  
+  if (!userID) {
+    navigate("/login"); //if not logged in redirect to login
   }
 
   // user_id, request_text, book_title, online, in_person

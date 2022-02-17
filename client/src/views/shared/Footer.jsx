@@ -2,7 +2,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 function Footer(props) {
-  const { loggedIn, setLoggedIn, navLoc, setNavLoc, isMessaging } = props;
+  const { navLoc, setNavLoc, isMessaging } = props;
+  const userID = localStorage.getItem("userID");
   const pathname = useLocation().pathname;
 
   const greyOutNavIconIfPathDoesNotContain = (locations) => {
@@ -30,7 +31,7 @@ function Footer(props) {
               onClick={() => setNavLoc("home")}
             ></i>
           </Link>
-          {loggedIn ? (
+          {userID ? (
             <Link to="/myreads">
               <i
                 className={`fa-solid fa-book-open footer-icon ${greyOutNavIconIfPathDoesNotContain(
@@ -42,7 +43,7 @@ function Footer(props) {
           ) : (
             <i className="fa-solid fa-book-open footer-icon text-base-100"></i>
           )}
-          {loggedIn ? (
+          {userID ? (
             <Link to="/conversations">
               <i
                 className={`fa-solid fa-comment footer-icon ${greyOutNavIconIfPathDoesNotContain(
