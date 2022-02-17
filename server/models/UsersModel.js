@@ -29,9 +29,26 @@ const findByID = (id) => {
     .then((result) => result.rows[0]);
 };
 
+const update = ({ id, image_url, name, email, intro }) => {
+  return db
+    .query(
+      `
+  UPDATE users
+  SET image_url = $1, name = $2, email = $3, intro = $4
+  WHERE id = $5
+  RETURNING *
+  `,
+      [image_url, name, email, intro, id]
+    )
+    .then((result) => {
+      return result.rows[0];
+    });
+};
+
 module.exports = {
   create,
   findAll,
   findByEmail,
   findByID,
+  update,
 };

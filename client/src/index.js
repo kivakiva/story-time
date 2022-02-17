@@ -6,17 +6,15 @@ import App from "./App";
 import MyReads from "./views/MyReads";
 import PublicListens from "./views/PublicListens";
 import Conversations from "./views/Conversations";
-import ConversationTest from "./views/ConversationTest";
+import MessagesTest from "./views/MessagesTest";
 import Conversation from "./views/Conversation";
 import Profile from "./views/Profile";
 import ReadExpand from "./views/myreads/ReadExpand";
 import ListenExpand from "./views/myreads/ListenExpand";
-import Test from "./views/shared/Test";
 import ListenNew from "./views/myreads/ListenNew";
 import DevLogin from "./views/DevLogin";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
-import Offers from "./views/Offers";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,11 +24,14 @@ ReactDOM.render(
           <Route index element={<PublicListens />} />
           <Route path="myreads" element={<MyReads />} />
           <Route path="conversations" element={<Conversations />} />
-          {/* <Route path="conversations" element={<ConversationTest />} /> */}
           <Route
             path="conversations/:conversation_id"
-            element={<Conversation />}
+            element={<MessagesTest />}
           />
+          {/* <Route
+            path="conversations/:conversation_id"
+            element={<Conversation />}
+          /> */}
           <Route path="profile" element={<Profile />} />
           <Route path="listen/create" element={<ListenNew />} />
           <Route path="read/:readId" element={<ReadExpand />} />
@@ -49,7 +50,6 @@ ReactDOM.render(
         </Route>
       </Routes>
     </BrowserRouter>
-    {/* <Test></Test> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

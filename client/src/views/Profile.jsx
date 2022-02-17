@@ -1,41 +1,195 @@
+import { useState, useEffect, Fragment } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import StarRating from "./shared/StarRating";
+import { AiFillEdit } from "react-icons/ai";
+
 const Profile = (props) => {
-  return (
-    <div className="flex flex-col items-center">
-      <div className="avatar">
-        <div className="mb-8 rounded-full w-40 h-40 ring ring-primary ring-offset-base-100 ring-offset-2">
-          <img
-            className="object-cover h-40 w-40 rounded-full"
-            src="https://images.unsplash.com/photo-1611695434369-a8f5d76ceb7b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-            alt=""
-          />
+  const userID = localStorage.getItem("userID");
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [imgURL, setImgURL] = useState();
+  const [intro, setIntro] = useState();
+  const [edit, setEdit] = useState(false);
+  const [saved, setSaved] = useState(true);
+
+  const [profile, setProfile] = useState();
+
+  useEffect(() => {
+    if (saved) {
+      axios.get(`/users/${userID}`).then((result) => {
+        setProfile({ ...result.data.user });
+        setSaved(false);
+      });
+    }
+  }, [saved]);
+
+  useEffect(() => {
+    if (profile) {
+      // console.log(profile);
+    }
+  }, [profile]);
+
+  const signout = () => {
+    axios.post("/api/users/logout");
+  };
+
+  const nameChangeHandler = (e) => {
+    setName(e.target.value);
+  };
+
+  const emailChangeHandler = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const imgURLChangeHandler = (e) => {
+    setImgURL(e.target.value);
+  };
+
+  const introChangeHandler = (e) => {
+    setIntro(e.target.value);
+  };
+
+  const initialEdit = () => {
+    setEdit(true);
+    setName(profile.name);
+    setEmail(profile.email);
+    setImgURL(profile.image_url);
+    setIntro(profile.intro);
+  };
+
+  const saveProfile = () => {
+    axios({
+      method: "put",
+      url: `/users/${localStorage.getItem("userID")}`,
+      headers: {},
+      data: {
+        image_url: imgURL,
+        name: name,
+        email: email,
+        intro: intro,
+      },
+    }).then(() => {
+      console.log("SAVED!");
+      setSaved(true);
+      setEdit(false);
+    });
+  };
+
+  let pageResponse;
+  if (profile && edit) {
+    pageResponse = (
+      <Fragment>
+        <div className="form-control container m-4">
+          <label className="input-group input-group-vertical">
+            <span>Profile Picture URL</span>
+            <input
+              type="text"
+              className="input input-bordered"
+              value={imgURL}
+              onChange={imgURLChangeHandler}
+            />
+          </label>
         </div>
-      </div>
-      <h2 className="card-title">Jerry</h2>
-      <h2>Jerry@gmail.com</h2>
-      <h2>reads: 34</h2>
+        <div className="form-control container m-4">
+          <label className="input-group input-group-vertical">
+            <span>Name</span>
+            <input
+              type="text"
+              className="input input-bordered"
+              value={name}
+              onChange={nameChangeHandler}
+            />
+          </label>
+        </div>
+        <div className="form-control container m-4">
+          <label className="input-group input-group-vertical">
+            <span>Email</span>
+            <input
+              type="text"
+              className="input input-bordered"
+              value={email}
+              onChange={emailChangeHandler}
+            />
+          </label>
+        </div>
+        <div className="form-control container m-4">
+          <label className="input-group input-group-vertical">
+            <span>Introduction</span>
+            <textarea
+              className="textarea textarea-bordered h-48"
+              value={intro}
+              onChange={introChangeHandler}
+            ></textarea>
+          </label>
+        </div>
+        <button
+          className="btn btn-outline m-2"
+          role="button"
+          aria-pressed="true"
+          onClick={saveProfile}
+        >
+          <AiFillEdit className="inline-block mr-2" />
+          Save Changes
+        </button>
+      </Fragment>
+    );
+  } else if (profile) {
+    pageResponse = (
+      <Fragment>
+        <div className="avatar">
+          <div className="mb-8 rounded-full w-48 h-48 ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img
+              className="object-cover h-48 w-48 rounded-full"
+              src={profile.image_url}
+              alt=""
+            />
+          </div>
+        </div>
+        <h2 className="card-title">{profile.name}</h2>
+        <h2>{profile.email}</h2>
+        <div className="m-4">
+          <div className="flex items-center w-48 justify-between">
+            <h2>reads: {profile.accepted_reads}</h2>
+            {profile.reader_rating && (
+              <StarRating rating={profile.reader_rating}></StarRating>
+            )}
+          </div>
+          <div className="flex items-center w-48 justify-between">
+            <h2>listens: {profile.accepted_listens}</h2>
+            {profile.listener_rating && (
+              <StarRating rating={profile.listener_rating}></StarRating>
+            )}
+          </div>
+        </div>
+        <p>"{profile.intro}"</p>
+        <p className="m-4">
+          Member since {new Date(profile.created_at).toDateString()}
+        </p>
+        <button
+          className="btn btn-outline m-2"
+          role="button"
+          aria-pressed="true"
+          onClick={initialEdit}
+        >
+          <AiFillEdit className="inline-block mr-2" />
+          Edit Profile
+        </button>
 
-      <div className="flex flex-row">
-        <i className="fa-solid fa-star"></i>
-        <i className="fa-solid fa-star"></i>
-        <i className="fa-solid fa-star"></i>
-        <i className="fa-solid fa-star"></i>
-        <i className="fa-regular fa-star"></i>
-      </div>
-      <h2>listens: 20</h2>
-      <div className="flex flex-row">
-        <i className="fa-solid fa-star"></i>
-        <i className="fa-solid fa-star"></i>
-        <i className="fa-solid fa-star"></i>
-        <i className="fa-solid fa-star"></i>
-        <i className="fa-regular fa-star"></i>
-      </div>
+        <button
+          className="btn btn-active m-2"
+          role="button"
+          aria-pressed="true"
+        >
+          <Link to="/logout">Sign Out</Link>
+        </button>
+      </Fragment>
+    );
+  }
 
-      <p>"Hi! I'm here to read the world to sleep!"</p>
-
-      <p>member since Feb 11, 2022</p>
-      <button className="btn btn-active" role="button" aria-pressed="true">
-        Sign Out
-      </button>
+  return (
+    <div className="flex flex-col items-center p-10">
+      {pageResponse}
     </div>
   );
 };

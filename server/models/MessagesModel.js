@@ -3,7 +3,7 @@ const db = require("../db"); // default import - index.js
 const getAllByPartnerID = (sender_id, recipient_id) => {
   return db
     .query(
-      "SELECT * FROM messages WHERE recipient_id = $1 AND sender_id = $2",
+      "SELECT * FROM messages WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)",
       [recipient_id, sender_id]
     )
     .then((results) => results.rows);

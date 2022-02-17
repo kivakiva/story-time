@@ -14,7 +14,7 @@ const create = (req, res) => {
   const sender_id = req.body.sender_id;
   MessagesModel.create(sender_id, recipient_id, message)
     .then((result) => {
-      console.log(result)
+      console.log(result);
       return res.status(201).send("message created!");
     })
     .catch((err) => console.log(err.message));
@@ -22,9 +22,12 @@ const create = (req, res) => {
 
 const getAllByPartnerID = (req, res) => {
   const recipient_id = req.params.partnerID;
-  const sender_id = 6; // TODO need to RETRIVE user_id from SESSION
+  const sender_id = req.session.userID;
+  console.log("Recipient & Sender IDs: ", recipient_id, sender_id);
+
   MessagesModel.getAllByPartnerID(sender_id, recipient_id)
     .then((result) => {
+      console.log(result)
       return res.status(200).send(result);
     })
     .catch((err) => err.message);

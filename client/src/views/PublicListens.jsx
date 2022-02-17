@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SingleListen from "./SingleListen";
 import { TiArrowDownOutline } from "react-icons/ti";
 import Error from "./shared/Error";
 
-const PublicListens = () => {
+const PublicListens = (props) => {
   const userID = localStorage.getItem("userID");
   const [allListens, setAllListens] = useState([]);
   const [error, setError] = useState("");
@@ -57,12 +57,12 @@ const PublicListens = () => {
       </div>
       {error && <Error error={error} />}
       {userID && (
-        <Link className="mb-16 btn btn-lg btn-primary" to="/listen/create">
+        <Link className="mb-28 btn btn-lg btn-primary" to="/listen/create">
           Create read request
         </Link>
       )}
       {!userID && (
-        <Link className="mb-16 btn btn-lg btn-primary" to="/login">
+        <Link className="mb-28 btn btn-lg btn-primary" to="/login">
           Create read request
         </Link>
       )}
