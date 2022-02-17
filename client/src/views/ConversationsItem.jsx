@@ -1,8 +1,9 @@
 import Timeago from "react-timeago";
+import { Link } from "react-router-dom";
 const ConversationItem = (props) => {
-  const { name, lastMessage, avatar, datetimeSent } = props;
+  const { name, lastMessage, avatar, datetimeSent, id } = props;
   return (
-    <>
+    <Link to={`${id}`}>
       <div className="container bg-base-300 rounded-box flex flex-row justify-start p-5 space-x-5">
         <div className="avatar">
           <div className="w-14 rounded-full">
@@ -20,7 +21,7 @@ const ConversationItem = (props) => {
           <Timeago date={datetimeSent} />
         </div>
       </div>
-    </>
+    </Link>
   );
 };
 export default ConversationItem;

@@ -7,13 +7,25 @@ import { useState } from "react";
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("userID"));
   const [navLoc, setNavLoc] = useState();
+  const [isMessaging, setIsMessaging] = useState(false);
   return (
     <div className="App">
       <Header></Header>
       <main className="mb-[81px]">
-        <Outlet context={{ loggedIn, setLoggedIn, navLoc, setNavLoc }} />
+        <Outlet
+          context={{
+            loggedIn,
+            setLoggedIn,
+            navLoc,
+            setNavLoc,
+            isMessaging,
+            setIsMessaging,
+          }}
+        />
       </main>
-      <Footer {...{ loggedIn, setLoggedIn, navLoc, setNavLoc }}></Footer>
+      <Footer
+        {...{ loggedIn, setLoggedIn, navLoc, setNavLoc, isMessaging }}
+      ></Footer>
     </div>
   );
 }
