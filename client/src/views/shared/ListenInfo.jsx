@@ -3,7 +3,7 @@ import capitalize from "../helpers/capitalize";
 
 const ListenInfo = ({
   listen,
-  tagLine,
+  actionLine,
   totalOffers,
   status,
   whoCancelled,
@@ -27,8 +27,8 @@ const ListenInfo = ({
 
   return (
     <>
-      <p className=" text-sm font-semibold text-left bg-base-300 uppercase px-10">
-        {tagLine}
+      <p className=" text-sm font-semibold text-left bg-base-300 uppercase pb-2 px-10">
+        {actionLine}
       </p>
       <div className="flex flex-col items-start mb-2 mx-8">
         <p
@@ -54,12 +54,11 @@ const ListenInfo = ({
             {listen.request_text}
           </p>
         )}
-        {totalOffers && (
+        {totalOffers > 0 && (
           <p className="font-semibold text-sm">Total offers: {totalOffers}</p>
         )}
         <p>
           <span className={`badge badge-${badgeClass} py-3 my-3`}>
-            {" "}
             {status}
           </span>
           {whoCancelled && (
