@@ -2,7 +2,6 @@ import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 import roundRating from "./roundRating";
 
 const renderRating = (userRating) => {
-  console.log("userRating", userRating);
   const stars = [];
   const rating = roundRating(userRating);
   const emptyStars = 5 - rating;

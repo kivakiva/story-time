@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import Timeago from "react-timeago";
 import renderRating from "./helpers/renderRating";
 
 const Offer = (props) => {
   const { id, request_id, created_at, reader_id, offer_text, state } =
     props.offer;
-  console.log("reader_id :>> ", reader_id);
   const [reader, setReader] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReader = async () => {
@@ -21,9 +22,20 @@ const Offer = (props) => {
     fetchReader();
   }, [reader_id]);
 
+  const acceptOffer = async () => {
+    try {
+      await axios.put(`/listens/${request_id}`, {
+        action: "ACCEPT",
+        request_offer_id: id,
+      });
+      navigate(`/myreads`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="card bg-base-300 shadow-xl px-6 py-2 my-4 flex flex-row justify-between ">
-      {console.log("reader.reader_rating :>> ", reader.reader_rating)}
       <div className="my-1">
         <p className="font-semibold">{reader.name}</p>
         <div className="avatar p-2">
@@ -41,7 +53,10 @@ const Offer = (props) => {
       </div>
       <div className="flex flex-col m-1 mt-3 py-1 pl-2 ml-2">
         {offer_text && <p className="text-left">"{offer_text}"</p>}
-        <button className="btn btn-sm my-2 btn-secondary border-2 border-solid border-slate-500">
+        <button
+          onClick={acceptOffer}
+          className="btn btn-sm my-2 btn-secondary border-2 border-solid border-slate-500"
+        >
           Accept
         </button>
         <Timeago className="text-right" date={created_at} />

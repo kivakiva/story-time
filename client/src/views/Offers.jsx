@@ -5,8 +5,6 @@ const Offers = ({ offers }) => {
   let parsedOffers = "";
   if (offers) {
     parsedOffers = JSON.parse(offers).map((offer) => {
-      console.log("offer :>> ", offer);
-      console.log("typeof offer :>> ", typeof offer);
       return <Offer key={offer.id} offer={{ ...offer }} />;
     });
   }

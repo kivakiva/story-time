@@ -2,7 +2,6 @@ import React from "react";
 import renderRating from "../helpers/renderRating";
 
 const UserCard = ({ listen, user }) => {
-  console.log("user.listener_rating :>> ", user.listener_rating);
   return (
     <div className="flex bg-base-300 pb-2 items-center justify-evenly">
       <div className="flex flex-col p-1 m-1 mx-2 items-start">
