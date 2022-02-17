@@ -31,6 +31,7 @@ const Login = () => {
         console.log(user.data.cookies.userID);
         setError("");
         setLoggedIn(user.data.cookies.userID);
+        console.log('login SUCCESSFUL!')
       })
       .catch((err) => {
         console.log(err.message);
