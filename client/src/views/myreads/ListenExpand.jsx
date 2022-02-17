@@ -14,17 +14,32 @@ const ListenExpand = () => {
   const { listenId } = useParams();
   const [listen, setListen] = useState({});
   const [offers, setOffers] = useState("");
+  const [offer, setOffer] = useState("");
   const [chosenOffer, setChosenOffer] = useState("");
   const [listener, setListener] = useState({});
   const [reader, setReader] = useState({});
   const [loggedInUser, setLoggedInUser] = useState("");
   const [totalOffers, setTotalOffers] = useState(0);
   const [error, setError] = useState("");
+  const [isOfferSubmitted, setIsOfferSubmitted] = useState(false);
 
   useEffect(() => {
+    // get the new offer that a reader has just submitted
+    const getOffer = (user, listen) => {
+      const readOffers = user.all_request_offers;
+      if (!readOffers) return null;
+
+      for (const offer of readOffers) {
+        if (offer.request_id === listen.id && offer.reader_id === userID) {
+          setOffer(offer);
+        }
+      }
+      return null;
+    };
+
     const fetchData = async () => {
       try {
-        const requestRes = await axios.get(`../listens/${listenId}`);
+        const requestRes = await axios.get(`/listens/${listenId}`);
         const { request, offers } = requestRes.data.response;
         setListen(request);
 
@@ -41,16 +56,17 @@ const ListenExpand = () => {
           setChosenOffer(offer.data.offer);
         }
 
-        const listenerInfo = await axios.get(`../users/${request.listener_id}`);
+        const listenerInfo = await axios.get(`/users/${request.listener_id}`);
         setListener(listenerInfo.data.user);
         if (request.reader_id) {
-          const readerInfo = await axios.get(`../users/${request.reader_id}`);
+          const readerInfo = await axios.get(`/users/${request.reader_id}`);
           setReader(readerInfo.data.user);
         }
 
         if (userID) {
-          const loggedInUserInfo = await axios.get(`../users/${userID}`);
+          const loggedInUserInfo = await axios.get(`/users/${userID}`);
           setLoggedInUser(JSON.stringify(loggedInUserInfo.data.user));
+          getOffer(loggedInUserInfo.data.user, request);
         }
         setError("");
       } catch (err) {
@@ -59,7 +75,7 @@ const ListenExpand = () => {
       }
     };
     fetchData();
-  }, [listenId, userID]);
+  }, [listenId, userID, isOfferSubmitted]);
 
   //check if the logged in user is trying to access a read request that has been accepted
   // or cancelled and the user is not the reader and not the listener
@@ -86,6 +102,21 @@ const ListenExpand = () => {
     }
     return null;
   };
+
+  // const getOfferID = () => {
+  //   const readOffers = JSON.parse(loggedInUser).all_request_offers;
+  //   console.log("readOffers :>> ", readOffers);
+  //   if (!readOffers) return null;
+
+  //   for (const offer of readOffers) {
+  //     console.log("object");
+  //     if (offer.request_id === listen.id && offer.reader_id === userID) {
+  //       console.log(offer);
+  //       return offer.id;
+  //     }
+  //   }
+  //   return null;
+  // };
 
   // check if the logged in user is the creator of the read request
   const correctListener = () => {
@@ -298,10 +329,12 @@ const ListenExpand = () => {
             loggedInUser &&
               reqStatus.pending &&
               !correctListener() &&
-              !alreadyOfferedText() && (
+              !alreadyOfferedText() &&
+              !isOfferSubmitted && (
                 <OfferSubmitForm
                   request_id={listenId}
                   setTotalOffers={setTotalOffers}
+                  setIsOfferSubmitted={setIsOfferSubmitted}
                 />
               )
           }
@@ -316,10 +349,10 @@ const ListenExpand = () => {
               alreadyOfferedText() && (
                 <div>
                   <div className="bg-base-300 p-4 px-10 mt-5 mb-3 text-left">
-                    <p className="font-semibold">Your request:</p>
+                    <p className="font-semibold">Your offer message:</p>
                     <p>{alreadyOfferedText()}</p>
                   </div>
-                  <UpdateOfferButtons />
+                  <UpdateOfferButtons offerID={offer.id} />
                 </div>
               )
           }
