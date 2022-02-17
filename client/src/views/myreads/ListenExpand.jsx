@@ -38,7 +38,6 @@ const ListenExpand = () => {
           (request.reader_id === userID || request.listener_id === userID)
         ) {
           const offer = await axios.get(`../reads/${request.request_offer_id}`);
-          console.log("offer :>> ", offer.data.offer);
           setChosenOffer(offer.data.offer);
         }
 
@@ -82,7 +81,7 @@ const ListenExpand = () => {
 
     for (const offer of readOffers) {
       if (offer.request_id === listen.id && offer.reader_id === userID) {
-        return offer.offer_text;
+        return offer.offer_text || "You have not written a message";
       }
     }
     return null;
@@ -296,7 +295,6 @@ const ListenExpand = () => {
 
           {
             // Render form if reader is not the same as listener and has not yet submitted an offer for this request
-
             loggedInUser &&
               reqStatus.pending &&
               !correctListener() &&

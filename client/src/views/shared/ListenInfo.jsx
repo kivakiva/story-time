@@ -23,6 +23,7 @@ const ListenInfo = ({
     default:
       badgeClass = "badge";
   }
+  const noMessage = "No message";
 
   return (
     <>
@@ -42,15 +43,15 @@ const ListenInfo = ({
             <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
               Listener:
             </p>
-            <p className="pb-2">"{listen.request_text}"</p>
+            <p className="pb-2">{listen.request_text || noMessage}</p>
             <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
               Reader:
             </p>
-            <p>"{offer.offer_text}"</p>
+            <p>{offer.offer_text || noMessage}</p>
           </div>
         ) : (
           <p className="text-left py-2 my-1 text-lg leading-5">
-            "{listen.request_text}"
+            {listen.request_text}
           </p>
         )}
         {totalOffers && (
