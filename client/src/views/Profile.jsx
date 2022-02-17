@@ -80,7 +80,7 @@ const Profile = (props) => {
         setError("");
       })
       .catch((err) => {
-        setError("Error loading data");
+        setError("Error saving data");
         console.log(err);
       });
   };
