@@ -15,7 +15,6 @@ const Profile = (props) => {
   const [intro, setIntro] = useState();
   const [edit, setEdit] = useState(false);
   const [saved, setSaved] = useState(true);
-
   const [profile, setProfile] = useState();
 
   const navigate = useNavigate();
@@ -46,7 +45,7 @@ const Profile = (props) => {
     if (profile) {
       console.log(profile);
     }
-  }, [profile]);
+  }, [saved]);
 
   const signout = () => {
     axios.post("/api/users/logout");
@@ -89,7 +88,7 @@ const Profile = (props) => {
       },
     })
       .then(() => {
-        console.log("SAVED!");
+        console.log("Profile Changes SAVED!");
         setSaved(true);
         setEdit(false);
         setError("");

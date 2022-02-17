@@ -1,6 +1,7 @@
 import React from "react";
 
 const Error = ({ error }) => {
+  console.log(error)
   return (
     <div className="m-4 alert shadow-lg border border-4 border-red-400 boredr-solid">
       <div>

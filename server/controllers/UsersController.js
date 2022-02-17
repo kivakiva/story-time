@@ -70,10 +70,11 @@ const login = (req, res) => {
       }
 
       if (user.password !== password) {
+        console.log("wrong password");
         return res.status(400).send({ message: "Wrong password" });
       }
 
-      req.session.userID = user.id;
+      req.session.userID = user.id; //TODO why isn't this setting properly when the one dev version is???
       return res
         .status(200)
         .send({ message: "Login successful", cookies: req.session });
