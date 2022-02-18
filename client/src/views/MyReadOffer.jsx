@@ -77,7 +77,7 @@ const SingleReadOffer = (offer) => {
         <div className="flex items-end flex-col justify-end text-right">
           <div>
             <figure>
-              <img className="pl-3 py-3" src={cover} alt="Book" />
+              <img className="pl-3 py-3" src={cover} alt="Book cover" />
             </figure>
             {/* <div>{request.book_title} </div> */}
           </div>

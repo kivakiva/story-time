@@ -1,17 +1,21 @@
 import capitalize from "../helpers/capitalize";
 import { Link } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
+import { useEffect, useState } from "react";
+import getVolume from "../helpers/getVolume";
 
-const Listen = (props) => {
-  const { id } = props;
-  // const [request, setRequest] = useState({});
-  // useEffect(() => {
-  //   axios.get("").then((res) => {
-  //     console.log(res.response);
-  //   });
-  // });
+const Listen = (request) => {
+  console.log(request);
+  const [cover, setCover] = useState("");
 
+  const { id, title, reader_id } = request;
+
+  useEffect(() => {
+    if (title) {
+      getVolume(title).then((book) => {
+        setCover(book.cover);
+      });
+    }
+  }, [title]);
   return (
     <Link className="grow max-w-md " to={`/listen/${id}`}>
       <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-3 shadow-xl justify-between">
@@ -34,11 +38,7 @@ const Listen = (props) => {
         <div className="flex items-end flex-col justify-end text-right">
           <div>
             <figure>
-              <img
-                className="pl-3 py-3"
-                src="https://api.lorem.space/image/book?w=80&h=120"
-                alt="Book"
-              />
+              <img className="pl-3 py-3" src={cover} alt="Book" />
             </figure>
             {/* <div>{request.book_title} </div> */}
           </div>
