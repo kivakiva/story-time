@@ -93,6 +93,7 @@ const Login = () => {
           <label className="input-group">
             <span className="w-24">Name</span>
             <input
+              required
               type="text"
               className="input input-bordered"
               value={name}
@@ -106,7 +107,8 @@ const Login = () => {
         <label className="input-group">
           <span className="w-24">Email</span>
           <input
-            type="text"
+            required
+            type="email"
             className="input input-bordered"
             value={email}
             onChange={emailChangeHandler}
@@ -118,6 +120,7 @@ const Login = () => {
         <label className="input-group">
           <span className="w-24">Password</span>
           <input
+            required
             type="password"
             className="input input-bordered"
             value={password}
