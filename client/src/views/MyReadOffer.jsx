@@ -3,7 +3,7 @@ import Timeago from "react-timeago";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import capitalize from "./helpers/capitalize";
-import getCover from "./helpers/getCover";
+import getVolume from "./helpers/getVolume";
 
 const SingleReadOffer = (offer) => {
   const [listener, setListener] = useState({});
@@ -37,8 +37,8 @@ const SingleReadOffer = (offer) => {
   useEffect(() => {
     if (request.book_title) {
       const title = request.book_title;
-      getCover(title).then((res) => {
-        setCover(res);
+      getVolume(title).then((book) => {
+        setCover(book.cover);
       });
     }
   }, [request]);
