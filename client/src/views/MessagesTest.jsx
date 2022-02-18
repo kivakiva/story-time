@@ -17,7 +17,7 @@ function MessagesTest() {
     id: "",
   });
 
-  //1. GET convoInfo
+  //1. GET convoInfo (On page load ONLY)
   useEffect(() => {
     let sender_name;
     let recipient_name;
