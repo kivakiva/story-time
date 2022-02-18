@@ -3,6 +3,10 @@ import React from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { ImCancelCircle } from "react-icons/im";
 import { useNavigate } from "react-router";
+import { Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
+import Notification from "./Notification";
 
 const UpdateOfferButtons = ({ offerID }) => {
   const navigate = useNavigate();
@@ -10,6 +14,15 @@ const UpdateOfferButtons = ({ offerID }) => {
   const cancelOffer = () => {
     try {
       axios.delete(`/reads/${offerID}`);
+      Store.addNotification({
+        content: <Notification message="Offer cancelled" />,
+        container: "center",
+        animationIn: ["animate__animated animate__fadeIn"],
+        animationOut: ["animate__animated animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+        },
+      });
       navigate(-1);
     } catch (err) {
       console.log(err);
