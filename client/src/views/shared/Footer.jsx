@@ -35,7 +35,7 @@ function Footer(props) {
             <Link to="/myreads">
               <i
                 className={`fa-solid fa-book-open footer-icon ${greyOutNavIconIfPathDoesNotContain(
-                  ["myreads"]
+                  ["myreads", "listen"]
                 )}`}
                 onClick={() => setNavLoc("myreads")}
               ></i>

@@ -34,21 +34,27 @@ const getAll = (req, res) => {
 };
 
 const create = (req, res) => {
-  const { name, email, password, phone, image_url, in_person } = req.body;
-
-  if (!name || !email || !phone || !password) {
+  console.log('usersController -> start')
+  const { name, email, password, phone, image_url } = req.body;
+  
+  if (!name || !email || !password) {
+    console.log('usersController -> no name/email/password')
     return res.status(400).send({
       message: "Missing required information (name, email, phone, password)!",
     });
   }
-
+  
   // TODO: hash the password!
-  UsersModel.create(name, email, phone, image_url, in_person, password)
-    .then((user) => {
-      return res.status(201).send({ message: "User created!", user });
-    })
-    .catch((err) => {
-      res
+  UsersModel.create({ name, email, phone, image_url, password })
+  .then((user) => {
+    console.log('usersController -> account created')
+    console.log(user)
+    req.session.userID = user.id
+    return res.status(201).send({ message: "User created!", user });
+  })
+  .catch((err) => {
+    console.log('usersController -> create account failed')
+    res
         .status(500)
         .send({ message: "Could not create user", error: err.message });
     });
@@ -74,7 +80,7 @@ const login = (req, res) => {
         return res.status(400).send({ message: "Wrong password" });
       }
 
-      req.session.userID = user.id; //TODO why isn't this setting properly when the one dev version is???
+      req.session.userID = user.id
       return res
         .status(200)
         .send({ message: "Login successful", cookies: req.session });

@@ -1,4 +1,4 @@
-import Listen from "./myreads/Listen";
+import Listen from "./myreads/MyListen";
 
 const Listens = (props) => {
   const testListens = [
@@ -26,6 +26,11 @@ const Listens = (props) => {
     return <Listen key={listen.id} {...listen} />;
   });
 
-  return <div>{parsedListens}</div>;
+  return (
+    <div className="m-2 flex items-center justify-evenly bg-base-200 mt-0 flex-wrap">
+      <button className="btn btn-active my-6">Create read request</button>
+      {parsedListens}
+    </div>
+  );
 };
 export default Listens;
