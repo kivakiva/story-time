@@ -17,7 +17,7 @@ function MessagesTest() {
     id: "",
   });
 
-  //1. GET convoInfo
+  //1. GET convoInfo (On page load ONLY)
   useEffect(() => {
     let sender_name;
     let recipient_name;
@@ -107,10 +107,6 @@ function MessagesTest() {
     }
   };
 
-  const messageChangeHandler = (e) => {
-    setMessage(e.target.value);
-  };
-
   return (
     <div>
       {messagesData.length > 0 &&
@@ -127,13 +123,6 @@ function MessagesTest() {
             </div>
           );
         })}
-      <input
-        onChange={messageChangeHandler}
-        type="text"
-        placeholder="..."
-        value={message}
-      />
-      <button onClick={messageSubmitHandler}>Submit</button>
     </div>
   );
 }

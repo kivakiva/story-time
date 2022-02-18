@@ -2,8 +2,13 @@ import Timeago from "react-timeago";
 import { Link } from "react-router-dom";
 const ConversationItem = (props) => {
   const { name, lastMessage, avatar, datetimeSent, id } = props;
+  console.log(datetimeSent)
+
+  const userID = localStorage.getItem("userID");
+
+  const convo_id = id < userID ? `${id}_${userID}` : `${userID}_${id}`;
   return (
-    <Link to={`${id}`}>
+    <Link to={`${convo_id}`}>
       <div className="container bg-base-300 rounded-box flex flex-row justify-start p-5 space-x-5">
         <div className="avatar">
           <div className="w-14 rounded-full">

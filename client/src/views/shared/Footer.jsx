@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import MessageInput from "../Conversations/MessageInput";
+import MessageContext from "../../context/messageContext";
 
 function Footer(props) {
-  const { navLoc, setNavLoc, isMessaging } = props;
+  const { chatOpen } = useContext(MessageContext);
   const userID = localStorage.getItem("userID");
   const pathname = useLocation().pathname;
 
@@ -12,7 +14,6 @@ function Footer(props) {
     );
     return locationMatchesIconArr.length === 0 && "text-base-300";
   };
-
   const greyOutHomeIfPathIsNotHome = () => {
     if (pathname !== "/") {
       return "text-base-300";
@@ -20,15 +21,14 @@ function Footer(props) {
   };
 
   return (
-    <nav className="footer bg-base-100 gap-2 h-20">
-      {isMessaging ? (
-        <div>Message form</div>
+    <nav className="footer fixed flex items-center justify-around border-t-black border-t bottom-0 bg-base-100 gap-2 h-20">
+      {chatOpen ? (
+        <MessageInput />
       ) : (
         <>
           <Link to="/">
             <i
               className={`fa-solid fa-house footer-icon ${greyOutHomeIfPathIsNotHome()}`}
-              onClick={() => setNavLoc("home")}
             ></i>
           </Link>
           {userID ? (
@@ -37,7 +37,6 @@ function Footer(props) {
                 className={`fa-solid fa-book-open footer-icon ${greyOutNavIconIfPathDoesNotContain(
                   ["myreads", "listen"]
                 )}`}
-                onClick={() => setNavLoc("myreads")}
               ></i>
             </Link>
           ) : (
@@ -49,7 +48,6 @@ function Footer(props) {
                 className={`fa-solid fa-comment footer-icon ${greyOutNavIconIfPathDoesNotContain(
                   ["conversations"]
                 )}`}
-                onClick={() => setNavLoc("conversations")}
               ></i>
             </Link>
           ) : (
@@ -60,7 +58,6 @@ function Footer(props) {
               className={`fa-solid fa-user footer-icon ${greyOutNavIconIfPathDoesNotContain(
                 ["profile"]
               )}`}
-              onClick={() => setNavLoc("profile")}
             ></i>
           </Link>
         </>

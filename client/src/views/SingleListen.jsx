@@ -29,7 +29,7 @@ const SingleListen = ({
   }, [listener_id]);
 
   return (
-    <Link className="grow max-w-md " to={`/listen/${id}`}>
+    <Link className="min-w-full" to={`/listen/${id}`}>
       {!accepted_at && !cancelled_at && (
         <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-1 shadow-xl">
           <figure>
@@ -40,7 +40,7 @@ const SingleListen = ({
             />
           </figure>
           <div className="card-body p-3">
-            <h3 style={{ color: "#1B3D2F" }} className="card-title mb-0">
+            <h3 style={{ color: "#005B45" }} className="card-title mb-0">
               {capitalize(book_title)}
             </h3>
             <p className="pb-3 font-semibold">by Famous Author</p>

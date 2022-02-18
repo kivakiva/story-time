@@ -52,17 +52,23 @@ const PublicListens = (props) => {
       <div style={{ color: "#7A1C00" }} className="font-bold m-1 mt-8">
         <i className="fa-solid fa-microphone"></i> Reading Requests
       </div>
-      <div className="m-2 flex items-center justify-evenly flex-wrap">
+      <div className="m-2 flex items-center flex-col justify-evenly">
         {parsedListens}
       </div>
       {error && <Error error={error} />}
       {userID && (
-        <Link className="mb-28 btn btn-lg btn-primary" to="/listen/create">
+        <Link
+          className="mb-6 btn btn-lg btn-secondary border-2 border-solid border-slate-500"
+          to="/listen/create"
+        >
           Create read request
         </Link>
       )}
       {!userID && (
-        <Link className="mb-28 btn btn-lg btn-primary" to="/login">
+        <Link
+          className="mb-6 btn btn-lg btn-secondary border-2 border-solid border-slate-500"
+          to="/login"
+        >
           Create read request
         </Link>
       )}

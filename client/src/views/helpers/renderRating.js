@@ -6,10 +6,10 @@ const renderRating = (userRating) => {
   const rating = roundRating(userRating);
   const emptyStars = 5 - rating;
   for (let i = 0; i < rating; i++) {
-    stars.push(<TiStarFullOutline style={{ color: "#f4d325" }} key={i} />);
+    stars.push(<TiStarFullOutline style={{ color: "#610909" }} key={i} />);
   }
   for (let i = 0; i < emptyStars; i++) {
-    stars.push(<TiStarOutline style={{ color: "#f4d325" }} key={5 - i} />);
+    stars.push(<TiStarOutline style={{ color: "#610909" }} key={5 - i} />);
   }
   return stars;
 };
