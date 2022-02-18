@@ -20,10 +20,12 @@ const UserCard = ({ listen, user }) => {
         <p className="flex my-1 flex-col items-start">
           <span>read type: </span>
           {listen.online && (
-            <span className="badge badge-info bg-secondary mb-1">online </span>
+            <span className="badge badge-info bg-secondary mb-1 border-solid border-slate-400">
+              online{" "}
+            </span>
           )}
           {listen.in_person && (
-            <span className="badge badge-success bg-secondary-focus">
+            <span className="badge badge-success bg-secondary-focus border-solid border-slate-400">
               in person
             </span>
           )}

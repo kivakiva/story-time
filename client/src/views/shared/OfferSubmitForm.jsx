@@ -28,7 +28,7 @@ const OfferSubmitForm = ({
   return (
     <>
       {error && <Error error={error} />}
-      <form className="mb-28 flex flex-col mt-3 mx-8">
+      <form className="mb-6 flex flex-col mt-3 mx-8">
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -38,7 +38,7 @@ const OfferSubmitForm = ({
         <button
           type="submit"
           onClick={(e) => submitOffer(e, message)}
-          className="btn btn-primary"
+          className="btn btn-secondary border-2 border-solid border-slate-500"
         >
           Offer to Read
         </button>
