@@ -5,9 +5,8 @@ import "./index.css";
 import App from "./App";
 import MyReads from "./views/MyReads";
 import PublicListens from "./views/PublicListens";
-import Conversations from "./views/Conversations";
-import MessagesTest from "./views/MessagesTest";
-import Conversation from "./views/Conversation";
+import Conversations from "./views/Conversations/Conversations";
+import Conversation from "./views/Conversations/Conversation";
 import Profile from "./views/Profile";
 import ReadExpand from "./views/myreads/ReadExpand";
 import ListenExpand from "./views/myreads/ListenExpand";
@@ -15,41 +14,40 @@ import ListenNew from "./views/myreads/ListenNew";
 import DevLogin from "./views/DevLogin";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
+import { MessageProvider } from "./context/messageContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<PublicListens />} />
-          <Route path="myreads" element={<MyReads />} />
-          <Route path="conversations" element={<Conversations />} />
-          {/* <Route
-            path="conversations/:conversation_id"
-            element={<MessagesTest />}
-          /> */}
-          <Route
-            path="conversations/:conversation_id"
-            element={<Conversation />}
-          />
-          <Route path="profile" element={<Profile />} />
-          <Route path="listen/create" element={<ListenNew />} />
-          <Route path="read/:readId" element={<ReadExpand />} />
-          <Route path="listen/:listenId" element={<ListenExpand />} />
-          <Route path="login/:userId" element={<DevLogin />} />
-          <Route path="logout/" element={<Logout />} />
-          <Route path="login/" element={<Login />} />
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>There's nothing here!</p>
-              </main>
-            }
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <MessageProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<PublicListens />} />
+            <Route path="myreads" element={<MyReads />} />
+            <Route path="conversations" element={<Conversations />} />
+            <Route
+              path="conversations/:conversation_id"
+              element={<Conversation />}
+            />
+            <Route path="profile" element={<Profile />} />
+            <Route path="listen/create" element={<ListenNew />} />
+            <Route path="read/:readId" element={<ReadExpand />} />
+            <Route path="listen/:listenId" element={<ListenExpand />} />
+            <Route path="login/:userId" element={<DevLogin />} />
+            <Route path="logout/" element={<Logout />} />
+            <Route path="login/" element={<Login />} />
+            <Route
+              path="*"
+              element={
+                <main style={{ padding: "1rem" }}>
+                  <p>There's nothing here!</p>
+                </main>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </MessageProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

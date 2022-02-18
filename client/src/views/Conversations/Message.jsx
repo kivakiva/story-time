@@ -2,7 +2,6 @@ import Timeago from "react-timeago";
 const Message = (props) => {
   const { message_text, time, sender_id, userID } = props;
   const align = () => {
-    console.log(userID, sender_id)
     if (userID == sender_id) {
       return "self-end bg-secondary rounded-br-none";
     } else {

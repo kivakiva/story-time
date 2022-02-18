@@ -7,7 +7,7 @@ import { useState } from "react";
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("userID"));
   const [navLoc, setNavLoc] = useState();
-  const [isMessaging, setIsMessaging] = useState(false);
+
   return (
     <div className="App">
       <Header></Header>
@@ -18,13 +18,16 @@ function App() {
             setLoggedIn,
             navLoc,
             setNavLoc,
-            isMessaging,
-            setIsMessaging,
           }}
         />
       </main>
       <Footer
-        {...{ loggedIn, setLoggedIn, navLoc, setNavLoc, isMessaging }}
+        {...{
+          loggedIn,
+          setLoggedIn,
+          navLoc,
+          setNavLoc,
+        }}
       ></Footer>
     </div>
   );

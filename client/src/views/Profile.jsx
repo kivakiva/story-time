@@ -19,9 +19,6 @@ const Profile = (props) => {
 
   const navigate = useNavigate();
 
-  console.log("userID => ", userID);
-  console.log("userID => ", localStorage);
-
   useEffect(() => {
     if (!userID) {
       navigate("/login");
@@ -41,11 +38,11 @@ const Profile = (props) => {
     }
   }, [saved]);
 
-  useEffect(() => {
-    if (profile) {
-      console.log(profile);
-    }
-  }, [saved]);
+  // useEffect(() => {
+  //   if (profile) {
+  //     console.log(profile);
+  //   }
+  // }, [saved]);
 
   const signout = () => {
     axios.post("/api/users/logout");

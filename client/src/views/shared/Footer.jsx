@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import MessageInput from "../Conversations/MessageInput";
+import MessageContext from "../../context/messageContext";
 
 function Footer(props) {
-  const { navLoc, setNavLoc, isMessaging } = props;
+  const { navLoc, setNavLoc } = props;
+  const { chatOpen } = useContext(MessageContext);
   const userID = localStorage.getItem("userID");
   const pathname = useLocation().pathname;
 
@@ -21,8 +24,8 @@ function Footer(props) {
 
   return (
     <nav className="footer bg-base-100 gap-2 h-20">
-      {isMessaging ? (
-        <div>Message form</div>
+      {chatOpen ? (
+        <MessageInput />
       ) : (
         <>
           <Link to="/">
