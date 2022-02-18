@@ -4,7 +4,6 @@ import MessageInput from "../Conversations/MessageInput";
 import MessageContext from "../../context/messageContext";
 
 function Footer(props) {
-  const { navLoc, setNavLoc } = props;
   const { chatOpen } = useContext(MessageContext);
   const userID = localStorage.getItem("userID");
   const pathname = useLocation().pathname;
@@ -31,7 +30,6 @@ function Footer(props) {
           <Link to="/">
             <i
               className={`fa-solid fa-house footer-icon ${greyOutHomeIfPathIsNotHome()}`}
-              onClick={() => setNavLoc("home")}
             ></i>
           </Link>
           {userID ? (
@@ -40,7 +38,6 @@ function Footer(props) {
                 className={`fa-solid fa-book-open footer-icon ${greyOutNavIconIfPathDoesNotContain(
                   ["myreads", "listen"]
                 )}`}
-                onClick={() => setNavLoc("myreads")}
               ></i>
             </Link>
           ) : (
@@ -52,7 +49,6 @@ function Footer(props) {
                 className={`fa-solid fa-comment footer-icon ${greyOutNavIconIfPathDoesNotContain(
                   ["conversations"]
                 )}`}
-                onClick={() => setNavLoc("conversations")}
               ></i>
             </Link>
           ) : (
@@ -63,7 +59,6 @@ function Footer(props) {
               className={`fa-solid fa-user footer-icon ${greyOutNavIconIfPathDoesNotContain(
                 ["profile"]
               )}`}
-              onClick={() => setNavLoc("profile")}
             ></i>
           </Link>
         </>

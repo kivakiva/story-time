@@ -1,5 +1,5 @@
 import Message from "./Message";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import React, { useEffect, useState, useRef, useContext } from "react";
 import MessageContext from "../../context/messageContext";
@@ -66,7 +66,7 @@ const Conversation = (props) => {
         });
       })
       .catch((err) => {
-        console.log("AXIOS REQUEST FAIL");
+        // console.log("AXIOS REQUEST FAIL");
         console.log(err.message);
       });
   }, []);
@@ -89,7 +89,7 @@ const Conversation = (props) => {
   // 3. RECURRING - RECEIVE incoming messages
   useEffect(() => {
     socket.on("receive_message", (msgData) => {
-      console.log("RECEIVING MESSAGE!");
+      // console.log("RECEIVING MESSAGE!");
       setMessagesData((list) => [...list, msgData]);
     });
   }, [socket]);
