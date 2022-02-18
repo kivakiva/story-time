@@ -3,8 +3,7 @@ import Timeago from "react-timeago";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import capitalize from "./helpers/capitalize";
-import renderRating from "./helpers/renderRating";
-import getCover from "./helpers/getCover";
+// import getCover from "./helpers/getCover";
 
 const SingleReadOffer = (offer) => {
   const [listener, setListener] = useState({});
@@ -78,10 +77,6 @@ const SingleReadOffer = (offer) => {
               <img src={listener.image_url} alt="listener" />
             </div>
           </div>
-          <div className="flex flex-row mt-3 mb-1">
-            {listener.listener_rating && renderRating(listener.listener_rating)}
-          </div>
-          <div>Listens: {listener.accepted_listens}</div>
           <div className="badge my-2">
             <b>{capitalize(state)}</b>
           </div>

@@ -1,13 +1,11 @@
 import capitalize from "../helpers/capitalize";
-import renderRating from "../helpers/renderRating";
 import { Link } from "react-router-dom";
-import CardListenRequest from "../shared/Cards/CardListenRequest";
-import { useEffect, useState } from "react";
-import axios from "axios";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 
 const Listen = (props) => {
-  const { title, reader, status, id } = props;
-  const [request, setRequest] = useState({});
+  const { id } = props;
+  // const [request, setRequest] = useState({});
   // useEffect(() => {
   //   axios.get("").then((res) => {
   //     console.log(res.response);
@@ -29,11 +27,6 @@ const Listen = (props) => {
               />
             </div>
           </div>
-          <div className="flex flex-row mt-3 mb-1">
-            {/* {listener.listener_rating && renderRating(listener.listener_rating)} */}
-            {renderRating(4)}
-          </div>
-          {/* <div>Listens: {listener.accepted_listens}</div> */}
           <div className="badge my-2">
             <b>{capitalize("accepted")}</b>
           </div>
