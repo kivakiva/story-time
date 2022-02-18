@@ -102,10 +102,7 @@ const Conversation = (props) => {
         recipient_id: convoInfo.recipient_id,
         sender_id: convoInfo.sender_id,
         message_text: message,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+        created_at: new Date(),
         id: Math.random(),
       };
 

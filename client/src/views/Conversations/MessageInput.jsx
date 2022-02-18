@@ -30,7 +30,7 @@ function MessageInput(props) {
         onClick={buttonClickHandler}
         className="btn-square text-neutral border-transparent bg-transparent"
       >
-        <i class="fa-solid fa-paper-plane text-3xl"></i>
+        <i className="fa-solid fa-paper-plane text-3xl"></i>
       </button>
     </div>
   );

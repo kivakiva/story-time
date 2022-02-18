@@ -2,6 +2,7 @@ import Timeago from "react-timeago";
 import { Link } from "react-router-dom";
 const ConversationItem = (props) => {
   const { name, lastMessage, avatar, datetimeSent, id } = props;
+  console.log(datetimeSent)
 
   const userID = localStorage.getItem("userID");
 
