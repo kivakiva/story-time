@@ -45,7 +45,7 @@ const SingleListen = ({
                 alt={`Cover of ${book_title}`}
               />
             </figure>
-            <div className="my-3 mr-3">
+            <div className="my-3 ml-1 mr-3 text-right">
               <h3 style={{ color: "#005B45" }} className="card-title mb-0">
                 {book_title}
               </h3>
@@ -61,7 +61,7 @@ const SingleListen = ({
             </div>
           </div>
           {request_text && (
-            <p className="text-right p-2 pt-3 m-1">"{request_text}"</p>
+            <p className="text-right p-2 m-1">"{request_text}"</p>
           )}
         </div>
       )}
