@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import MessageContext from "../../context/messageContext";
 
-function MessageInput() {
+function MessageInput(props) {
+  const { className } = props;
+  // console.log(className);
   const { message, setMessage, sendMessageIfEnterPressed } =
     useContext(MessageContext);
 
@@ -11,6 +13,7 @@ function MessageInput() {
 
   return (
     <input
+      className={className}
       onChange={messageChangeHandler}
       type="text"
       placeholder=""

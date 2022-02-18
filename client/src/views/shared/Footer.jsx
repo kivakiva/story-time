@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MessageInput from "../Conversations/MessageInput";
 import MessageContext from "../../context/messageContext";
@@ -14,17 +14,26 @@ function Footer(props) {
     );
     return locationMatchesIconArr.length === 0 && "text-base-300";
   };
-
   const greyOutHomeIfPathIsNotHome = () => {
     if (pathname !== "/") {
       return "text-base-300";
     }
   };
 
+  /*
+   border-top: 1px black solid;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+   */
   return (
-    <nav className="footer bg-base-100 gap-2 h-20">
+    <nav className="footer fixed flex justify-around border-t-black border-t bottom-0 bg-base-100 gap-2 h-20">
       {chatOpen ? (
-        <MessageInput />
+        <Fragment>
+          <p>ash</p>
+          <MessageInput className="" />
+        </Fragment>
       ) : (
         <>
           <Link to="/">

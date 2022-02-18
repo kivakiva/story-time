@@ -18,7 +18,6 @@ const Conversation = (props) => {
     setMessage,
     messageSending,
     setMessageSending,
-    chatOpen,
     setChatOpen,
   } = useContext(MessageContext);
 
@@ -125,6 +124,7 @@ const Conversation = (props) => {
     }
   };
 
+  // Trigger message sending when MessageInput (in Footer) submits
   useEffect(() => {
     if (messageSending) {
       messageSubmitHandler();
@@ -132,14 +132,7 @@ const Conversation = (props) => {
     }
   }, [messageSending]);
 
-  let parsedMessages = [];
-  if (messagesData) {
-    parsedMessages = messagesData.map((messageData) => (
-      <Message key={messageData.id} {...messageData} userID={userID} />
-    ));
-  }
-
-  // Trigger replacement of Nav Bar with Chat Input
+  // Trigger replacement of Nav Bar with MessageInput
   useEffect(() => {
     setChatOpen(true);
   }, []);
@@ -147,10 +140,18 @@ const Conversation = (props) => {
     setChatOpen(false);
   };
 
-  // Scroll down to latest message when message is sent/received
+  // SCROLL DOWN to latest message when message is sent/received
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messagesData]);
+
+  // MAP out MESSAGES for rendering
+  let parsedMessages = [];
+  if (messagesData) {
+    parsedMessages = messagesData.map((messageData) => (
+      <Message key={messageData.id} {...messageData} userID={userID} />
+    ));
+  }
 
   return (
     <div>
@@ -166,14 +167,17 @@ const Conversation = (props) => {
         </span>
       </div>
       <div className="pt-8 pb-4">{parsedMessages}</div>
-      <div className="mb-24" ref={messagesEndRef} />
-      {/* for scrolling to bottom */}
+      <div /* for scrolling to bottom */
+        className="mb-24"
+        ref={messagesEndRef}
+      />
     </div>
   );
 };
 export default Conversation;
 
-/*const testMessages = {
+/*
+const testMessages = {
   partner: "Andy Newman",
   messages: [
     {
@@ -226,5 +230,4 @@ export default Conversation;
     },
   ],
 };
-
 */
