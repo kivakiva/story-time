@@ -3,7 +3,7 @@ import Timeago from "react-timeago";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import capitalize from "./helpers/capitalize";
-// import getCover from "./helpers/getCover";
+import getCover from "./helpers/getCover";
 
 const SingleReadOffer = (offer) => {
   const [listener, setListener] = useState({});
@@ -37,16 +37,9 @@ const SingleReadOffer = (offer) => {
   useEffect(() => {
     if (request.book_title) {
       const title = request.book_title;
-      axios
-        .get(`https://www.googleapis.com/books/v1/volumes?q=${title}`)
-        .then((res) => {
-          const thumbnail = res.data.items[0].volumeInfo.imageLinks.thumbnail;
-          setCover(thumbnail);
-        })
-        .catch((err) => {
-          console.log("getCover error");
-          console.log(err);
-        });
+      getCover(title).then((res) => {
+        setCover(res);
+      });
     }
   }, [request]);
 
