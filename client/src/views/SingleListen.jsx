@@ -36,25 +36,33 @@ const SingleListen = ({
   return (
     <Link className="min-w-full" to={`/listen/${id}`}>
       {!accepted_at && !cancelled_at && (
-        <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-1 shadow-xl">
-          <figure className="mt-3 ml-3" style={{ border: "3px solid #796d5d" }}>
-            <img src={volume.cover} alt={`Cover of ${book_title}`} />
-          </figure>
-          <div className="card-body p-3">
-            <h3 style={{ color: "#005B45" }} className="card-title mb-0">
-              {book_title}
-            </h3>
-            <p className="pb-3 font-semibold">by {volume.author}</p>
-            <p className="text-right">
-              <span className="badge badge-accent font-semibold">
-                {listener}
-              </span>
-              <span className="flex justify-end py-2">
-                {renderRating(listenerRating)}
-              </span>
-            </p>
-            <p className="text-right"> {request_text}</p>
+        <div className="click-shadow card border-solid border-stone-400 border flex flex-col bg-base-300 m-2 my-3 p-1 shadow-xl">
+          <div className="flex">
+            <figure className="mt-3 ml-3" style={{ width: "10rem" }}>
+              <img
+                style={{ border: "3px solid #796d5d" }}
+                src={volume.cover}
+                alt={`Cover of ${book_title}`}
+              />
+            </figure>
+            <div className="my-3 mr-3">
+              <h3 style={{ color: "#005B45" }} className="card-title mb-0">
+                {book_title}
+              </h3>
+              <p className="pb-3 font-semibold">by {volume.author}</p>
+              <p className="text-right">
+                <span className="badge badge-accent font-semibold">
+                  {listener}
+                </span>
+                <span className="flex justify-end py-2">
+                  {renderRating(listenerRating)}
+                </span>
+              </p>
+            </div>
           </div>
+          {request_text && (
+            <p className="text-right p-2 pt-3 m-1">"{request_text}"</p>
+          )}
         </div>
       )}
     </Link>
