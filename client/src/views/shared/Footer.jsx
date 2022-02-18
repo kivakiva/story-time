@@ -56,7 +56,7 @@ function Footer(props) {
           <Link to="/profile">
             <i
               className={`fa-solid fa-user footer-icon ${greyOutNavIconIfPathDoesNotContain(
-                ["profile"]
+                ["profile", "login"]
               )}`}
             ></i>
           </Link>
