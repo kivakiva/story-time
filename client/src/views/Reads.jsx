@@ -1,6 +1,4 @@
-import SingleReadOffer from "./SingleReadOffer";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import SingleReadOffer from "./MyReadOffer";
 
 const Reads = (props) => {
   const { myReads } = props;
