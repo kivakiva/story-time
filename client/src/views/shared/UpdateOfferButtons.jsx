@@ -10,7 +10,7 @@ const UpdateOfferButtons = ({ offerID }) => {
   const cancelOffer = () => {
     try {
       axios.delete(`/reads/${offerID}`);
-      navigate("/");
+      navigate(-1);
     } catch (err) {
       console.log(err);
     }
