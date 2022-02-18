@@ -4,9 +4,9 @@ import Error from "../shared/Error";
 import axios from "axios";
 
 const ListenNew = (props) => {
-  const userID = localStorage.getItem("userID")
+  const userID = localStorage.getItem("userID");
   const navigate = useNavigate();
-  
+
   if (!userID) {
     navigate("/login"); //if not logged in redirect to login
   }
@@ -144,7 +144,7 @@ const ListenNew = (props) => {
               <p>{request.request_text}</p>
               <p>{request.online && "Online"}</p>
               <p>{request.in_person && "In Person"}</p>
-              <button class="btn btn-outline">
+              <button className="btn btn-outline">
                 <Link to="/myreads">View in my Requests</Link>
               </button>
             </div>

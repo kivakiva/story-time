@@ -15,6 +15,7 @@ export const MessageProvider = (props) => {
   const [messageSending, setMessageSending] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
 
+  // if RETURN/ENTER key pressed
   const sendMessageIfEnterPressed = (e) => {
     if (e.key === "Enter") {
       setMessageSending(true);
