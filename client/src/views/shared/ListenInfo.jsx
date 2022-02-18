@@ -12,18 +12,19 @@ const ListenInfo = ({
   let badgeClass = "";
   switch (status) {
     case "active":
-      badgeClass = "secondary";
+      badgeClass = "badge-secondary";
       break;
     case "pending":
-      badgeClass = "accent";
+      badgeClass = "badge-accent";
       break;
     case "cancelled":
-      badgeClass = "primary";
+      badgeClass = "badge-primary";
       break;
     default:
       badgeClass = "badge";
   }
-  const noMessage = "No message";
+  const noRequestText = "The request was made without a message";
+  const noOfferText = "The offer was made without a message";
 
   return (
     <>
@@ -43,11 +44,11 @@ const ListenInfo = ({
             <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
               Listener:
             </p>
-            <p className="pb-2">{listen.request_text || noMessage}</p>
+            <p className="pb-2">{listen.request_text || noRequestText}</p>
             <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
               Reader:
             </p>
-            <p>{offer.offer_text || noMessage}</p>
+            <p>{offer.offer_text || noOfferText}</p>
           </div>
         ) : (
           <p className="text-left py-2 my-1 text-lg leading-5">
@@ -58,9 +59,7 @@ const ListenInfo = ({
           <p className="font-semibold text-sm">Total offers: {totalOffers}</p>
         )}
         <p>
-          <span className={`badge badge-${badgeClass} py-3 my-3`}>
-            {status}
-          </span>
+          <span className={`badge ${badgeClass} py-3 my-3`}>{status}</span>
           {whoCancelled && (
             <span
               style={{ color: "#7A1C00" }}

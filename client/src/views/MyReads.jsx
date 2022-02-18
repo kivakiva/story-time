@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Reads from "./Reads";
-import Listens from "./Listens";
+import Listens from "./MyListens";
 
 const MyReads = (props) => {
   const [state, setState] = useState("listening");
@@ -29,9 +29,9 @@ const MyReads = (props) => {
         setError("Error loading data");
         setMyReads([]);
         console.log(err.response.data);
-        console.log(err);
+        console.log(error);
       });
-  }, [userID]);
+  }, [userID, error]);
 
   const listenTab = () => {
     return state === "listening" ? "bg-base-200" : "";
@@ -45,7 +45,6 @@ const MyReads = (props) => {
 
   return (
     <main>
-      <p>MyReads</p>
       <span onClick={() => listening()} className={`${tab} ${listenTab()}`}>
         <>Listening</>
       </span>{" "}

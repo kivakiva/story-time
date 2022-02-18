@@ -8,10 +8,14 @@ import ListenInfo from "../shared/ListenInfo";
 import OfferSubmitForm from "../shared/OfferSubmitForm";
 import UpdateOfferButtons from "../shared/UpdateOfferButtons";
 import Notice from "../shared/Notice";
+import Timeago from "react-timeago";
+import { useNavigate } from "react-router";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
   const { listenId } = useParams();
+  const navigate = useNavigate();
+
   const [listen, setListen] = useState({});
   const [offers, setOffers] = useState("");
   const [offer, setOffer] = useState("");
@@ -84,7 +88,7 @@ const ListenExpand = () => {
 
     for (const offer of readOffers) {
       if (offer.request_id === listen.id && offer.reader_id === userID) {
-        return offer.offer_text || "You have made an offer without a message";
+        return offer.offer_text || "You have made the offer without a message";
       }
     }
     return null;
@@ -113,7 +117,35 @@ const ListenExpand = () => {
     active: listen.accepted_at && !listen.completed_at && !listen.cancelled_at,
     cancelled: listen.cancelled_at !== null,
     completed: listen.completed_at !== null,
-    pending: !listen.accepted_at && !listen.completed_at,
+    pending:
+      !listen.accepted_at && !listen.completed_at && !listen.cancelled_at,
+  };
+
+  const cancelReading = async () => {
+    try {
+      await axios.put(`/listens/${listen.id}`, {
+        action: "CANCEL",
+        who_cancelled_id: userID,
+      });
+      setError("");
+      navigate("/myreads");
+    } catch (err) {
+      setError("Could not cancel reading! Try again later");
+      console.log(err);
+    }
+  };
+
+  const completeReading = async () => {
+    try {
+      await axios.put(`/listens/${listen.id}`, {
+        action: "COMPLETE",
+      });
+      setError("");
+      navigate("/myreads");
+    } catch (err) {
+      setError("Could not complete the reading! Try again later.");
+      console.log(err);
+    }
   };
 
   return (
@@ -131,12 +163,12 @@ const ListenExpand = () => {
             )
           }
 
-          {
+          {/* {
             // Show listener card if the listener is viewing their request and it is pending
             correctListener() && reqStatus.pending && (
               <UserCard listen={listen} user={listener} />
             )
-          }
+          } */}
           {
             // Show listener card if the listener is viewing their request and it was cancelled while pending
             correctListener() && reqStatus.cancelled && !listen.reader_id && (
@@ -158,14 +190,14 @@ const ListenExpand = () => {
             !reqStatus.pending && !correctListener() && !correctReader() && (
               <>
                 <p className="text-lg font-semibold my-2">Nothing here</p>
-                <Link className="btn btn-secondary self-center" to="/">
+                <Link className="btn btn-outline my-2 self-center" to="/">
                   Home
                 </Link>
               </>
             )
           }
 
-          {reqStatus.pending && (
+          {reqStatus.pending && !correctListener() && (
             <ListenInfo
               listen={listen}
               totalOffers={totalOffers}
@@ -289,7 +321,7 @@ const ListenExpand = () => {
               alreadyOfferedText() && (
                 <div>
                   <div className="bg-base-300 p-4 px-10 mt-5 mb-3 text-left">
-                    <p className="font-semibold">Your offer message:</p>
+                    <p className="font-semibold">Your offer:</p>
                     <p>{alreadyOfferedText()}</p>
                   </div>
                   <UpdateOfferButtons offerID={offer.id} />
@@ -307,23 +339,61 @@ const ListenExpand = () => {
             )
           }
 
-          {
-            // Render cancel button if the logged in user is the reader of the request
-            // or the listener(creator) of the request
-            // and the request status is active (ongoing session)
-            reqStatus.active && (correctReader() || correctListener()) && (
-              <button className="m-3 self-center btn btn-primary">
-                Cancel reading
-              </button>
-            )
-          }
+          <div className="m-1 mb-6">
+            {
+              // Render complete button if the logged in user is the listener(creator) of the request
+              // and the request status is active (ongoing session)
+              reqStatus.active && correctListener() && (
+                <button
+                  onClick={completeReading}
+                  className="mx-1 btn btn-secondary border-2 border-solid border-slate-500"
+                >
+                  Complete
+                </button>
+              )
+            }
+
+            {
+              // Render cancel button if the logged in user is the reader of the request
+              // or the listener(creator) of the request
+              // and the request status is active (ongoing session)
+              reqStatus.active && (correctReader() || correctListener()) && (
+                <button
+                  onClick={cancelReading}
+                  className="mx-1 px-6 btn btn-active "
+                >
+                  Cancel
+                </button>
+              )
+            }
+          </div>
 
           {/* ---------- RENDER READ OFFERS ---------- */}
 
           {
             // Render offers if logged in user is the listener and the request status is 'pending'
             correctListener() && reqStatus.pending && (
-              <Offers offers={offers} reqStatus={reqStatus} />
+              <div className="my-2 mx-8">
+                <div className="mb-4">
+                  <p className="text-xl">Your request to listen to</p>
+                  <h3
+                    style={{ color: "#005B45" }}
+                    className="text-3xl font-semibold my-3"
+                  >
+                    {listen.book_title}
+                  </h3>
+                  <p>
+                    <span>made </span>
+                    <Timeago date={listen.created_at} />
+                  </p>
+                </div>
+
+                {offers ? (
+                  <Offers offers={offers} reqStatus={reqStatus} />
+                ) : (
+                  <p className="font-semibold">No offers yet!</p>
+                )}
+              </div>
             )
           }
 
@@ -334,7 +404,7 @@ const ListenExpand = () => {
             !userID && (
               <Link
                 to="/login"
-                className="btn btn-primary mb-16 self-start mx-8 my-1"
+                className="btn btn-secondary border-2 border-solid border-slate-500 mb-6 self-start mx-8 my-1"
               >
                 Offer to Read
               </Link>
