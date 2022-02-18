@@ -1,4 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
+import { ImCancelCircle } from "react-icons/im";
 import { useState } from "react";
 import Error from "../shared/Error";
 import axios from "axios";
@@ -141,10 +142,19 @@ const ListenNew = (props) => {
             </div>
 
             {error && <Error error={error}></Error>}
-
-            <button className="btn btn-outline mb-16" onClick={submitHandler}>
-              Submit Request
-            </button>
+            <div className="flex">
+              <button className="btn btn-outline m-2" onClick={submitHandler}>
+                Submit Request
+              </button>
+              <button
+                className="btn btn-outline m-2"
+                aria-pressed="true"
+                onClick={() => navigate(-1)}
+              >
+                <ImCancelCircle className="inline-block mr-2" />
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       ) : (
