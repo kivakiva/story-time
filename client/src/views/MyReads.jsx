@@ -1,17 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Reads from "./Reads";
 import Listens from "./MyListens";
+import MyReadsContext from "../context/myReadsContext";
 
 const MyReads = (props) => {
-  const [state, setState] = useState("listening");
+  const { currentTab, setCurrentTab, listening, reading } =
+    useContext(MyReadsContext);
 
-  const listening = () => {
-    setState("listening");
-  };
-  const reading = () => {
-    setState("reading");
-  };
   const userID = localStorage.getItem("userID");
   const [myReads, setMyReads] = useState([]);
   const [myListens, setMyListens] = useState([]);
@@ -38,11 +34,11 @@ const MyReads = (props) => {
   //   console.log(myListens);
   // }, [myListens]);
   const listenTab = () => {
-    return state === "listening" ? "bg-base-200" : "";
+    return currentTab === "listening" ? "bg-base-200" : "";
   };
 
   const readTab = () => {
-    return state === "reading" ? "bg-base-200" : "";
+    return currentTab === "reading" ? "bg-base-200" : "";
   };
 
   const tab = "rounded-t-xl px-3 pb-2 pt-3 border border-b-base-200";
@@ -57,8 +53,8 @@ const MyReads = (props) => {
           <i className="fa-solid fa-microphone text-2xl mr-2"></i> Reading
         </span>
       </div>
-      {state === "reading" && <Reads myReads={myReads} />}
-      {state === "listening" && <Listens myListens={myListens} />}
+      {currentTab === "reading" && <Reads myReads={myReads} />}
+      {currentTab === "listening" && <Listens myListens={myListens} />}
     </main>
   );
 };

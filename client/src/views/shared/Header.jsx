@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import MessageContext from "../../context/messageContext";
+import displayNotification from "../helpers/displayNotification";
 
 function Header() {
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ function Header() {
               <i className="fa-solid fa-angle-left fa-2xl"></i>
             </button>
           )}
-          <h1 className="app-name">StoryTime</h1>
+          <h1 onClick={() => displayNotification("TEST")} className="app-name">
+            StoryTime
+          </h1>
         </div>
       </div>
       <div className="app-name">
