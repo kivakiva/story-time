@@ -41,16 +41,18 @@ const MyReads = (props) => {
     return state === "reading" ? "bg-base-200" : "";
   };
 
-  const tab = "rounded-t-xl px-3 pb-2";
+  const tab = "rounded-t-xl px-3 pb-2 pt-3 border border-b-base-200";
 
   return (
     <main>
-      <span onClick={() => listening()} className={`${tab} ${listenTab()}`}>
-        <>Listening</>
-      </span>{" "}
-      <span onClick={() => reading()} className={`${tab} ${readTab()}`}>
-        <>Reading</>
-      </span>
+      <div className="mt-6 -mb-1">
+        <span onClick={() => listening()} className={`${tab} ${listenTab()}`}>
+          <i class="fa-solid fa-headphones text-2xl mr-2"></i> Listening
+        </span>
+        <span onClick={() => reading()} className={`${tab} ${readTab()}`}>
+          <i class="fa-solid fa-microphone text-2xl mr-2"></i> Reading
+        </span>
+      </div>
       {state === "reading" && <Reads myReads={myReads} />}
       {state === "listening" && <Listens myListens={myListens} />}
     </main>
