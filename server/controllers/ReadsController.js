@@ -198,7 +198,7 @@ const destroy = async (req, res) => {
     });
   } catch (err) {
     res.status(500).send({
-      message: "Could not retrieve request offer",
+      message: "Could not delete request offer",
       error: err.message,
     });
   }
