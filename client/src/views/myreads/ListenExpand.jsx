@@ -203,6 +203,7 @@ const ListenExpand = () => {
           }
           {
             // Show reader card if the listener is viewing their request and it is accepted
+            // (active, cancelled or completed)
             correctListener() && reqStatus.accepted && (
               <UserCard listen={listen} user={reader} />
             )
@@ -377,7 +378,7 @@ const ListenExpand = () => {
               reqStatus.active && correctListener() && (
                 <button
                   onClick={completeReading}
-                  className="mx-1 btn btn-secondary border-2 border-solid border-slate-500"
+                  className="mx-1 btn btn-secondary border-2 border-solid border-main-100"
                 >
                   Complete
                 </button>

@@ -30,7 +30,7 @@ const ListenInfo = ({
 
       <div className="flex flex-col items-start mb-2 my-4 mx-6">
         <Book
-          title={listen.book_title}
+          title={volume.title}
           author={volume.author}
           cover={volume.cover}
         />

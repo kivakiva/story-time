@@ -14,7 +14,7 @@ const Book = ({ title, author, cover }) => {
       </div>
       <figure className="flex flex-row justify-end" style={{ width: "10rem" }}>
         <img
-          style={{ border: "3px solid #796d5d" }}
+          className="border-main-100 border border-2"
           src={cover}
           alt={`Cover of ${title}`}
         />
