@@ -76,13 +76,12 @@ const Conversations = (props) => {
       } else {
         lastMessagesObj[convoID] = msg;
       }
-
-      setLastMessages(
-        Object.values(lastMessagesObj).sort(
-          (a, b) => new Date(b.created_at) - new Date(b.created_at)
-        )
-      );
     }
+    setLastMessages(
+      Object.values(lastMessagesObj).sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      )
+    );
   };
 
   useEffect(() => {
