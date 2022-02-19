@@ -356,7 +356,7 @@ const ListenExpand = () => {
                     <p className="font-semibold">Your offer:</p>
                     <p>{alreadyOfferedText()}</p>
                   </div>
-                  <UpdateOfferButtons offerID={offer.id} />
+                  <UpdateOfferButtons id={offer.id} type={"offer"} />
                 </div>
               )
           }
@@ -364,10 +364,7 @@ const ListenExpand = () => {
           {
             // Render notice if the logged in user is the reader of the request and the reading session has been completed
             reqStatus.completed && correctReader() && (
-              <Notice
-                className="mb-24"
-                message="You have completed this reading request!"
-              />
+              <Notice message="You have completed this reading request!" />
             )
           }
 
@@ -419,6 +416,7 @@ const ListenExpand = () => {
                     <Timeago date={listen.created_at} />
                   </p>
                 </div>
+                <UpdateOfferButtons id={listen.id} type={"request"} />
 
                 {offers ? (
                   <Offers offers={offers} reqStatus={reqStatus} />

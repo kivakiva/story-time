@@ -9,17 +9,20 @@ import "animate.css";
 import Notification from "./Notification";
 import { Link } from "react-router-dom";
 import Error from "./Error";
+import capitalize from "../helpers/capitalize";
 
-const UpdateOfferButtons = ({ offerID }) => {
+const UpdateOfferButtons = ({ id, type }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const cancelOffer = async () => {
+  const url = type === "offer" ? `/reads/${id}` : `/listens/${id}`;
+
+  const deleteSubmition = async () => {
     try {
-      await axios.delete(`/reads/${offerID}`);
+      await axios.delete(url);
       setError("");
       Store.addNotification({
-        content: <Notification message="Offer cancelled" />,
+        content: <Notification message={`${capitalize(type)} cancelled`} />,
         container: "center",
         animationIn: ["animate__animated animate__fadeIn"],
         animationOut: ["animate__animated animate__fadeOut"],
@@ -38,14 +41,11 @@ const UpdateOfferButtons = ({ offerID }) => {
     <>
       {error && <Error error={error} />}
       <div className="flex p-1 mb-6 justify-center">
-        <Link
-          to={`/offer/${offerID}/edit`}
-          className="btn btn-outline px-7 mx-1"
-        >
+        <Link to={`/${type}/${id}/edit`} className="btn btn-outline px-7 mx-1">
           <AiFillEdit className="inline-block mr-2" />
           Edit
         </Link>
-        <button onClick={cancelOffer} className="btn btn-outline mx-1">
+        <button onClick={deleteSubmition} className="btn btn-outline mx-1">
           <ImCancelCircle className="inline-block mr-2" />
           Cancel
         </button>
