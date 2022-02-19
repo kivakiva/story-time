@@ -7,6 +7,7 @@ import { Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
 import Notification from "./Notification";
+import { Link } from "react-router-dom";
 
 const UpdateOfferButtons = ({ offerID }) => {
   const navigate = useNavigate();
@@ -31,10 +32,10 @@ const UpdateOfferButtons = ({ offerID }) => {
 
   return (
     <div className="flex p-1 mb-6 justify-center">
-      <button className="btn btn-outline px-7 mx-1">
+      <Link to={`/offer/${offerID}/edit`} className="btn btn-outline px-7 mx-1">
         <AiFillEdit className="inline-block mr-2" />
         Edit
-      </button>
+      </Link>
       <button onClick={cancelOffer} className="btn btn-outline mx-1">
         <ImCancelCircle className="inline-block mr-2" />
         Cancel

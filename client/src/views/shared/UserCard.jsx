@@ -12,7 +12,7 @@ const UserCard = ({ listen, user }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-start  p-1 mt-3 m-1">
+      <div className="flex flex-col items-start p-1 mt-3 m-1">
         <div className="flex mt-1">{renderRating(user.listener_rating)}</div>
         <p className="mb-1">Listens: {user.accepted_listens}</p>
         <div className="flex mt-1">{renderRating(user.reader_rating)}</div>
@@ -21,7 +21,7 @@ const UserCard = ({ listen, user }) => {
           <span>read type: </span>
           {listen.online && (
             <span className="badge badge-info bg-secondary mb-1 border-solid border-slate-400">
-              online{" "}
+              online
             </span>
           )}
           {listen.in_person && (

@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Timeago from "react-timeago";
 import renderRating from "./helpers/renderRating";
+import { Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
+import Notification from "./shared/Notification";
 
 const Offer = (props) => {
-  const { id, request_id, created_at, reader_id, offer_text, state } =
-    props.offer;
+  const { id, request_id, created_at, reader_id, offer_text } = props.offer;
   const [reader, setReader] = useState({});
   const navigate = useNavigate();
 
@@ -28,7 +31,16 @@ const Offer = (props) => {
         action: "ACCEPT",
         request_offer_id: id,
       });
-      navigate(`/myreads`);
+      Store.addNotification({
+        content: <Notification message="Offer accepted" />,
+        container: "center",
+        animationIn: ["animate__animated animate__fadeIn"],
+        animationOut: ["animate__animated animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+        },
+      });
+      navigate("/myreads");
     } catch (err) {
       console.log(err);
     }
@@ -51,8 +63,13 @@ const Offer = (props) => {
           <span>{reader.accepted_reads}</span>
         </p>
       </div>
-      <div className="flex flex-col m-1 mt-3 py-1 pl-2 ml-2">
-        {offer_text && <p className="text-left">"{offer_text}"</p>}
+      <div className="flex flex-col m-1 mt-3 py-1 pl-2 ml-2 ">
+        {offer_text && <p className="text-right">"{offer_text}"</p>}
+        {!offer_text && (
+          <p className="text-right">
+            Reader has made an offer without a message
+          </p>
+        )}
         <button
           onClick={acceptOffer}
           className="btn btn-sm my-2 btn-secondary border-2 border-solid border-slate-500"

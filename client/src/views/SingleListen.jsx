@@ -28,7 +28,7 @@ const SingleListen = ({ id, request_text, book_title, listener_id }) => {
   return (
     <Link className="min-w-full" to={`/listen/${id}`}>
       <div className="click-shadow card border-solid border-stone-400 border flex flex-col bg-base-300 m-2 my-3 p-1 shadow-xl">
-        <div className="flex">
+        <div className="flex justify-between">
           <figure className="mt-3 ml-3" style={{ width: "10rem" }}>
             <img
               style={{ border: "3px solid #796d5d" }}
