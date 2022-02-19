@@ -25,6 +25,7 @@ function MessageInput(props) {
         value={message}
         onKeyPress={sendMessageIfEnterPressed}
         ref={refInput}
+        autoFocus
       />
       <button
         onClick={buttonClickHandler}

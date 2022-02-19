@@ -96,6 +96,7 @@ const ListenNew = (props) => {
               value={book_title}
               placeholder=""
               onChange={bookTitleChangeHandler}
+              autoFocus
             />
 
             <label className="label mt-4">My Request Message</label>
