@@ -33,9 +33,9 @@ const Conversations = (props) => {
     );
   };
 
-  useEffect(() => {
-    console.log(lastMessages);
-  }, [lastMessages]);
+  // useEffect(() => {
+  //   console.log(lastMessages);
+  // }, [lastMessages]);
 
   useEffect(() => {
     axios.get("/messages").then((results) => {
@@ -53,10 +53,8 @@ const Conversations = (props) => {
   }
 
   return (
-    <div>
-      <div className="flex flex-col w-full lg:flex-row divide-y">
-        {parsedConversations}
-      </div>
+    <div className="flex flex-col items-center mt-6">
+      {parsedConversations}
     </div>
   );
 };

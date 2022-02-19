@@ -140,9 +140,6 @@ const Conversation = (props) => {
       setChatOpen(false);
     };
   }, []);
-  const back = () => {
-    setChatOpen(false);
-  };
 
   // SCROLL DOWN to latest message when message is sent/received
   useEffect(() => {
@@ -156,11 +153,6 @@ const Conversation = (props) => {
       <Message key={messageData.id} {...messageData} userID={userID} />
     ));
   }
-  /*
-     <Link to="/conversations" onClick={() => back()}>
-          <i className="fa-solid fa-angles-left left-0 pl-4 pt-2"></i>
-        </Link>
-*/
   return (
     <div>
       <div className="fixed left-0 top-0 bg-base-100 z-9 w-full h-24 "></div>
@@ -168,7 +160,7 @@ const Conversation = (props) => {
       <div className="fixed left-0 right-0 flex items-start justify-start px-6">
         {convoInfo.image_url && (
           <img
-            className="border w-28 h-28 rounded-full object-cover ml-2 mt-1 mr-4"
+            className="border w-28 h-28 rounded-full object-cover ml-2 mt-1 mr-4 ring ring-primary ring-offset-base-100 ring-offset-2"
             src={convoInfo.image_url}
             alt=""
           />
