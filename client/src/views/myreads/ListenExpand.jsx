@@ -10,6 +10,10 @@ import UpdateOfferButtons from "../shared/UpdateOfferButtons";
 import Notice from "../shared/Notice";
 import Timeago from "react-timeago";
 import { useNavigate } from "react-router";
+import { Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
+import Notification from "../shared/Notification";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
@@ -128,6 +132,15 @@ const ListenExpand = () => {
         who_cancelled_id: userID,
       });
       setError("");
+      Store.addNotification({
+        content: <Notification message="Reading cancelled" />,
+        container: "center",
+        animationIn: ["animate__animated animate__fadeIn"],
+        animationOut: ["animate__animated animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+        },
+      });
       navigate("/myreads");
     } catch (err) {
       setError("Could not cancel reading! Try again later");
@@ -141,6 +154,15 @@ const ListenExpand = () => {
         action: "COMPLETE",
       });
       setError("");
+      Store.addNotification({
+        content: <Notification message="Reading completed" />,
+        container: "center",
+        animationIn: ["animate__animated animate__fadeIn"],
+        animationOut: ["animate__animated animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+        },
+      });
       navigate("/myreads");
     } catch (err) {
       setError("Could not complete the reading! Try again later.");
