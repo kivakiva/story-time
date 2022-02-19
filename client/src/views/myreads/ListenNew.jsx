@@ -133,7 +133,7 @@ const ListenNew = (props) => {
                     value={online}
                   />
                   <i
-                    class={`fa-solid fa-phone text-xl ml-3 w-4 ${
+                    className={`fa-solid fa-phone text-xl ml-3 w-4 ${
                       !online && "opacity-20"
                     }`}
                   ></i>

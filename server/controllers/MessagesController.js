@@ -3,9 +3,23 @@ const UsersModel = require("../models/UsersModel");
 const MessagesModel = require("../models/MessagesModel");
 
 const getAllByUserID = (req, res) => {
-  return res
-    .status(200)
-    .send({ message: "It was the best of times, it was the worst of times" });
+  const userID = req.session.userID;
+
+  if (!userID) {
+    return res.status(400).send({ message: "User not logged in" });
+  }
+
+  MessagesModel.getAllByUserID(userID)
+    .then((result) => {
+      console.log(result);
+      return res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log({ err, message: "Could not get all messages from userID" });
+      return res
+        .status(400)
+        .send({ err, message: "Could not get all messages from userID" });
+    });
 };
 
 const create = (req, res) => {
@@ -27,7 +41,7 @@ const getAllByPartnerID = (req, res) => {
 
   MessagesModel.getAllByPartnerID(sender_id, recipient_id)
     .then((result) => {
-      console.log(result)
+      console.log(result);
       return res.status(200).send(result);
     })
     .catch((err) => err.message);
@@ -46,4 +60,5 @@ module.exports = {
   create,
   getAllByPartnerID,
   destroy,
+  getAllByUserID,
 };
