@@ -3,7 +3,7 @@ import Notification from "../shared/Notification";
 
 const displayNotification = (message) => {
   Store.addNotification({
-    content: <Notification message={`TEST! ${message}`} />,
+    content: <Notification message={`${message}`} />,
     container: "center",
     animationIn: ["animate__animated animate__fadeIn"],
     animationOut: ["animate__animated animate__fadeOut"],
