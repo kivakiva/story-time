@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import getVolume from "../helpers/getVolume";
 import AcceptedRequestMessages from "./AcceptedRequestMessages";
 import Book from "./Book";
 import StatusBadge from "./StatusBadge";
@@ -12,15 +10,6 @@ const ListenInfo = ({
   whoCancelled,
   offer,
 }) => {
-  const [volume, setVolume] = useState({});
-
-  useEffect(() => {
-    console.log("GOOGLE BOOKS CALL");
-    if (listen.book_title) {
-      getVolume(listen.book_title).then((volume) => setVolume(volume));
-    }
-  }, [listen.book_title]);
-
   return (
     <>
       {/* Action line styled to blend in with user card */}
@@ -29,11 +18,7 @@ const ListenInfo = ({
       </p>
 
       <div className="flex flex-col items-start mb-2 my-4 mx-6">
-        <Book
-          title={volume.title}
-          author={volume.author}
-          cover={volume.cover}
-        />
+        <Book title={listen.book_title} />
 
         {
           // Show listener's request message if the read request is in pending state

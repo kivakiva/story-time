@@ -14,6 +14,7 @@ import { Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
 import Notification from "../shared/Notification";
+import Book from "../shared/Book";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
@@ -189,12 +190,6 @@ const ListenExpand = () => {
             )
           }
 
-          {/* {
-            // Show listener card if the listener is viewing their request and it is pending
-            correctListener() && reqStatus.pending && (
-              <UserCard listen={listen} user={listener} />
-            )
-          } */}
           {
             // Show listener card if the listener is viewing their request and it was cancelled while pending
             correctListener() && reqStatus.cancelled && !listen.reader_id && (
@@ -404,13 +399,8 @@ const ListenExpand = () => {
             correctListener() && reqStatus.pending && (
               <div className="my-2 mx-8">
                 <div className="mb-4">
-                  <p className="text-xl">Your request to listen to</p>
-                  <h3
-                    style={{ color: "#005B45" }}
-                    className="text-3xl font-semibold my-3"
-                  >
-                    {listen.book_title}
-                  </h3>
+                  <p className="text-xl mb-6">Your request to listen to</p>
+                  <Book title={listen.book_title} />
                   <p>
                     <span>made </span>
                     <Timeago date={listen.created_at} />
