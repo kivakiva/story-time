@@ -77,11 +77,15 @@ const SingleReadOffer = (offer) => {
         <div className="flex items-end flex-col justify-end text-right">
           <div>
             <figure>
-              <img
-                className="pl-3 py-3"
-                src={cover}
-                alt={`Cover of ${request.book_title}`}
-              />
+              {cover ? (
+                <img
+                  className="pl-3 py-3"
+                  src={cover}
+                  alt={`Cover of ${request.book_title}`}
+                />
+              ) : (
+                <div>:w</div>
+              )}
             </figure>
           </div>
           <div>{conditionalCancelButton(state)}</div>

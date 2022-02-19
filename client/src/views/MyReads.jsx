@@ -33,6 +33,10 @@ const MyReads = (props) => {
       });
   }, [userID, error]);
 
+  // useEffect(() => {
+  //   console.log("change to myListens");
+  //   console.log(myListens);
+  // }, [myListens]);
   const listenTab = () => {
     return state === "listening" ? "bg-base-200" : "";
   };
