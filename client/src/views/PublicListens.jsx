@@ -1,4 +1,4 @@
-import { Link, useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SingleListen from "./SingleListen";
@@ -25,8 +25,11 @@ const PublicListens = (props) => {
       });
   }, []);
 
-  const parsedListens = allListens.map((listen) => {
-    return <SingleListen key={listen.id} {...listen} />;
+  const parsedListens = [];
+  allListens.forEach((listen) => {
+    if (!listen.accepted_at && !listen.cancelled_at) {
+      parsedListens.push(<SingleListen key={listen.id} {...listen} />);
+    }
   });
 
   return (

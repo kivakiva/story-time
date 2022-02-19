@@ -148,6 +148,10 @@ const ListenExpand = () => {
     }
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       {!error && (
@@ -185,17 +189,6 @@ const ListenExpand = () => {
           {/* ---------- RENDER REQUEST INFO ---------- */}
 
           {/* Info from reader's perspective: */}
-          {
-            // Link to home if the request is not pending and the user is not associated with this request
-            !reqStatus.pending && !correctListener() && !correctReader() && (
-              <>
-                <p className="text-lg font-semibold my-2">Nothing here</p>
-                <Link className="btn btn-outline my-2 self-center" to="/">
-                  Home
-                </Link>
-              </>
-            )
-          }
 
           {reqStatus.pending && !correctListener() && (
             <ListenInfo
@@ -314,6 +307,22 @@ const ListenExpand = () => {
           {/* ---------- RENDER NOTICES AND BUTTONS ---------- */}
 
           {
+            // Link to home if the request is not pending and the user is not associated with this request
+            !reqStatus.pending && !correctListener() && !correctReader() && (
+              <>
+                <p className="text-lg font-semibold my-2">Nothing here</p>
+                <button
+                  onClick={goBack}
+                  className="btn btn-outline my-2 self-center"
+                  to="/"
+                >
+                  Go back
+                </button>
+              </>
+            )
+          }
+
+          {
             // Render notice if reader is not the same as listener and the reader has already submitted an offer for this request
             reqStatus.pending &&
               loggedInUser &&
@@ -401,7 +410,7 @@ const ListenExpand = () => {
 
           {
             // Render link to /login if user is not logged in
-            !userID && (
+            !userID && reqStatus.pending && (
               <Link
                 to="/login"
                 className="btn btn-secondary border-2 border-solid border-slate-500 mb-6 self-start mx-8 my-1"
