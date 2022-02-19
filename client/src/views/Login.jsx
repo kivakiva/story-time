@@ -98,6 +98,7 @@ const Login = () => {
               className="input input-bordered"
               value={name}
               onChange={nameChangeHandler}
+              autoFocus
             />
           </label>
         </div>
@@ -112,6 +113,7 @@ const Login = () => {
             className="input input-bordered"
             value={email}
             onChange={emailChangeHandler}
+            autoFocus
           />
         </label>
       </div>

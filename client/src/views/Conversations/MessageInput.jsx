@@ -20,11 +20,12 @@ function MessageInput(props) {
       <input
         type="text"
         placeholder=""
-        className="text-base input input-bordered bg-slate-200"
+        className="text-base input input-bordered"
         onChange={messageChangeHandler}
         value={message}
         onKeyPress={sendMessageIfEnterPressed}
         ref={refInput}
+        autoFocus
       />
       <button
         onClick={buttonClickHandler}

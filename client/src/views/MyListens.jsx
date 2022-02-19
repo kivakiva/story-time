@@ -27,7 +27,7 @@ const Listens = (props) => {
   });
 
   return (
-    <div className="m-2 flex items-center justify-evenly bg-base-200 mt-0 flex-wrap">
+    <div className="m-2 flex items-center justify-evenly bg-base-200 mt-2 border border-x-base-200 flex-wrap">
       <button className="btn btn-active my-6">Create read request</button>
       {parsedListens}
     </div>

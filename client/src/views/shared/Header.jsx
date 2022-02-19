@@ -1,10 +1,25 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import MessageContext from "../../context/messageContext";
 
-function Footer() {
+function Header() {
+  const navigate = useNavigate();
+  const { chatOpen } = useContext(MessageContext);
+
   return (
     <Fragment>
-      <div className="header  z-10 bg-gradient-to-b from-base-100 via-base-100 to-transparent">
-        <h1 className="app-name">StoryTime</h1>
+      <div className="header z-10 bg-gradient-to-b from-base-100 via-base-100 to-transparent">
+        <div className="relative">
+          {chatOpen && (
+            <button
+              className="absolute left-5 h-full"
+              onClick={() => navigate(-1)}
+            >
+              <i className="fa-solid fa-angle-left fa-2xl"></i>
+            </button>
+          )}
+          <h1 className="app-name">StoryTime</h1>
+        </div>
       </div>
       <div className="app-name">
         <br />
@@ -13,4 +28,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default Header;

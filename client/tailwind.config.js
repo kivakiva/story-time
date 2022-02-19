@@ -1,7 +1,17 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    colors: {
+      chat: {
+        100: "#B4E4D8",
+        200: "#D8B4E4",
+      },
+    },
+    extend: {
+      // spacing: {
+      //   '28':
+      // }
+    },
     container: {
       padding: {
         DEFAULT: "1rem",

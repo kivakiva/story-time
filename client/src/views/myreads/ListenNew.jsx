@@ -96,6 +96,7 @@ const ListenNew = (props) => {
               value={book_title}
               placeholder=""
               onChange={bookTitleChangeHandler}
+              autoFocus
             />
 
             <label className="label mt-4">My Request Message</label>
@@ -133,7 +134,7 @@ const ListenNew = (props) => {
                     value={online}
                   />
                   <i
-                    class={`fa-solid fa-phone text-xl ml-3 w-4 ${
+                    className={`fa-solid fa-phone text-xl ml-3 w-4 ${
                       !online && "opacity-20"
                     }`}
                   ></i>
