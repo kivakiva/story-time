@@ -47,10 +47,10 @@ const MyReads = (props) => {
     <main>
       <div className="mt-6 -mb-1">
         <span onClick={() => listening()} className={`${tab} ${listenTab()}`}>
-          <i class="fa-solid fa-headphones text-2xl mr-2"></i> Listening
+          <i className="fa-solid fa-headphones text-2xl mr-2"></i> Listening
         </span>
         <span onClick={() => reading()} className={`${tab} ${readTab()}`}>
-          <i class="fa-solid fa-microphone text-2xl mr-2"></i> Reading
+          <i className="fa-solid fa-microphone text-2xl mr-2"></i> Reading
         </span>
       </div>
       {state === "reading" && <Reads myReads={myReads} />}
