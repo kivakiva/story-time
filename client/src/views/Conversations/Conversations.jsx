@@ -72,9 +72,9 @@ const Conversations = (props) => {
           new Date(msg.created_at) >
           new Date(lastMessagesObj[convoID].created_at)
         )
-          lastMessagesObj[convoID] = msg;
+          lastMessagesObj[convoID] = {... msg, convoID };
       } else {
-        lastMessagesObj[convoID] = msg;
+        lastMessagesObj[convoID] = {... msg, convoID };
       }
     }
     setLastMessages(
@@ -95,9 +95,14 @@ const Conversations = (props) => {
     });
   }, []);
 
-  const parsedConversations = testConversations.map((conversation) => (
-    <ConversationsItem key={conversation.id} {...conversation} />
-  ));
+  let parsedConversations = [];
+
+  if (lastMessages) {
+    parsedConversations = lastMessages.map((message) => (
+      <ConversationsItem key={message.id} {...message} />
+    ));
+  }
+
   return (
     <div>
       <div className="flex flex-col w-full lg:flex-row divide-y">
