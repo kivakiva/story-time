@@ -77,7 +77,11 @@ const Conversations = (props) => {
         lastMessagesObj[convoID] = msg;
       }
 
-      setLastMessages(lastMessagesObj);
+      setLastMessages(
+        Object.values(lastMessagesObj).sort(
+          (a, b) => new Date(b.created_at) - new Date(b.created_at)
+        )
+      );
     }
   };
 

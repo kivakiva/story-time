@@ -23,7 +23,7 @@ const create = (sender_id, recipient_id, message) => {
 const getAllByUserID = (userID) => {
   return db
     .query(
-      "SELECT * FROM messages LEFT JOIN users ON (messages.sender_id = users.id AND users.id != $1) OR (messages.recipient_id = users.id AND users.id != $1) WHERE sender_id = $1 OR recipient_id = $1",
+      "SELECT * FROM messages JOIN users ON (messages.sender_id = users.id AND users.id != $1) OR (messages.recipient_id = users.id AND users.id != $1) WHERE sender_id = $1 OR recipient_id = $1",
       [userID]
     )
     .then((results) => results.rows);
