@@ -10,6 +10,10 @@ import UpdateOfferButtons from "../shared/UpdateOfferButtons";
 import Notice from "../shared/Notice";
 import Timeago from "react-timeago";
 import { useNavigate } from "react-router";
+import { Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
+import Notification from "../shared/Notification";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
@@ -128,6 +132,15 @@ const ListenExpand = () => {
         who_cancelled_id: userID,
       });
       setError("");
+      Store.addNotification({
+        content: <Notification message="Reading cancelled" />,
+        container: "center",
+        animationIn: ["animate__animated animate__fadeIn"],
+        animationOut: ["animate__animated animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+        },
+      });
       navigate("/myreads");
     } catch (err) {
       setError("Could not cancel reading! Try again later");
@@ -141,11 +154,24 @@ const ListenExpand = () => {
         action: "COMPLETE",
       });
       setError("");
+      Store.addNotification({
+        content: <Notification message="Reading completed" />,
+        container: "center",
+        animationIn: ["animate__animated animate__fadeIn"],
+        animationOut: ["animate__animated animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+        },
+      });
       navigate("/myreads");
     } catch (err) {
       setError("Could not complete the reading! Try again later.");
       console.log(err);
     }
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -185,17 +211,6 @@ const ListenExpand = () => {
           {/* ---------- RENDER REQUEST INFO ---------- */}
 
           {/* Info from reader's perspective: */}
-          {
-            // Link to home if the request is not pending and the user is not associated with this request
-            !reqStatus.pending && !correctListener() && !correctReader() && (
-              <>
-                <p className="text-lg font-semibold my-2">Nothing here</p>
-                <Link className="btn btn-outline my-2 self-center" to="/">
-                  Home
-                </Link>
-              </>
-            )
-          }
 
           {reqStatus.pending && !correctListener() && (
             <ListenInfo
@@ -314,6 +329,22 @@ const ListenExpand = () => {
           {/* ---------- RENDER NOTICES AND BUTTONS ---------- */}
 
           {
+            // Link to home if the request is not pending and the user is not associated with this request
+            !reqStatus.pending && !correctListener() && !correctReader() && (
+              <>
+                <p className="text-lg font-semibold my-2">Nothing here</p>
+                <button
+                  onClick={goBack}
+                  className="btn btn-outline my-2 self-center"
+                  to="/"
+                >
+                  Go back
+                </button>
+              </>
+            )
+          }
+
+          {
             // Render notice if reader is not the same as listener and the reader has already submitted an offer for this request
             reqStatus.pending &&
               loggedInUser &&
@@ -401,7 +432,7 @@ const ListenExpand = () => {
 
           {
             // Render link to /login if user is not logged in
-            !userID && (
+            !userID && reqStatus.pending && (
               <Link
                 to="/login"
                 className="btn btn-secondary border-2 border-solid border-slate-500 mb-6 self-start mx-8 my-1"

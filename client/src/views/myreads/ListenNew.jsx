@@ -1,4 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
+import { ImCancelCircle } from "react-icons/im";
 import { useState } from "react";
 import Error from "../shared/Error";
 import axios from "axios";
@@ -104,33 +105,56 @@ const ListenNew = (props) => {
               onChange={requestTextChangeHandler}
             ></textarea>
 
-            <div className="w-36">
-              <div className="flex items-center my-6 justify-between">
+            <div className="w-48 my-6">
+              <div className="flex items-center  justify-between my-2">
                 <label className="label">In Person</label>
-                <input
-                  onClick={inPersonChangeHandler}
-                  type="checkbox"
-                  className="toggle"
-                  value={in_person}
-                />
+                <div className="flex items-center">
+                  <input
+                    onClick={inPersonChangeHandler}
+                    type="checkbox"
+                    className="toggle"
+                    value={in_person}
+                  />
+                  <i
+                    className={`fa-solid fa-person-walking text-3xl ml-3 w-4 ${
+                      !in_person && "opacity-20"
+                    }`}
+                  ></i>
+                </div>
               </div>
 
-              <div className="flex items-center my-6 justify-between">
+              <div className="flex items-center justify-between my-2">
                 <label className="label">Online</label>
-                <input
-                  onClick={onlineChangeHandler}
-                  type="checkbox"
-                  className="toggle"
-                  value={online}
-                />
+                <div className="flex items-center">
+                  <input
+                    onClick={onlineChangeHandler}
+                    type="checkbox"
+                    className="toggle"
+                    value={online}
+                  />
+                  <i
+                    class={`fa-solid fa-phone text-xl ml-3 w-4 ${
+                      !online && "opacity-20"
+                    }`}
+                  ></i>
+                </div>
               </div>
             </div>
 
             {error && <Error error={error}></Error>}
-
-            <button className="btn btn-outline mb-16" onClick={submitHandler}>
-              Submit Request
-            </button>
+            <div className="flex">
+              <button className="btn btn-outline m-2" onClick={submitHandler}>
+                Submit Request
+              </button>
+              <button
+                className="btn btn-outline m-2"
+                aria-pressed="true"
+                onClick={() => navigate(-1)}
+              >
+                <ImCancelCircle className="inline-block mr-2" />
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       ) : (

@@ -1,5 +1,8 @@
-import React from "react";
-import capitalize from "../helpers/capitalize";
+import React, { useEffect, useState } from "react";
+import getVolume from "../helpers/getVolume";
+import AcceptedRequestMessages from "./AcceptedRequestMessages";
+import Book from "./Book";
+import StatusBadge from "./StatusBadge";
 
 const ListenInfo = ({
   listen,
@@ -9,66 +12,55 @@ const ListenInfo = ({
   whoCancelled,
   offer,
 }) => {
-  let badgeClass = "";
-  switch (status) {
-    case "active":
-      badgeClass = "badge-secondary";
-      break;
-    case "pending":
-      badgeClass = "badge-accent";
-      break;
-    case "cancelled":
-      badgeClass = "badge-primary";
-      break;
-    default:
-      badgeClass = "badge";
-  }
-  const noRequestText = "The request was made without a message";
-  const noOfferText = "The offer was made without a message";
+  const [volume, setVolume] = useState({});
+
+  useEffect(() => {
+    console.log("GOOGLE BOOKS CALL");
+    if (listen.book_title) {
+      getVolume(listen.book_title).then((volume) => setVolume(volume));
+    }
+  }, [listen.book_title]);
 
   return (
     <>
+      {/* Action line styled to blend in with user card */}
       <p className=" text-sm font-semibold text-left bg-base-300 uppercase pb-2 px-10">
         {actionLine}
       </p>
-      <div className="flex flex-col items-start mb-2 mx-8">
-        <p
-          style={{ color: "#005B45" }}
-          className="font-semibold text-3xl py-1 mt-3"
-        >
-          {listen.book_title && capitalize(listen.book_title)}
-        </p>
-        <p className="mb-3">by Famous Author</p>
-        {offer ? (
-          <div className="my-3 text-left">
-            <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
-              Listener:
+
+      <div className="flex flex-col items-start mb-2 my-4 mx-6">
+        <Book
+          title={listen.book_title}
+          author={volume.author}
+          cover={volume.cover}
+        />
+
+        {
+          // Show listener's request message if the read request is in pending state
+          !offer && (
+            <p className="text-left py-2 my-1 text-lg leading-5">
+              {listen.request_text}
             </p>
-            <p className="pb-2">{listen.request_text || noRequestText}</p>
-            <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
-              Reader:
-            </p>
-            <p>{offer.offer_text || noOfferText}</p>
-          </div>
-        ) : (
-          <p className="text-left py-2 my-1 text-lg leading-5">
-            {listen.request_text}
-          </p>
-        )}
-        {totalOffers > 0 && (
-          <p className="font-semibold text-sm">Total offers: {totalOffers}</p>
-        )}
-        <p>
-          <span className={`badge ${badgeClass} py-3 my-3`}>{status}</span>
-          {whoCancelled && (
-            <span
-              style={{ color: "#7A1C00" }}
-              className="px-1 text-sm font-semibold"
-            >
-              by {whoCancelled}
-            </span>
-          )}
-        </p>
+          )
+        }
+
+        {
+          // If the offer has been accepted, show Listener's and Reader's messages
+          offer && (
+            <AcceptedRequestMessages
+              offer={offer.offer_text}
+              request={listen.request_text}
+            />
+          )
+        }
+
+        {
+          // Show total offers if there is at least one
+          totalOffers > 0 && (
+            <p className="font-semibold text-sm">Total offers: {totalOffers}</p>
+          )
+        }
+        <StatusBadge status={status} whoCancelled={whoCancelled} />
       </div>
     </>
   );

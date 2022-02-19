@@ -15,37 +15,42 @@ import DevLogin from "./views/DevLogin";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
 import { MessageProvider } from "./context/messageContext";
+import ScrollToTop from "./views/ScrollToTop";
+import EditOffer from "./views/EditOffer";
 
 ReactDOM.render(
   <React.StrictMode>
     <MessageProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route index element={<PublicListens />} />
-            <Route path="myreads" element={<MyReads />} />
-            <Route path="conversations" element={<Conversations />} />
-            <Route
-              path="conversations/:conversation_id"
-              element={<Conversation />}
-            />
-            <Route path="profile" element={<Profile />} />
-            <Route path="listen/create" element={<ListenNew />} />
-            <Route path="read/:readId" element={<ReadExpand />} />
-            <Route path="listen/:listenId" element={<ListenExpand />} />
-            <Route path="login/:userId" element={<DevLogin />} />
-            <Route path="logout/" element={<Logout />} />
-            <Route path="login/" element={<Login />} />
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>There's nothing here!</p>
-                </main>
-              }
-            />
-          </Route>
-        </Routes>
+        <ScrollToTop>
+          <Routes>
+            <Route path="/" element={<App />}>
+              <Route index element={<PublicListens />} />
+              <Route path="myreads" element={<MyReads />} />
+              <Route path="conversations" element={<Conversations />} />
+              <Route
+                path="conversations/:conversation_id"
+                element={<Conversation />}
+              />
+              <Route path="profile" element={<Profile />} />
+              <Route path="listen/create" element={<ListenNew />} />
+              <Route path="read/:readId" element={<ReadExpand />} />
+              <Route path="listen/:listenId" element={<ListenExpand />} />
+              <Route path="offer/:offerId/edit" element={<EditOffer />} />
+              <Route path="login/:userId" element={<DevLogin />} />
+              <Route path="logout/" element={<Logout />} />
+              <Route path="login/" element={<Login />} />
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>There's nothing here!</p>
+                  </main>
+                }
+              />
+            </Route>
+          </Routes>
+        </ScrollToTop>
       </BrowserRouter>
     </MessageProvider>
   </React.StrictMode>,

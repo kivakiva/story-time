@@ -5,6 +5,7 @@ import StarRating from "./shared/StarRating";
 import { AiFillEdit } from "react-icons/ai";
 import { ImCancelCircle } from "react-icons/im";
 import Error from "./shared/Error";
+import { FaUserCircle } from "react-icons/fa";
 
 const Profile = (props) => {
   const [error, setError] = useState("");
@@ -37,12 +38,6 @@ const Profile = (props) => {
         });
     }
   }, [saved]);
-
-  // useEffect(() => {
-  //   if (profile) {
-  //     console.log(profile);
-  //   }
-  // }, [saved]);
 
   const signout = () => {
     axios.post("/api/users/logout");
@@ -168,15 +163,27 @@ const Profile = (props) => {
   } else if (profile) {
     pageResponse = (
       <Fragment>
-        <div className="avatar">
-          <div className="mb-8 rounded-full w-48 h-48 ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img
-              className="object-cover h-48 w-48 rounded-full"
-              src={profile.image_url}
-              alt=""
-            />
+        {profile.image_url ? (
+          <div className="avatar">
+            <div className="mb-8 rounded-full w-48 h-48 ring ring-primary ring-offset-base-100 ring-offset-2 flex justify-center items-center">
+              <img
+                className="object-cover h-48 w-48 rounded-full"
+                src={profile.image_url}
+                alt=""
+              />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex flex-col items-center">
+            <FaUserCircle className="fa-10x" />
+            <div className="mt-2 mb-4">
+              <h1>
+                Click on <b>"Edit Profile"</b>
+              </h1>
+              <h1>to add image</h1>
+            </div>
+          </div>
+        )}
         <h2 className="card-title">{profile.name}</h2>
         <h2>{profile.email}</h2>
         <div className="m-4">
