@@ -6,6 +6,9 @@ module.exports = {
         100: "#B4E4D8",
         200: "#D8B4E4",
       },
+      main: {
+        100: "#796D5D",
+      },
     },
     extend: {
       // spacing: {

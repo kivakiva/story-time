@@ -5,11 +5,18 @@ const getVolume = (title) => {
     .then((res) => {
       const baseKey = res.data.items[0];
       const id = baseKey.id;
-      const thumbnail = baseKey.volumeInfo.imageLinks.thumbnail;
+      let thumbnail = baseKey.volumeInfo.imageLinks.thumbnail;
+      if (!thumbnail) {
+        thumbnail =
+          "https://code-artisan.io/wp-content/uploads/2020/12/default_book_cover_2015.jpg";
+      }
       const title = baseKey.volumeInfo.title;
       const author = baseKey.volumeInfo.authors[0];
       const maturityRating = baseKey.volumeInfo.categories.maturityRating;
-      const language = baseKey.volumeInfo.language;
+      let language = baseKey.volumeInfo.language;
+      if (!language) {
+        language = "en";
+      }
 
       return {
         cover: thumbnail,
@@ -19,10 +26,6 @@ const getVolume = (title) => {
         maturityRating: maturityRating,
         language: language,
       };
-    })
-    .catch((err) => {
-      console.log("getVolume error");
-      console.log(err);
     });
 };
 export default getVolume;

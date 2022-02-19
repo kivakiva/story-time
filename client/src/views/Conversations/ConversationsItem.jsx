@@ -5,7 +5,7 @@ const ConversationItem = (props) => {
 
   return (
     <Link to={`${convoID}`} className="flex flex-col items-center w-full">
-      <div class="card w-100 bg-base-100 shadow-xl border flex flex-row items-center p-4 m-1 w-11/12">
+      <div className="card w-100 bg-base-100 shadow-xl border flex flex-row items-center p-4 m-1 w-11/12">
         <div className="avatar">
           <div className="w-20 h-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 mr-2">
             <img alt="" src={image_url} />
