@@ -7,8 +7,8 @@ module.exports = {
         200: "#D8B4E4",
       },
       main: {
-        100: '#796D5D'
-      }
+        100: "#796D5D",
+      },
     },
     extend: {
       // spacing: {
