@@ -124,12 +124,6 @@ const update = async (req, res) => {
     });
   }
 
-  if (!offer_text) {
-    return res.status(400).send({
-      message: "Missing offer_text!",
-    });
-  }
-
   try {
     const offer = await ReadsModel.findOneByID(id);
     if (!offer) {

@@ -5,7 +5,7 @@ import SingleListen from "./SingleListen";
 import { TiArrowDownOutline } from "react-icons/ti";
 import Error from "./shared/Error";
 
-const PublicListens = (props) => {
+const PublicListens = () => {
   const userID = localStorage.getItem("userID");
   const [allListens, setAllListens] = useState([]);
   const [error, setError] = useState("");
