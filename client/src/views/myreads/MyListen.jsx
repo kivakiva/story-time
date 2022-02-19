@@ -7,7 +7,7 @@ const Listen = (request) => {
   console.log(request);
   const [cover, setCover] = useState("");
 
-  const { id, title, reader_id } = request;
+  const { id, title, reader_id, status } = request;
 
   useEffect(() => {
     if (title) {
@@ -16,13 +16,36 @@ const Listen = (request) => {
       });
     }
   }, [title]);
+  const conditionalReadingMessage = (state) => {
+    if (state === "accepted") {
+      return "is reading to you";
+    } else if (state === "completed") {
+      return "read to you";
+    } else {
+      return "You offered to read to";
+    }
+  };
+  const conditionalCancelButton = (state) => {
+    if (state === "pending" || state === "accepted") {
+      return <button className="btn btn-active">Cancel</button>;
+    }
+  };
+
   return (
     <Link className="grow max-w-md " to={`/listen/${id}`}>
       <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-3 shadow-xl justify-between">
         <div className="flex flex-col mr-2 items-start items-center">
-          {/* <div>{conditionalReadingMessage(state)}</div> */}
-          <div>state</div>
-          <p className="pb-2 text-lg mb-2 font-semibold ">Reader Name</p>
+          <div>
+            <figure>
+              <img className="pl-3 py-3" src={cover} alt="Book" />
+            </figure>
+          </div>
+          <div className="badge my-2">
+            <b>{capitalize(status)}</b>
+          </div>
+          <button className="btn btn-active">cancel</button>
+        </div>
+        <div className="flex items-end flex-col justify-between text-right">
           <div className="avatar">
             <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img
@@ -31,18 +54,7 @@ const Listen = (request) => {
               />
             </div>
           </div>
-          <div className="badge my-2">
-            <b>{capitalize("accepted")}</b>
-          </div>
-        </div>
-        <div className="flex items-end flex-col justify-end text-right">
-          <div>
-            <figure>
-              <img className="pl-3 py-3" src={cover} alt="Book" />
-            </figure>
-            {/* <div>{request.book_title} </div> */}
-          </div>
-          <div>cancel button</div>
+          <p className="btn btn-active">Reader Name</p>
         </div>
       </div>
     </Link>
