@@ -136,6 +136,9 @@ const Conversation = (props) => {
   // Trigger replacement of Nav Bar with MessageInput
   useEffect(() => {
     setChatOpen(true);
+    return () => {
+      setChatOpen(false);
+    };
   }, []);
   const back = () => {
     setChatOpen(false);
@@ -161,21 +164,23 @@ const Conversation = (props) => {
   return (
     <div>
       <div className="fixed left-0 top-0 bg-base-100 z-9 w-full h-24 "></div>
-      <div className="fixed left-0 top-24 z-9 w-full h-24 bg-gradient-to-b from-base-100 via-base-100 to-transparent"></div>
+      <div className="fixed left-0 top-24 z-9 w-full h-28 bg-gradient-to-b from-base-100 via-base-100 to-transparent"></div>
       <div className="fixed left-0 right-0 flex items-start justify-start px-6">
         {convoInfo.image_url && (
           <img
-            className="border w-24 h-24 rounded-full object-cover mr-4"
+            className="border w-28 h-28 rounded-full object-cover ml-2 mt-1 mr-4"
             src={convoInfo.image_url}
             alt=""
           />
         )}
         <span className="text-left">
           Chatting with{" "}
-          <b>{convoInfo.recipient_name && convoInfo.recipient_name}</b>
+          <b className="whitespace-nowrap">
+            {convoInfo.recipient_name && convoInfo.recipient_name}
+          </b>
         </span>
       </div>
-      <div className="pt-24 pb-4">{parsedMessages}</div>
+      <div className="pt-28 pb-4">{parsedMessages}</div>
       <div /* for scrolling to bottom */
         className="mb-24"
         ref={messagesEndRef}

@@ -7,7 +7,11 @@ module.exports = {
         200: "#D8B4E4",
       },
     },
-    extend: {},
+    extend: {
+      // spacing: {
+      //   '28':
+      // }
+    },
     container: {
       padding: {
         DEFAULT: "1rem",

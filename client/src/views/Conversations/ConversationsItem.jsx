@@ -2,9 +2,6 @@ import Timeago from "react-timeago";
 import { Link } from "react-router-dom";
 const ConversationItem = (props) => {
   const { name, message_text, image_url, created_at, convoID } = props;
-  // console.log(datetimeSent)
-
-  const userID = localStorage.getItem("userID");
 
   return (
     <Link to={`${convoID}`}>
@@ -18,7 +15,7 @@ const ConversationItem = (props) => {
           <div>
             <b>{name}</b>
           </div>
-          <div>{message_text}</div>
+          <div >{message_text}</div>
           {/* {name} {lastMessage} */}
         </div>
         <div className="flex justify-self-end">
