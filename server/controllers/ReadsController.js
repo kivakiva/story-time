@@ -93,12 +93,21 @@ const getByID = async (req, res) => {
     }
 
     // set offer state
-    if (request.request_offer_id === offer.id) {
-      offer.state = "accepted";
-    } else if (!request.request_offer_id && !request.cancelled_at) {
+    if (request.cancelled_at && request.request_offer_id === offer.id) {
+      offer.state = "cancelled";
+    } else if (request.cancelled_at && !request.request_offer_id) {
+      offer.state = "request removed";
+    } else if (
+      request.request_offer_id !== offer.id &&
+      request.request_offer_id
+    ) {
+      offer.state = "ignored";
+    } else if (request.request_offer_id === offer.id) {
+      offer.state = "active";
+    } else if (!request.request_offer_id) {
       offer.state = "pending";
     } else {
-      offer.state = "cancelled";
+      offer.state = "uncaught state";
     }
 
     return res.status(200).send({
