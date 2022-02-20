@@ -14,6 +14,7 @@ import { Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
 import Notification from "../shared/Notification";
+import Book from "../shared/Book";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
@@ -189,12 +190,6 @@ const ListenExpand = () => {
             )
           }
 
-          {/* {
-            // Show listener card if the listener is viewing their request and it is pending
-            correctListener() && reqStatus.pending && (
-              <UserCard listen={listen} user={listener} />
-            )
-          } */}
           {
             // Show listener card if the listener is viewing their request and it was cancelled while pending
             correctListener() && reqStatus.cancelled && !listen.reader_id && (
@@ -203,6 +198,7 @@ const ListenExpand = () => {
           }
           {
             // Show reader card if the listener is viewing their request and it is accepted
+            // (active, cancelled or completed)
             correctListener() && reqStatus.accepted && (
               <UserCard listen={listen} user={reader} />
             )
@@ -355,7 +351,7 @@ const ListenExpand = () => {
                     <p className="font-semibold">Your offer:</p>
                     <p>{alreadyOfferedText()}</p>
                   </div>
-                  <UpdateOfferButtons offerID={offer.id} />
+                  <UpdateOfferButtons id={offer.id} type={"offer"} />
                 </div>
               )
           }
@@ -363,10 +359,7 @@ const ListenExpand = () => {
           {
             // Render notice if the logged in user is the reader of the request and the reading session has been completed
             reqStatus.completed && correctReader() && (
-              <Notice
-                className="mb-24"
-                message="You have completed this reading request!"
-              />
+              <Notice message="You have completed this reading request!" />
             )
           }
 
@@ -377,7 +370,7 @@ const ListenExpand = () => {
               reqStatus.active && correctListener() && (
                 <button
                   onClick={completeReading}
-                  className="mx-1 btn btn-secondary border-2 border-solid border-slate-500"
+                  className="mx-1 btn btn-secondary border-2 border-solid border-main-100"
                 >
                   Complete
                 </button>
@@ -406,18 +399,16 @@ const ListenExpand = () => {
             correctListener() && reqStatus.pending && (
               <div className="my-2 mx-8">
                 <div className="mb-4">
-                  <p className="text-xl">Your request to listen to</p>
-                  <h3
-                    style={{ color: "#005B45" }}
-                    className="text-3xl font-semibold my-3"
-                  >
-                    {listen.book_title}
-                  </h3>
+                  <p className="text-xl mb-6 font-semiboldgit d">
+                    Your request to listen to
+                  </p>
+                  <Book title={listen.book_title} />
                   <p>
                     <span>made </span>
                     <Timeago date={listen.created_at} />
                   </p>
                 </div>
+                <UpdateOfferButtons id={listen.id} type={"request"} />
 
                 {offers ? (
                   <Offers offers={offers} reqStatus={reqStatus} />

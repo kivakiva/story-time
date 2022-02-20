@@ -14,4 +14,7 @@ router.get("/:id", ListensController.getByID);
 // UPDATE ONE
 router.put("/:id", ListensController.update);
 
+// DELETE ONE
+router.delete("/:id", ListensController.destroy);
+
 module.exports = router;

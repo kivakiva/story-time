@@ -10,7 +10,7 @@ const AcceptedRequestMessages = ({ request, offer }) => {
         Listener:
       </p>
       <p className="pb-2">{request || noRequestText}</p>
-      <p style={{ color: "#2F4858" }} className="font-semibold uppercase">
+      <p style={{ color: "#2F4858" }} className="font-semibold uppercase mt-2">
         Reader:
       </p>
       <p>{offer || noOfferText}</p>

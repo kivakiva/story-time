@@ -61,7 +61,7 @@ const PublicListens = () => {
       {error && <Error error={error} />}
       {userID && (
         <Link
-          className="mb-6 btn btn-lg btn-secondary border-2 border-solid border-slate-500"
+          className="mb-6 btn btn-lg btn-secondary border-2 border-solid border-main-100"
           to="/listen/create"
         >
           Create read request
@@ -69,7 +69,7 @@ const PublicListens = () => {
       )}
       {!userID && (
         <Link
-          className="mb-6 btn btn-lg btn-secondary border-2 border-solid border-slate-500"
+          className="mb-6 btn btn-lg btn-secondary border-2 border-solid border-main-100"
           to="/login"
         >
           Create read request

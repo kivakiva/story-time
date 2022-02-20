@@ -1,24 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import getVolume from "../helpers/getVolume";
+import Error from "../shared/Error";
 
-const Book = ({ title, author, cover }) => {
+const Book = ({ title }) => {
+  const [volume, setVolume] = useState({});
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    console.log("GOOGLE BOOKS CALL");
+    if (title) {
+      getVolume(title)
+        .then((volume) => {
+          setVolume(volume);
+          setError("");
+        })
+        .catch((err) => {
+          console.log(err);
+          setError("Error loading book");
+        });
+    }
+  }, [title]);
+
   return (
-    <div className="flex justify-between mx-2 my-4 items-center">
-      <div>
-        <p
-          style={{ color: "#005B45" }}
-          className="font-semibold text-3xl py-1 mt-3"
-        >
-          {title}
-        </p>
-        <p className="my-1 font-semibold">by {author}</p>
-      </div>
-      <figure className="flex flex-row justify-end" style={{ width: "10rem" }}>
-        <img
-          style={{ border: "3px solid #796d5d" }}
-          src={cover}
-          alt={`Cover of ${title}`}
-        />
-      </figure>
+    <div className=" w-full">
+      {!error ? (
+        <div className="flex items-center w-full pb-4">
+          <div className="w-2/3 pr-6">
+            <p style={{ color: "#005B45" }} className="font-semibold text-3xl">
+              {volume.title}
+            </p>
+            <p className="font-semibold mt-2">by {volume.author}</p>
+          </div>
+
+          <img
+            className="border-main-100 w-1/3"
+            style={{ "border-width": "3px" }}
+            src={volume.cover}
+            alt={`Cover of ${volume.title}`}
+          />
+        </div>
+      ) : (
+        <Error error={error} />
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { ImCancelCircle } from "react-icons/im";
 import { useNavigate } from "react-router";
@@ -8,15 +8,21 @@ import "react-notifications-component/dist/theme.css";
 import "animate.css";
 import Notification from "./Notification";
 import { Link } from "react-router-dom";
+import Error from "./Error";
+import capitalize from "../helpers/capitalize";
 
-const UpdateOfferButtons = ({ offerID }) => {
+const UpdateOfferButtons = ({ id, type }) => {
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const cancelOffer = () => {
+  const url = type === "offer" ? `/reads/${id}` : `/listens/${id}`;
+
+  const deleteSubmition = async () => {
     try {
-      axios.delete(`/reads/${offerID}`);
+      await axios.delete(url);
+      setError("");
       Store.addNotification({
-        content: <Notification message="Offer cancelled" />,
+        content: <Notification message={`${capitalize(type)} cancelled`} />,
         container: "center",
         animationIn: ["animate__animated animate__fadeIn"],
         animationOut: ["animate__animated animate__fadeOut"],
@@ -26,21 +32,25 @@ const UpdateOfferButtons = ({ offerID }) => {
       });
       navigate(-1);
     } catch (err) {
+      setError(err.response.data.message);
       console.log(err);
     }
   };
 
   return (
-    <div className="flex p-1 mb-6 justify-center">
-      <Link to={`/offer/${offerID}/edit`} className="btn btn-outline px-7 mx-1">
-        <AiFillEdit className="inline-block mr-2" />
-        Edit
-      </Link>
-      <button onClick={cancelOffer} className="btn btn-outline mx-1">
-        <ImCancelCircle className="inline-block mr-2" />
-        Cancel
-      </button>
-    </div>
+    <>
+      {error && <Error error={error} />}
+      <div className="flex p-1 mb-6 justify-center">
+        <Link to={`/${type}/${id}/edit`} className="btn btn-outline px-7 mx-1">
+          <AiFillEdit className="inline-block mr-2" />
+          Edit
+        </Link>
+        <button onClick={deleteSubmition} className="btn btn-outline mx-1">
+          <ImCancelCircle className="inline-block mr-2" />
+          Cancel
+        </button>
+      </div>
+    </>
   );
 };
 
