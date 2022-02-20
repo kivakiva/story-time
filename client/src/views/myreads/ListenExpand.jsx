@@ -399,7 +399,9 @@ const ListenExpand = () => {
             correctListener() && reqStatus.pending && (
               <div className="my-2 mx-8">
                 <div className="mb-4">
-                  <p className="text-xl mb-6">Your request to listen to</p>
+                  <p className="text-xl mb-6 font-semiboldgit d">
+                    Your request to listen to
+                  </p>
                   <Book title={listen.book_title} />
                   <p>
                     <span>made </span>
