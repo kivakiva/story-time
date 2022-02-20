@@ -20,7 +20,7 @@ const ListenNew = (props) => {
   const [in_person, setIn_person] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [request, setRequest] = useState(null);
-  const [listenerName, setListenerName] = useState("");
+  const [edit, setEdit] = useState(false);
 
   const bookTitleChangeHandler = (e) => {
     setBook_title(e.target.value);
@@ -53,10 +53,11 @@ const ListenNew = (props) => {
     }
 
     axios({
-      method: "post",
-      url: "/listens",
+      method: !edit ? "post" : "put",
+      url: `/listens/${edit ? request.id : ""}`,
       headers: {},
       data: {
+        action: edit ? "UPDATE" : "",
         request_text,
         book_title,
         online,
@@ -67,6 +68,7 @@ const ListenNew = (props) => {
       .then((response) => {
         setSubmitted(true);
         setRequest(response.data.request);
+        console.log(response.data.request);
       })
       .then(() => {
         return axios.get(`/users/${localStorage.getItem("userID")}`);
@@ -78,6 +80,11 @@ const ListenNew = (props) => {
         });
       })
       .catch((err) => console.log(err.message));
+  };
+
+  const initiateEdit = () => {
+    setSubmitted(false);
+    setEdit(true);
   };
 
   return (
@@ -169,6 +176,9 @@ const ListenNew = (props) => {
               <p>{request.request_text}</p>
               <p>{request.online && "Online"}</p>
               <p>{request.in_person && "In Person"}</p>
+              <button className="btn btn-outline" onClick={initiateEdit}>
+                Edit
+              </button>
               <button className="btn btn-outline">
                 <Link to="/myreads">View in my Requests</Link>
               </button>

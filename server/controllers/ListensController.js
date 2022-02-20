@@ -111,6 +111,7 @@ const getByID = (req, res) => {
 };
 
 const update = async (req, res) => {
+  console.log('attempting to update....')
   const { id } = req.params;
   const {
     action,
