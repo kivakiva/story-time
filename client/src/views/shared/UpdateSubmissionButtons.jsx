@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import Error from "./Error";
 import capitalize from "../helpers/capitalize";
 
-const UpdateOfferButtons = ({ id, type }) => {
+const UpdateSubmissionButtons = ({ id, type }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const UpdateOfferButtons = ({ id, type }) => {
     <>
       {error && <Error error={error} />}
       <div className="flex p-1 mb-6 justify-center">
-        <Link to={`/${type}/${id}/edit`} className="btn btn-outline px-7 mx-1">
+        <Link to={`/${url}/edit`} className="btn btn-outline px-7 mx-1">
           <AiFillEdit className="inline-block mr-2" />
           Edit
         </Link>
@@ -54,4 +54,4 @@ const UpdateOfferButtons = ({ id, type }) => {
   );
 };
 
-export default UpdateOfferButtons;
+export default UpdateSubmissionButtons;
