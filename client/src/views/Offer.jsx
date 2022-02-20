@@ -72,7 +72,7 @@ const Offer = (props) => {
         )}
         <button
           onClick={acceptOffer}
-          className="btn btn-sm my-2 btn-secondary border-2 border-solid border-slate-500"
+          className="btn btn-sm my-2 btn-secondary border-2 border-solid border-main-100"
         >
           Accept
         </button>

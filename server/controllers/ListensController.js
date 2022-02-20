@@ -7,14 +7,14 @@ const create = (req, res) => {
   const { userID } = req.session;
 
   if (!userID) {
-    console('no userID')
+    console("no userID");
     return res.status(400).send({
       message: "Must be logged in!",
     });
   }
 
   if (!book_title || (!online && !in_person)) {
-    console.log('no book OR neither online nor in person selected')
+    console.log("no book OR neither online nor in person selected");
     return res.status(400).send({
       message: "Missing required information (book_title, online, in_person)!",
     });
@@ -352,9 +352,53 @@ const update = async (req, res) => {
   }
 };
 
+const destroy = async (req, res) => {
+  const { id } = req.params;
+  const { userID } = req.session;
+
+  if (!userID) {
+    return res.status(400).send({
+      message: "Must be logged in!",
+    });
+  }
+
+  try {
+    const request = await ListensModel.findByID(id);
+    if (!request) {
+      return res.status(404).send({
+        message: "Request not found",
+      });
+    }
+
+    // Allow only creator of the request:
+    if (userID !== request.listener_id) {
+      return res
+        .status(400)
+        .send({ message: "User not authorized to delete this request" });
+    }
+
+    if (request.accepted_at || request.cancelled_at) {
+      return res.status(400).send({
+        message: "Cannot delete accepted or cancelled read request",
+      });
+    }
+
+    await ListensModel.destroy(id);
+    return res.status(200).send({
+      message: `Request id:${id} deleted!`,
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: "Could not delete request",
+      error: err.message,
+    });
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getByID,
   update,
+  destroy,
 };

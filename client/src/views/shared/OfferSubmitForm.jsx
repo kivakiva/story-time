@@ -37,7 +37,7 @@ const OfferSubmitForm = ({
         <button
           type="submit"
           onClick={(e) => submitOffer(e, message)}
-          className="btn btn-secondary border-2 border-solid border-slate-500"
+          className="btn btn-secondary border-2 border-solid border-main-100"
         >
           Offer to Read
         </button>
