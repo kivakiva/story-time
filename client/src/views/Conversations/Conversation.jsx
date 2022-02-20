@@ -10,7 +10,6 @@ import axios from "axios";
 const socket = io.connect("http://localhost:3001");
 
 const Conversation = (props) => {
-  const messagesEndRef = useRef(null);
   const [messagesData, setMessagesData] = useState([]);
   const userID = localStorage.getItem("userID");
   const {
@@ -19,6 +18,8 @@ const Conversation = (props) => {
     messageSending,
     setMessageSending,
     setChatOpen,
+    messagesEndRef,
+    scrollToLatestMessage,
   } = useContext(MessageContext);
 
   const [convoInfo, setConvoInfo] = useState({
@@ -110,8 +111,10 @@ const Conversation = (props) => {
         id: Math.random(),
       };
 
-      // 4.2 - SEND Msg
+      // 4.2 - SEND Msg + Save to DB
       await socket.emit("send_message", messageData);
+
+      // Save to DB
       axios({
         method: "post",
         url: "/messages",
@@ -120,6 +123,7 @@ const Conversation = (props) => {
       }).catch((err) => console.log(err.message));
 
       // UPDATE sender messages (we WON'T be loading sent messages from api because of lag time)
+      // instead we'll assume the message was sent & created successfully and update it client side
       setMessagesData((list) => [...list, messageData]);
       setMessage("");
     }
@@ -141,9 +145,8 @@ const Conversation = (props) => {
     };
   }, []);
 
-  // SCROLL DOWN to latest message when message is sent/received
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollToLatestMessage(); // useEffect for scroll down
   }, [messagesData]);
 
   // MAP out MESSAGES for rendering
@@ -181,59 +184,3 @@ const Conversation = (props) => {
   );
 };
 export default Conversation;
-
-/*
-const testMessages = {
-  partner: "Andy Newman",
-  messages: [
-    {
-      id: 1,
-      sender_id: 1,
-      time: "2022-01-15",
-      message_text: "first hello",
-    },
-    {
-      id: 2,
-      sender_id: 1,
-      time: "2022-01-15",
-      message_text: "hi nice to meet you",
-    },
-    {
-      id: 3,
-      sender_id: 1,
-      time: "2022-01-15",
-      message_text: "hi nice to meet you",
-    },
-    {
-      id: 4,
-      sender_id: 1,
-      time: "2022-01-15",
-      message_text: "hi nice to meet you",
-    },
-    {
-      id: 5,
-      sender_id: 1,
-      time: "2022-01-15",
-      message_text: "hi nice to meet you",
-    },
-    {
-      id: 6,
-      sender_id: 1,
-      time: "2022-01-15",
-      message_text: "hi nice to meet you",
-    },
-    {
-      id: 7,
-      sender_id: 1,
-      time: "2022-01-15",
-      message_text: "hi nice to meet you",
-    },
-    {
-      id: 8,
-      sender_id: 1,
-      time: "2022-01-15",
-      message_text: "goodbye",
-    },
-  ],
-};
-*/

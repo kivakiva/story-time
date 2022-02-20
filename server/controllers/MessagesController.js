@@ -27,11 +27,12 @@ const create = (req, res) => {
   const recipient_id = req.body.recipient_id;
   const sender_id = req.body.sender_id;
   MessagesModel.create(sender_id, recipient_id, message)
-    .then((result) => {
-      console.log(result);
+    .then(() => {
       return res.status(201).send("message created!");
     })
-    .catch((err) => console.log(err.message));
+    .catch((err) => {
+      console.log(err.message)
+    });
 };
 
 const getAllByPartnerID = (req, res) => {

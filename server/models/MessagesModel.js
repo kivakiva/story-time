@@ -17,7 +17,6 @@ const create = (sender_id, recipient_id, message) => {
       "INSERT INTO messages (message_text, sender_id, recipient_id, created_at) VALUES ($1, $2, $3, $4)",
       [message, sender_id, recipient_id, date_created]
     )
-    .then((results) => results.data.rows);
 };
 
 const getAllByUserID = (userID) => {

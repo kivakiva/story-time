@@ -2,8 +2,13 @@ import React, { useContext, useRef } from "react";
 import MessageContext from "../../context/messageContext";
 
 function MessageInput(props) {
-  const { message, setMessage, sendMessageIfEnterPressed, setMessageSending } =
-    useContext(MessageContext);
+  const {
+    message,
+    setMessage,
+    sendMessageIfEnterPressed,
+    setMessageSending,
+    scrollToLatestMessage,
+  } = useContext(MessageContext);
   const refInput = useRef(null);
 
   const messageChangeHandler = (e) => {
@@ -11,6 +16,7 @@ function MessageInput(props) {
   };
 
   const buttonClickHandler = () => {
+    scrollToLatestMessage();
     setMessageSending(true);
     refInput.current.focus();
   };
