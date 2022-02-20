@@ -10,6 +10,19 @@ const displayNotification = (message) => {
     dismiss: {
       duration: 2000,
     },
+    width: "300",
+    touchSlidingExit: {
+      swipe: {
+        duration: 400,
+        timingFunction: "ease-out",
+        delay: 0,
+      },
+      fade: {
+        duration: 400,
+        timingFunction: "ease-out",
+        delay: 0,
+      },
+    },
   });
 };
 
