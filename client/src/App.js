@@ -10,7 +10,6 @@ function App() {
     <div className="App flex flex-col items-center">
       <ReactNotifications />
       <Header />
-      <Notification message='TESTING!!!'></Notification>
       <main className="mb-20">
         <Outlet />
       </main>

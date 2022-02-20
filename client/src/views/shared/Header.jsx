@@ -19,7 +19,7 @@ function Header() {
               <i className="fa-solid fa-angle-left fa-2xl"></i>
             </button>
           )}
-          <h1 onClick={() => displayNotification("TEST")} className="app-name">
+          <h1 onClick={() => displayNotification("test")} className="app-name">
             StoryTime
           </h1>
         </div>

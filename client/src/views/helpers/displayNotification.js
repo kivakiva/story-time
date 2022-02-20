@@ -10,7 +10,7 @@ const displayNotification = (message) => {
     dismiss: {
       duration: 2000,
     },
-    width: "200",
+    width: "300",
     touchSlidingExit: {
       swipe: {
         duration: 400,
