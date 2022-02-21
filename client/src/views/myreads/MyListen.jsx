@@ -10,7 +10,8 @@ const Listen = (request) => {
   const [reqStatus, setReqStatus] = useState("");
   const [offersCount, setOffersCount] = useState(0);
   const [badgeColour, setBadgeColour] = useState("");
-  const { id, book_title, reader_id, listener_id, status } = request;
+  const [isCancelled, setIsCancelled] = useState(request.cancelled_at);
+  const { id, book_title, reader_id, listener_id } = request;
   const userID = localStorage.getItem("userID");
 
   useEffect(() => {
@@ -20,16 +21,18 @@ const Listen = (request) => {
           setCover(book.cover);
         })
         .catch((err) => console.log(err));
-      axios
-        .get(`users/${reader_id}`)
-        .then((res) => {
-          const user = res.data.user;
-          setReader(user);
-        })
-        .catch((err) => console.log(err)); // set offer state
+      if (reader_id) {
+        axios
+          .get(`users/${reader_id}`)
+          .then((res) => {
+            const user = res.data.user;
+            setReader(user);
+          })
+          .catch((err) => console.log(err)); // set offer state
+      }
       let state = "";
       let stateColour = "";
-      if (request.cancelled_at) {
+      if (isCancelled) {
         state = "cancelled";
       } else if (request.completed_at) {
         state = "completed";
@@ -42,7 +45,7 @@ const Listen = (request) => {
       setReqStatus(state);
       setBadgeColour(stateColour);
     }
-  }, [request, book_title, reader_id]);
+  }, [request, book_title, reader_id, isCancelled]);
 
   useEffect(() => {
     if (reqStatus === "pending") {
@@ -58,12 +61,13 @@ const Listen = (request) => {
   }, [reqStatus, id]);
   // different statuses of reading request
   const cancelRequest = (requestId) => {
-    console.log("cancel");
     const cancel = {
       action: "CANCEL",
       who_cancelled_id: userID,
     };
     axios.put(`listens/${requestId}`, cancel);
+    //ensure component re-renders:
+    setIsCancelled(true);
   };
 
   return (
@@ -129,8 +133,8 @@ const Listen = (request) => {
               <Link
                 to={
                   listener_id < reader_id
-                    ? `conversations/${listener_id}_${reader_id}`
-                    : `conversations/${reader_id}_${listener_id}`
+                    ? `/conversations/${listener_id}_${reader_id}`
+                    : `/conversations/${reader_id}_${listener_id}`
                 }
               >
                 <i className="fa fa-commenting text-3xl" aria-hidden="true"></i>
