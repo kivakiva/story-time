@@ -18,6 +18,7 @@ import Logout from "./views/Logout";
 import AllContextProviders from "./context/allContextProviders";
 import ScrollToTop from "./views/ScrollToTop";
 import EditOffer from "./views/EditOffer";
+import Search from "./views/Search/Search";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -48,6 +49,7 @@ ReactDOM.render(
               <Route path="login/:userId" element={<DevLogin />} />
               <Route path="logout/" element={<Logout />} />
               <Route path="login/" element={<Login />} />
+              <Route path="search" element={<Search />} />
               <Route
                 path="*"
                 element={
