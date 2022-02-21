@@ -23,7 +23,7 @@ const SearchBar = (props) => {
   };
   const handleSearch = (e) => {
     setSearch(e.target.value);
-    if (search.length > 4) {
+    if (search.length > 3) {
       getVolumes(search)
         .then((volumes) => {
           setVolumes(volumes);
@@ -67,7 +67,7 @@ const SearchBar = (props) => {
           <input
             className="text-center"
             type="text"
-            placeholder="Enter your search"
+            placeholder="Enter a title or an author"
             value={search}
             onChange={(e) => handleSearch(e)}
             onKeyDown={(e) => navigateSelected(e)}
