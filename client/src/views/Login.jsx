@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Error from "./shared/Error";
@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [registering, setRegistering] = useState(false);
+  const userID = localStorage.getItem("userID");
 
   const navigate = useNavigate();
 
@@ -83,6 +84,12 @@ const Login = () => {
       login();
     }
   };
+
+  useEffect(() => {
+    if (userID) {
+      navigate("/profile");
+    }
+  }, [userID, navigate]);
 
   return (
     <div className="flex flex-col pad-4 items-center justify-center mt-12">

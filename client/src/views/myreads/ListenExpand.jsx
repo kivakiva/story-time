@@ -10,11 +10,10 @@ import UpdateSubmissionButtons from "../shared/UpdateSubmissionButtons";
 import Notice from "../shared/Notice";
 import Timeago from "react-timeago";
 import { useNavigate } from "react-router";
-import { Store } from "react-notifications-component";
-import "react-notifications-component/dist/theme.css";
-import "animate.css";
-import Notification from "../shared/Notification";
 import Book from "../shared/Book";
+import GoBack from "../shared/GoBack";
+import displayNotification from "../helpers/displayNotification";
+import UserRating from "../shared/UserRating";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
@@ -133,15 +132,7 @@ const ListenExpand = () => {
         who_cancelled_id: userID,
       });
       setError("");
-      Store.addNotification({
-        content: <Notification message="Reading cancelled" />,
-        container: "center",
-        animationIn: ["animate__animated animate__fadeIn"],
-        animationOut: ["animate__animated animate__fadeOut"],
-        dismiss: {
-          duration: 2000,
-        },
-      });
+      displayNotification("Reading cancelled");
       navigate("/myreads");
     } catch (err) {
       setError("Could not cancel reading! Try again later");
@@ -155,24 +146,12 @@ const ListenExpand = () => {
         action: "COMPLETE",
       });
       setError("");
-      Store.addNotification({
-        content: <Notification message="Reading completed" />,
-        container: "center",
-        animationIn: ["animate__animated animate__fadeIn"],
-        animationOut: ["animate__animated animate__fadeOut"],
-        dismiss: {
-          duration: 2000,
-        },
-      });
+      displayNotification("Reading completed");
       navigate("/myreads");
     } catch (err) {
       setError("Could not complete the reading! Try again later.");
       console.log(err);
     }
-  };
-
-  const goBack = () => {
-    navigate(-1);
   };
 
   return (
@@ -217,35 +196,52 @@ const ListenExpand = () => {
             />
           )}
 
-          {reqStatus.completed && correctReader() && (
-            <ListenInfo
-              listen={listen}
-              offer={chosenOffer}
-              totalOffers={totalOffers}
-              actionLine="was listening to you read"
-              status="completed"
-            />
+          {reqStatus.active && correctReader() && (
+            <>
+              <ListenInfo
+                listen={listen}
+                offer={chosenOffer}
+                totalOffers={totalOffers}
+                actionLine="is listening to you read"
+                status="active"
+              />
+              <div className="m-1 mb-6">
+                <button
+                  onClick={cancelReading}
+                  className="mx-1 px-6 btn btn-active "
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
           )}
 
-          {reqStatus.active && correctReader() && (
-            <ListenInfo
-              listen={listen}
-              offer={chosenOffer}
-              totalOffers={totalOffers}
-              actionLine="is listening to you read"
-              status="active"
-            />
+          {reqStatus.completed && correctReader() && (
+            <>
+              <ListenInfo
+                listen={listen}
+                offer={chosenOffer}
+                totalOffers={totalOffers}
+                actionLine="was listening to you read"
+                status="completed"
+              />
+              <Notice message="You have completed this reading request!" />
+              <UserRating whoToRate="listener" listenID={listen.id} />
+            </>
           )}
 
           {reqStatus.cancelled && correctReader() && (
-            <ListenInfo
-              listen={listen}
-              totalOffers={totalOffers}
-              offer={chosenOffer}
-              actionLine="was listening to you read"
-              status="cancelled"
-              whoCancelled={whoCancelled()}
-            />
+            <>
+              <ListenInfo
+                listen={listen}
+                totalOffers={totalOffers}
+                offer={chosenOffer}
+                actionLine="was listening to you read"
+                status="cancelled"
+                whoCancelled={whoCancelled()}
+              />
+              <UserRating whoToRate="listener" listenID={listen.id} />
+            </>
           )}
 
           {/* Info from listener's perspective: */}
@@ -268,40 +264,62 @@ const ListenExpand = () => {
               correctListener() &&
               listen.reader_id &&
               offers && (
-                <ListenInfo
-                  listen={listen}
-                  totalOffers={totalOffers}
-                  offer={chosenOffer}
-                  actionLine="was reading to you."
-                  status="cancelled"
-                  whoCancelled={whoCancelled()}
-                />
+                <>
+                  <ListenInfo
+                    listen={listen}
+                    totalOffers={totalOffers}
+                    offer={chosenOffer}
+                    actionLine="was reading to you."
+                    status="cancelled"
+                    whoCancelled={whoCancelled()}
+                  />
+                  <UserRating whoToRate="reader" listenID={listen.id} />
+                </>
               )
           }
 
           {
             // Listener viewing their completed read request
             reqStatus.completed && correctListener() && (
-              <ListenInfo
-                listen={listen}
-                totalOffers={totalOffers}
-                offer={chosenOffer}
-                actionLine="was reading to you."
-                status="completed"
-              />
+              <>
+                <ListenInfo
+                  listen={listen}
+                  totalOffers={totalOffers}
+                  offer={chosenOffer}
+                  actionLine="was reading to you."
+                  status="completed"
+                />
+                <UserRating whoToRate="reader" listenID={listen.id} />
+              </>
             )
           }
 
           {
             // Listener viewing their active read request
             reqStatus.active && correctListener() && (
-              <ListenInfo
-                listen={listen}
-                totalOffers={totalOffers}
-                offer={chosenOffer}
-                actionLine="is reading to you."
-                status="active"
-              />
+              <>
+                <ListenInfo
+                  listen={listen}
+                  totalOffers={totalOffers}
+                  offer={chosenOffer}
+                  actionLine="is reading to you."
+                  status="active"
+                />
+                <div className="m-1 mb-6">
+                  <button
+                    onClick={completeReading}
+                    className="mx-1 btn btn-secondary border-2 border-solid border-main-100"
+                  >
+                    Complete
+                  </button>
+                  <button
+                    onClick={cancelReading}
+                    className="mx-1 px-6 btn btn-active "
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </>
             )
           }
 
@@ -325,18 +343,9 @@ const ListenExpand = () => {
           {/* ---------- RENDER NOTICES AND BUTTONS ---------- */}
 
           {
-            // Link to home if the request is not pending and the user is not associated with this request
+            // Take user to the previous route if the request is not pending and the user is not associated with this request
             !reqStatus.pending && !correctListener() && !correctReader() && (
-              <>
-                <p className="text-lg font-semibold my-2">Nothing here</p>
-                <button
-                  onClick={goBack}
-                  className="btn btn-outline my-2 self-center"
-                  to="/"
-                >
-                  Go back
-                </button>
-              </>
+              <GoBack />
             )
           }
 
@@ -355,42 +364,6 @@ const ListenExpand = () => {
                 </div>
               )
           }
-
-          {
-            // Render notice if the logged in user is the reader of the request and the reading session has been completed
-            reqStatus.completed && correctReader() && (
-              <Notice message="You have completed this reading request!" />
-            )
-          }
-
-          <div className="m-1 mb-6">
-            {
-              // Render complete button if the logged in user is the listener(creator) of the request
-              // and the request status is active (ongoing session)
-              reqStatus.active && correctListener() && (
-                <button
-                  onClick={completeReading}
-                  className="mx-1 btn btn-secondary border-2 border-solid border-main-100"
-                >
-                  Complete
-                </button>
-              )
-            }
-
-            {
-              // Render cancel button if the logged in user is the reader of the request
-              // or the listener(creator) of the request
-              // and the request status is active (ongoing session)
-              reqStatus.active && (correctReader() || correctListener()) && (
-                <button
-                  onClick={cancelReading}
-                  className="mx-1 px-6 btn btn-active "
-                >
-                  Cancel
-                </button>
-              )
-            }
-          </div>
 
           {/* ---------- RENDER READ OFFERS ---------- */}
 
