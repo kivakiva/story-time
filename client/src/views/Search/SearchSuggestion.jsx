@@ -16,9 +16,9 @@ const SearchSuggestion = (props) => {
       setIsSelected(false);
     }
   }, [props.selected, index]);
+  const bkgColor = isSelected ? "bg-info-content" : "bg-info";
   return (
-    <div className="flex justify-between">
-      {isSelected && "x "}
+    <div className={`flex justify-between ${bkgColor}`}>
       <span>{titleAbbr}</span>
       <span>{author}</span>
     </div>

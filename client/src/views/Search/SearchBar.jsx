@@ -62,20 +62,21 @@ const SearchBar = (props) => {
   };
   return (
     <div>
-      <div>Enter your search:</div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col mx-10">
           <input
             className="text-center"
             type="text"
-            placeholder="search here"
+            placeholder="Enter your search"
             value={search}
             onChange={(e) => handleSearch(e)}
             onKeyDown={(e) => navigateSelected(e)}
           />
           <div>{suggestions}</div>
         </div>
-        <input type="submit" value="Submit" />
+        <button className="btn btn-primary mt-3">
+          <input type="submit" value="Submit" />
+        </button>
       </form>
     </div>
   );
