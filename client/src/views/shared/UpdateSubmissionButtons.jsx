@@ -41,7 +41,10 @@ const UpdateSubmissionButtons = ({ id, type }) => {
     <>
       {error && <Error error={error} />}
       <div className="flex p-1 mb-6 justify-center">
-        <Link to={`/${url}/edit`} className="btn btn-outline px-7 mx-1">
+        <Link
+          to={`/${type === "offer" ? "read" : "listen"}/${id}/edit`}
+          className="btn btn-outline px-7 mx-1"
+        >
           <AiFillEdit className="inline-block mr-2" />
           Edit
         </Link>

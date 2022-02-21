@@ -34,7 +34,7 @@ const Book = ({ title }) => {
 
           <img
             className="border-main-100 w-1/3"
-            style={{ "border-width": "3px" }}
+            style={{ "borderWidth": "3px" }}
             src={volume.cover}
             alt={`Cover of ${volume.title}`}
           />
