@@ -9,7 +9,6 @@ const ListenNewOrEdit = (props) => {
   const { pathname } = useLocation();
   const requestID = pathname.split("/")[2];
   const { mode /* 'new' or 'edit */ } = props;
-  console.log(mode);
   const userID = localStorage.getItem("userID");
   const navigate = useNavigate();
 
@@ -22,23 +21,20 @@ const ListenNewOrEdit = (props) => {
   const [request_text, setRequest_text] = useState("");
   const [online, setOnline] = useState(false);
   const [in_person, setIn_person] = useState(false);
+  const [editQueried, setEditQueried] = useState(false);
+  const [listenerID, setListenerID] = useState("");
 
   const bookTitleChangeHandler = (e) => {
     setBook_title(e.target.value);
   };
-
   const requestTextChangeHandler = (e) => {
     setRequest_text(e.target.value);
   };
-
   const inPersonChangeHandler = (e) => {
-    console.log(e.target);
-    setIn_person(!e.target.value);
+    setIn_person((prev) => !prev);
   };
-
   const onlineChangeHandler = (e) => {
-    console.log(e.target);
-    setOnline(!e.target);
+    setOnline((prev) => !prev);
   };
 
   const [error, setError] = useState("");
@@ -52,6 +48,8 @@ const ListenNewOrEdit = (props) => {
         setRequest_text(request.request_text);
         setOnline(request.online);
         setIn_person(request.in_person);
+        setEditQueried(true);
+        setListenerID(request.listener_id);
       });
     }
   }, []);
@@ -89,7 +87,7 @@ const ListenNewOrEdit = (props) => {
       .catch((err) => console.log(err.message));
   };
 
-  return (
+  return listenerID == userID || mode === "new" ? (
     <div className="flex flex-col items-center p-8">
       <div>
         <h2 className="card-title">
@@ -114,48 +112,50 @@ const ListenNewOrEdit = (props) => {
             onChange={requestTextChangeHandler}
           ></textarea>
 
-          <div className="w-48 my-6">
-            <div className="flex items-center  justify-between my-2">
-              <label className="label">In Person</label>
-              <div className="flex items-center">
-                <input
-                  // defaultChecked={in_person}
-                  onClick={inPersonChangeHandler}
-                  type="checkbox"
-                  className="toggle active"
-                  // value={in_person}
-                />
-                <i
-                  className={`fa-solid fa-person-walking text-3xl ml-3 w-4 ${
-                    !in_person && "opacity-20"
-                  }`}
-                ></i>
+          {(mode === "new" || editQueried) && (
+            <div className="w-48 my-6">
+              <div className="flex items-center  justify-between my-2">
+                <label className="label">In Person</label>
+                <div className="flex items-center">
+                  <input
+                    defaultChecked={in_person}
+                    onClick={inPersonChangeHandler}
+                    type="checkbox"
+                    className="toggle active"
+                    value={in_person}
+                  />
+                  <i
+                    className={`fa-solid fa-person-walking text-3xl ml-3 w-4 ${
+                      !in_person && "opacity-20"
+                    }`}
+                  ></i>
+                </div>
               </div>
-            </div>
+              <div className="flex items-center justify-between my-2">
+                <label className="label">Online</label>
+                <div className="flex items-center">
+                  <input
+                    defaultChecked={online}
+                    onClick={onlineChangeHandler}
+                    type="checkbox"
+                    className="toggle"
+                    value={online}
+                  />
 
-            <div className="flex items-center justify-between my-2">
-              <label className="label">Online</label>
-              <div className="flex items-center">
-                <input
-                  // defaultChecked={online}
-                  onClick={onlineChangeHandler}
-                  type="checkbox"
-                  className="toggle"
-                  // value={online}
-                />
-                <i
-                  className={`fa-solid fa-phone text-xl ml-3 w-4 ${
-                    !online && "opacity-20"
-                  }`}
-                ></i>
+                  <i
+                    className={`fa-solid fa-phone text-xl ml-3 w-4 ${
+                      !online && "opacity-20"
+                    }`}
+                  ></i>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {error && <Error error={error}></Error>}
-          <div className="flex">
+          <div className="flex flex-col">
             <button className="btn btn-outline m-2" onClick={submitHandler}>
-              Submit Request
+              {mode === "edit" ? "Save Edit" : "Submit Request"}
             </button>
             <button
               className="btn btn-outline m-2"
@@ -163,13 +163,14 @@ const ListenNewOrEdit = (props) => {
               onClick={() => navigate(-1)}
             >
               <ImCancelCircle className="inline-block mr-2" />
-              Cancel
+              {mode === "edit" ? "Discard Changes" : "Cancel Request"}
             </button>
           </div>
         </div>
       </div>
-      )}
     </div>
+  ) : (
+    <div>Nothing to see here</div>
   );
 };
 export default ListenNewOrEdit;
