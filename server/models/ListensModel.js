@@ -66,7 +66,10 @@ const findAcceptedRequestsByReaderID = (id) => {
 
 const findAllByListenerID = (id) => {
   return db
-    .query("SELECT * FROM requests WHERE listener_id = $1", [id])
+    .query(
+      "SELECT * FROM requests WHERE listener_id = $1 ORDER BY created_at DESC",
+      [id]
+    )
     .then((result) => result.rows);
 };
 
