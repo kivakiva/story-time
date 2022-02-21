@@ -30,7 +30,7 @@ const UpdateSubmissionButtons = ({ id, type }) => {
       }
       setError("");
       displayNotification(`${capitalize(type)} deleted`);
-      navigate("/");
+      navigate(-2);
     } catch (err) {
       setError(err.response.data.message);
       console.log(err);
