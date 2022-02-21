@@ -29,8 +29,8 @@ const UpdateSubmissionButtons = ({ id, type }) => {
         });
       }
       setError("");
-      displayNotification(`${capitalize(type)} cancelled`);
-      navigate(-1);
+      displayNotification(`${capitalize(type)} deleted`);
+      navigate("/myreads");
     } catch (err) {
       setError(err.response.data.message);
       console.log(err);
@@ -47,7 +47,7 @@ const UpdateSubmissionButtons = ({ id, type }) => {
         </Link>
         <button onClick={deleteSubmition} className="btn btn-outline mx-1">
           <ImCancelCircle className="inline-block mr-2" />
-          Cancel {type}
+          Delete
         </button>
       </div>
     </>

@@ -34,27 +34,27 @@ const getAll = (req, res) => {
 };
 
 const create = (req, res) => {
-  console.log('usersController -> start')
+  console.log("usersController -> start");
   const { name, email, password, phone, image_url } = req.body;
-  
+
   if (!name || !email || !password) {
-    console.log('usersController -> no name/email/password')
+    console.log("usersController -> no name/email/password");
     return res.status(400).send({
       message: "Missing required information (name, email, phone, password)!",
     });
   }
-  
+
   // TODO: hash the password!
   UsersModel.create({ name, email, phone, image_url, password })
-  .then((user) => {
-    console.log('usersController -> account created')
-    console.log(user)
-    req.session.userID = user.id
-    return res.status(201).send({ message: "User created!", user });
-  })
-  .catch((err) => {
-    console.log('usersController -> create account failed')
-    res
+    .then((user) => {
+      console.log("usersController -> account created");
+      console.log(user);
+      req.session.userID = user.id;
+      return res.status(201).send({ message: "User created!", user });
+    })
+    .catch((err) => {
+      console.log("usersController -> create account failed");
+      res
         .status(500)
         .send({ message: "Could not create user", error: err.message });
     });
@@ -80,7 +80,7 @@ const login = (req, res) => {
         return res.status(400).send({ message: "Wrong password" });
       }
 
-      req.session.userID = user.id
+      req.session.userID = user.id;
       return res
         .status(200)
         .send({ message: "Login successful", cookies: req.session });
@@ -127,7 +127,7 @@ const getByID = async (req, res) => {
 
   try {
     const user = await UsersModel.findByID(id);
-    console.log('1. user email => ', user.email)
+    console.log("1. user email => ", user.email);
 
     if (!user) {
       return res.status(404).send({ message: "User not found" });
@@ -144,12 +144,21 @@ const getByID = async (req, res) => {
     // set state for each offer
     for (const offer of allRequestOffers) {
       const request = await ListensModel.findByID(offer.request_id);
-      if (request.request_offer_id === offer.id) {
-        offer.state = "accepted";
-      } else if (!request.request_offer_id && !request.cancelled_at) {
+      if (request.cancelled_at && request.request_offer_id === offer.id) {
+        offer.state = "cancelled";
+      } else if (request.cancelled_at && !request.request_offer_id) {
+        offer.state = "request removed";
+      } else if (
+        request.request_offer_id !== offer.id &&
+        request.request_offer_id
+      ) {
+        offer.state = "ignored";
+      } else if (request.request_offer_id === offer.id) {
+        offer.state = "active";
+      } else if (!request.request_offer_id) {
         offer.state = "pending";
       } else {
-        offer.state = "cancelled";
+        offer.state = "uncaught state";
       }
     }
 
@@ -171,8 +180,8 @@ const getByID = async (req, res) => {
       },
     };
     if (userID !== Number(id)) {
-      console.log('ERROR, userID do NOT match id')
-      console.log(userID, id)
+      console.log("ERROR, userID do NOT match id");
+      console.log(userID, id);
       return res.status(200).send(response);
     }
 
@@ -183,7 +192,7 @@ const getByID = async (req, res) => {
       all_request_offers: allRequestOffers,
     };
 
-    console.log('2. user email => ', response.user.email)
+    console.log("2. user email => ", response.user.email);
 
     return res.status(200).send(response);
   } catch (err) {

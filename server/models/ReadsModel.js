@@ -23,7 +23,10 @@ const findOneByID = (id) => {
 
 const findAllByReaderID = (id) => {
   return db
-    .query("SELECT * FROM request_offers WHERE reader_id = $1", [id])
+    .query(
+      "SELECT * FROM request_offers WHERE reader_id = $1 ORDER BY created_at DESC",
+      [id]
+    )
     .then((result) => result.rows);
 };
 
