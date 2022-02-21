@@ -18,7 +18,7 @@ import { MessageProvider } from "./context/messageContext";
 import { MyReadsProvider } from "./context/myReadsContext";
 import ScrollToTop from "./views/ScrollToTop";
 import EditOffer from "./views/EditOffer";
-import Search from "./views/Search";
+import Search from "./views/Search/Search";
 
 ReactDOM.render(
   <React.StrictMode>
