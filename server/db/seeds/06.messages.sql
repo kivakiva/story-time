@@ -19,7 +19,7 @@ insert into messages (message_text, sender_id, recipient_id, created_at) values 
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hello nice to meet you', 4, 7, '2022-02-17T00:21:53.594Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi', 1, 8, '2022-02-17T00:14:53.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Great, when shall we start?', 2, 6, '2022-02-16T00:15:53.194Z');
-insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi! Nice to mee you.', 8, 1, '2022-02-15T00:16:53.194Z');
+insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi! Nice to meet you.', 8, 1, '2022-02-15T00:16:53.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi, nice to meet you!', 3, 2, '2022-02-14T00:17:53.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('i am free tomorrow for a first read', 6, 2, '2022-02-04T00:18:53.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('When shall we start to meet?', 3, 6, '2022-02-07T00:19:53.194Z');
@@ -35,7 +35,7 @@ insert into messages (message_text, sender_id, recipient_id, created_at) values 
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Good evening!', 4, 10, '2022-02-19T00:21:33.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hey, nice to meet you', 1, 2, '2022-02-15T00:11:53.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hey', 9, 5, '2022-02-09T00:21:33.194Z');
-insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi nice to meet you', 10, 1, '2022-02-05T00:21:43.194Z');
+insert into messages (message_text, sender_id, recipient_id, created_at) values ('Nice to meet you. I am so excited for this book!', 10, 1, '2022-02-05T00:21:43.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi nice to meet you. How are you?', 3, 10, '2022-02-06T00:21:23.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi how are you', 4, 5, '2022-02-07T00:21:13.194Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('I am well, thank you for asking', 3, 10, '2022-02-08T00:21:03.194Z');
@@ -45,6 +45,6 @@ insert into messages (message_text, sender_id, recipient_id, created_at) values 
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi! Are you free tomorrow?', 6, 8, '2022-02-19T00:21:53.294Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('I am well - shall we start reading this weekend?', 4, 5, '2022-02-19T00:21:53.394Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi I am well! When shall we start reading?', 10, 6, '2022-02-16T00:21:53.494Z');
-insert into messages (message_text, sender_id, recipient_id, created_at) values ('Nice to meet you too. I am so excited for this book', 10, 1, '2022-02-13T00:21:53.594Z');
+insert into messages (message_text, sender_id, recipient_id, created_at) values ('When would you like to start reading?', 10, 1, '2022-02-13T00:21:53.594Z');
 insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi! I am excited to start reading', 8, 5, '2022-02-15T00:21:33.194Z');
-insert into messages (message_text, sender_id, recipient_id, created_at) values ('Hi nice to meet you', 4, 1, '2022-02-19T00:21:43.194Z');
+insert into messages (message_text, sender_id, recipient_id, created_at) values ('Do you want to meet at Jarry next Tuesday?', 4, 1, '2022-02-19T00:21:43.194Z');
