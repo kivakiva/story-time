@@ -7,6 +7,8 @@ import renderRating from "./helpers/renderRating";
 
 const Offer = (props) => {
   const { id, request_id, created_at, reader_id, offer_text } = props.offer;
+  const { book_title } = props;
+  const listener_id = localStorage.getItem("userID");
   const [reader, setReader] = useState({});
   const navigate = useNavigate();
 
@@ -29,7 +31,34 @@ const Offer = (props) => {
         request_offer_id: id,
       });
       displayNotification("Offer accepted");
+      createMessage();
       navigate("/myreads");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const createMessage = async () => {
+    try {
+      const listener_res = await axios.get(`/users/${listener_id}`);
+      const reader_res = await axios.get(`/users/${reader_id}`);
+
+      const listener_name = listener_res.data.user.name;
+      const reader_name = reader_res.data.user.name;
+      const message = `${listener_name} has accepted ${reader_name}'s offer to read ${book_title}`;
+
+      const messageData = {
+        sender_id: listener_id,
+        recipient_id: reader_id,
+        message_text: message,
+      };
+
+      await axios({
+        method: "post",
+        url: "/messages",
+        headers: {},
+        data: messageData,
+      });
     } catch (err) {
       console.log(err);
     }

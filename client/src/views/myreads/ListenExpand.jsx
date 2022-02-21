@@ -384,7 +384,11 @@ const ListenExpand = () => {
                 <UpdateSubmissionButtons id={listen.id} type={"request"} />
 
                 {offers ? (
-                  <Offers offers={offers} reqStatus={reqStatus} />
+                  <Offers
+                    offers={offers}
+                    book_title={listen.book_title}
+                    reqStatus={reqStatus}
+                  />
                 ) : (
                   <p className="font-semibold">No offers yet!</p>
                 )}
