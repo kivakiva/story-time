@@ -6,10 +6,10 @@ import UserRatingModal from "./UserRatingModal";
 
 const SingleListenRating = ({ whoToRate, listenID }) => {
   const [error, setError] = useState("");
-  const [readerRating, setReaderRating] = useState(0);
-  const [listenerRating, setListenerRating] = useState(0);
+  const [rating, setRating] = useState(0);
+  // const [listenerRating, setListenerRating] = useState(0);
 
-  const rating = whoToRate === "reader" ? readerRating : listenerRating;
+  // const rating = whoToRate === "reader" ? readerRating : listenerRating;
 
   // Fetch reader rating if it exists
   useEffect(() => {
@@ -18,7 +18,7 @@ const SingleListenRating = ({ whoToRate, listenID }) => {
         .get(`/ratings/readers/listens/${listenID}`)
         .then((res) => {
           if (res.data.reader_rating) {
-            setReaderRating(res.data.reader_rating.rating);
+            setRating(res.data.reader_rating.rating);
           }
           setError("");
         })
@@ -36,7 +36,7 @@ const SingleListenRating = ({ whoToRate, listenID }) => {
         .get(`/ratings/listeners/listens/${listenID}`)
         .then((res) => {
           if (res.data.listener_rating) {
-            setListenerRating(res.data.listener_rating.rating);
+            setRating(res.data.listener_rating.rating);
           }
           setError("");
         })
@@ -52,7 +52,11 @@ const SingleListenRating = ({ whoToRate, listenID }) => {
       {!error ? (
         <>
           {!rating ? (
-            <UserRatingModal whoToRate={whoToRate} listenID={listenID} />
+            <UserRatingModal
+              whoToRate={whoToRate}
+              listenID={listenID}
+              updateRating={setRating}
+            />
           ) : (
             <p className="text-left text-sm mx-8 mb-6">
               Your rating for the {whoToRate}:

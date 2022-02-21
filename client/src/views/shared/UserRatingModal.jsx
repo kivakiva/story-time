@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import displayNotification from "../helpers/displayNotification";
 
-const UserRatingModal = ({ whoToRate, listenID }) => {
+const UserRatingModal = ({ whoToRate, listenID, updateRating }) => {
   const [rating, setRating] = useState(1);
 
   const handleSubmit = async () => {
@@ -21,7 +21,7 @@ const UserRatingModal = ({ whoToRate, listenID }) => {
         });
       }
       displayNotification("Rating accepted");
-      window.location.reload(false);
+      updateRating(rating); // update rating and rerender the SingleListenRating component to show the new rating
     } catch (err) {
       console.log(err);
       displayNotification("An error occured while submitting your raiting");
