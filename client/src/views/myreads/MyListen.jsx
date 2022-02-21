@@ -8,7 +8,9 @@ const Listen = (request) => {
   const [cover, setCover] = useState("");
   const [reader, setReader] = useState({});
   const [reqStatus, setReqStatus] = useState("");
-  const { id, book_title, reader_id, status } = request;
+  const [offersCount, setOffersCount] = useState(0);
+  const [badgeColour, setBadgeColour] = useState("");
+  const { id, book_title, reader_id, listener_id, status } = request;
   const userID = localStorage.getItem("userID");
 
   useEffect(() => {
@@ -26,34 +28,35 @@ const Listen = (request) => {
         })
         .catch((err) => console.log(err)); // set offer state
       let state = "";
+      let stateColour = "";
       if (request.cancelled_at) {
         state = "cancelled";
+      } else if (request.completed_at) {
+        state = "completed";
       } else if (request.request_offer_id) {
         state = "active";
+        stateColour = "badge-secondary";
       } else if (!request.request_offer_id) {
         state = "pending";
       }
       setReqStatus(state);
+      setBadgeColour(stateColour);
     }
   }, [request, book_title, reader_id]);
-  console.log(request);
 
-  useEffect(() => {}, [reader_id]);
+  useEffect(() => {
+    if (reqStatus === "pending") {
+      axios
+        .get(`listens/${id}`)
+        .then((res) => {
+          if (res.offers) {
+            setOffersCount(res.offers.length);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [reqStatus, id]);
   // different statuses of reading request
-  const conditionalReadingMessage = (state) => {
-    if (state === "accepted") {
-      return "is reading to you";
-    } else if (state === "completed") {
-      return "read to you";
-    } else {
-      return "You offered to read to";
-    }
-  };
-  const conditionalCancelButton = (state) => {
-    if (state === "pending" || state === "accepted") {
-      return <button className="btn btn-active">Cancel</button>;
-    }
-  };
   const cancelRequest = (requestId) => {
     console.log("cancel");
     const cancel = {
@@ -62,15 +65,16 @@ const Listen = (request) => {
     };
     axios.put(`listens/${requestId}`, cancel);
   };
-  // console.log("cover url");
-  // console.log(cover);
+
   return (
     <Link className="grow max-w-md " to={`/listen/${id}`}>
       <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-3 shadow-xl justify-between">
         <div className="flex flex-col mr-2 items-start items-center">
           <div>
             <figure>
-              <div className="badge rounded-b-none">{reqStatus}</div>
+              <div className={`badge ${badgeColour} rounded-b-none`}>
+                {reqStatus}
+              </div>
               <img className="pb-3" src={cover} alt={`${book_title}`} />
             </figure>
           </div>
@@ -89,8 +93,14 @@ const Listen = (request) => {
         {!reader_id ? (
           reqStatus === "pending" ? (
             <div>
-              <div>Pending</div>
-              <div>{request.toString()}</div>
+              <div className="mb-3">
+                You have {offersCount} offer{offersCount !== 1 && "s"}.
+              </div>
+              {offersCount > 0 ? (
+                <button className="btn btn-primary">View your offers</button>
+              ) : (
+                <button className="btn btn-primary">View your request</button>
+              )}
             </div>
           ) : (
             "you cancelled this request"
@@ -116,7 +126,15 @@ const Listen = (request) => {
               {reqStatus === "active" ? "is reading to you." : "read to you."}
             </div>
             {reqStatus === "active" && (
-              <i className="fa fa-commenting text-3xl" aria-hidden="true"></i>
+              <Link
+                to={
+                  listener_id < reader_id
+                    ? `conversations/${listener_id}_${reader_id}`
+                    : `conversations/${reader_id}_${listener_id}`
+                }
+              >
+                <i className="fa fa-commenting text-3xl" aria-hidden="true"></i>
+              </Link>
             )}
           </div>
         )}
