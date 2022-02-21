@@ -6,7 +6,7 @@ import Error from "../shared/Error";
 import UserCard from "../shared/UserCard";
 import ListenInfo from "../shared/ListenInfo";
 import OfferSubmitForm from "../shared/OfferSubmitForm";
-import UpdateOfferButtons from "../shared/UpdateOfferButtons";
+import UpdateSubmissionButtons from "../shared/UpdateSubmissionButtons";
 import Notice from "../shared/Notice";
 import Timeago from "react-timeago";
 import { useNavigate } from "react-router";
@@ -351,7 +351,7 @@ const ListenExpand = () => {
                     <p className="font-semibold">Your offer:</p>
                     <p>{alreadyOfferedText()}</p>
                   </div>
-                  <UpdateOfferButtons id={offer.id} type={"offer"} />
+                  <UpdateSubmissionButtons id={offer.id} type={"offer"} />
                 </div>
               )
           }
@@ -408,7 +408,7 @@ const ListenExpand = () => {
                     <Timeago date={listen.created_at} />
                   </p>
                 </div>
-                <UpdateOfferButtons id={listen.id} type={"request"} />
+                <UpdateSubmissionButtons id={listen.id} type={"request"} />
 
                 {offers ? (
                   <Offers offers={offers} reqStatus={reqStatus} />
