@@ -1,5 +1,7 @@
 import { Store } from "react-notifications-component";
 import Notification from "../shared/Notification";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const displayNotification = (message) => {
   Store.addNotification({
