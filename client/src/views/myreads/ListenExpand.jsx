@@ -13,6 +13,7 @@ import { useNavigate } from "react-router";
 import Book from "../shared/Book";
 import GoBack from "../shared/GoBack";
 import displayNotification from "../helpers/displayNotification";
+import UserRating from "../shared/UserRating";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
@@ -195,16 +196,6 @@ const ListenExpand = () => {
             />
           )}
 
-          {reqStatus.completed && correctReader() && (
-            <ListenInfo
-              listen={listen}
-              offer={chosenOffer}
-              totalOffers={totalOffers}
-              actionLine="was listening to you read"
-              status="completed"
-            />
-          )}
-
           {reqStatus.active && correctReader() && (
             <ListenInfo
               listen={listen}
@@ -213,6 +204,22 @@ const ListenExpand = () => {
               actionLine="is listening to you read"
               status="active"
             />
+          )}
+
+          {reqStatus.completed && correctReader() && (
+            <>
+              <ListenInfo
+                listen={listen}
+                offer={chosenOffer}
+                totalOffers={totalOffers}
+                actionLine="was listening to you read"
+                status="completed"
+              />
+              <label for="user-rating-modal" class="btn modal-button">
+                open modal
+              </label>
+              <UserRating whoToRate="listener" listenID={listen.id} />
+            </>
           )}
 
           {reqStatus.cancelled && correctReader() && (
