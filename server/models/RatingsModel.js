@@ -18,4 +18,41 @@ const avgListenerRating = (id) => {
     .then((result) => result.rows[0]);
 };
 
-module.exports = { avgReaderRating, avgListenerRating };
+const findReaderRatingByRequestID = (request_id) => {
+  return db
+    .query("SELECT * FROM reader_ratings WHERE request_id = $1", [request_id])
+    .then((result) => result.rows[0]);
+};
+
+const createReaderRating = (rating, request_id) => {
+  return db
+    .query(
+      "INSERT INTO reader_ratings (rating, request_id) VALUES($1, $2) RETURNING *",
+      [rating, request_id]
+    )
+    .then((result) => result.rows[0]);
+};
+
+const findListenerRatingByRequestID = (request_id) => {
+  return db
+    .query("SELECT * FROM listener_ratings WHERE request_id = $1", [request_id])
+    .then((result) => result.rows[0]);
+};
+
+const createListenerRating = (rating, request_id) => {
+  return db
+    .query(
+      "INSERT INTO listener_ratings (rating, request_id) VALUES($1, $2) RETURNING *",
+      [rating, request_id]
+    )
+    .then((result) => result.rows[0]);
+};
+
+module.exports = {
+  avgReaderRating,
+  avgListenerRating,
+  findReaderRatingByRequestID,
+  createReaderRating,
+  findListenerRatingByRequestID,
+  createListenerRating,
+};

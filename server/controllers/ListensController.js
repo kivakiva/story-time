@@ -7,7 +7,6 @@ const create = (req, res) => {
   const { userID } = req.session;
 
   if (!userID) {
-    console("no userID");
     return res.status(400).send({
       message: "Must be logged in!",
     });
@@ -111,7 +110,7 @@ const getByID = (req, res) => {
 };
 
 const update = async (req, res) => {
-  console.log('attempting to update....')
+  console.log("attempting to update....");
   const { id } = req.params;
   const {
     action,

@@ -13,7 +13,7 @@ import { useNavigate } from "react-router";
 import Book from "../shared/Book";
 import GoBack from "../shared/GoBack";
 import displayNotification from "../helpers/displayNotification";
-import UserRating from "../shared/UserRating";
+import SingleListenRating from "../shared/SingleListenRating";
 
 const ListenExpand = () => {
   const userID = Number(localStorage.getItem("userID"));
@@ -100,12 +100,16 @@ const ListenExpand = () => {
 
   // check if the logged in user is the creator of the read request
   const correctListener = () => {
-    return userID === listen.listener_id;
+    if (listen) {
+      return userID === listen.listener_id;
+    }
   };
 
   // check if the logged in user is the accepted reader for the request
   const correctReader = () => {
-    return userID === listen.reader_id;
+    if (listen) {
+      return userID === listen.reader_id;
+    }
   };
 
   const whoCancelled = () => {
@@ -116,14 +120,18 @@ const ListenExpand = () => {
   };
 
   // different statuses of reading request
-  const reqStatus = {
-    accepted: listen.accepted_at !== null,
-    active: listen.accepted_at && !listen.completed_at && !listen.cancelled_at,
-    cancelled: listen.cancelled_at !== null,
-    completed: listen.completed_at !== null,
-    pending:
-      !listen.accepted_at && !listen.completed_at && !listen.cancelled_at,
-  };
+  let reqStatus;
+  if (listen) {
+    reqStatus = {
+      accepted: listen.accepted_at !== null,
+      active:
+        listen.accepted_at && !listen.completed_at && !listen.cancelled_at,
+      cancelled: listen.cancelled_at !== null,
+      completed: listen.completed_at !== null,
+      pending:
+        !listen.accepted_at && !listen.completed_at && !listen.cancelled_at,
+    };
+  }
 
   const cancelReading = async () => {
     try {
@@ -226,7 +234,7 @@ const ListenExpand = () => {
                 status="completed"
               />
               <Notice message="You have completed this reading request!" />
-              <UserRating whoToRate="listener" listenID={listen.id} />
+              <SingleListenRating whoToRate="listener" listenID={listen.id} />
             </>
           )}
 
@@ -240,7 +248,7 @@ const ListenExpand = () => {
                 status="cancelled"
                 whoCancelled={whoCancelled()}
               />
-              <UserRating whoToRate="listener" listenID={listen.id} />
+              <SingleListenRating whoToRate="listener" listenID={listen.id} />
             </>
           )}
 
@@ -273,7 +281,7 @@ const ListenExpand = () => {
                     status="cancelled"
                     whoCancelled={whoCancelled()}
                   />
-                  <UserRating whoToRate="reader" listenID={listen.id} />
+                  <SingleListenRating whoToRate="reader" listenID={listen.id} />
                 </>
               )
           }
@@ -289,7 +297,7 @@ const ListenExpand = () => {
                   actionLine="was reading to you."
                   status="completed"
                 />
-                <UserRating whoToRate="reader" listenID={listen.id} />
+                <SingleListenRating whoToRate="reader" listenID={listen.id} />
               </>
             )
           }
