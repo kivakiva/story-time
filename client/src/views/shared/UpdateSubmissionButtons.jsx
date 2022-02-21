@@ -47,7 +47,7 @@ const UpdateSubmissionButtons = ({ id, type }) => {
         </Link>
         <button onClick={deleteSubmition} className="btn btn-outline mx-1">
           <ImCancelCircle className="inline-block mr-2" />
-          Cancel
+          Cancel {type}
         </button>
       </div>
     </>
