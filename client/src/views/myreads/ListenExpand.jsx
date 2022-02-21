@@ -380,6 +380,9 @@ const ListenExpand = () => {
                     <span>made </span>
                     <Timeago date={listen.created_at} />
                   </p>
+                  {listen.request_text && (
+                    <p className="p-1 m-1 mt-4">"{listen.request_text}"</p>
+                  )}
                 </div>
                 <UpdateSubmissionButtons id={listen.id} type={"request"} />
 
