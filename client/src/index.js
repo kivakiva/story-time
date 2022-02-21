@@ -39,7 +39,8 @@ ReactDOM.render(
                 <Route path="listen/create" element={<ListenNew />} />
                 <Route path="read/:readId" element={<ReadExpand />} />
                 <Route path="listen/:listenId" element={<ListenExpand />} />
-                <Route path="offer/:offerId/edit" element={<EditOffer />} />
+                <Route path="read/:readId/edit" element={<EditOffer />} />
+                <Route path="listen/:listenId/edit" element={<ListenNew />} />
                 <Route path="login/:userId" element={<DevLogin />} />
                 <Route path="logout/" element={<Logout />} />
                 <Route path="login/" element={<Login />} />

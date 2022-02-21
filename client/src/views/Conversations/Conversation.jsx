@@ -157,7 +157,7 @@ const Conversation = (props) => {
     ));
   }
   return (
-    <div>
+    <div className="w-screen">
       <div className="fixed left-0 top-0 bg-base-100 z-9 w-full h-24 "></div>
       <div className="fixed left-0 top-24 z-9 w-full h-28 bg-gradient-to-b from-base-100 via-base-100 to-transparent"></div>
       <div className="fixed left-0 right-0 flex items-start justify-start px-6">

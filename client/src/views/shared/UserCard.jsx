@@ -3,16 +3,16 @@ import renderRating from "../helpers/renderRating";
 
 const UserCard = ({ listen, user }) => {
   return (
-    <div className="flex bg-base-300 pb-2 items-center justify-evenly">
-      <div className="flex flex-col p-1 m-1 mx-2 items-start">
+    <div className="flex items-start py-4 px-8 pb-2 bg-base-300">
+      <div className="flex flex-col justify-start items-center w-2/3">
         <p className="pb-2 text-lg font-semibold ">{user.name}</p>
         <div className="avatar">
-          <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+          <div className="w-28 h-28 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
             <img src={user.image_url} alt="user" />
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-start p-1 mt-3 m-1">
+      <div className="flex flex-col justify-start items-start w-1/3">
         <div className="flex mt-1">{renderRating(user.listener_rating)}</div>
         <p className="mb-1">Listens: {user.accepted_listens}</p>
         <div className="flex mt-1">{renderRating(user.reader_rating)}</div>
