@@ -45,7 +45,12 @@ const Offer = (props) => {
 
       const listener_name = listener_res.data.user.name;
       const reader_name = reader_res.data.user.name;
-      const message = `${listener_name} has accepted ${reader_name}'s offer to read ${book_title}`;
+      const message = (
+        <b>
+          `${listener_name} has accepted ${reader_name}'s offer to read $
+          {book_title}`
+        </b>
+      );
 
       const messageData = {
         sender_id: listener_id,
