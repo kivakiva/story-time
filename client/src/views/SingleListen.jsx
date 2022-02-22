@@ -46,7 +46,7 @@ const SingleListen = ({ id, request_text, book_title, listener_id }) => {
           <div className="click-shadow card border-solid border-main-100 border flex flex-col bg-base-300 shadow-xl p-4 my-3 mx-2">
             <div className="flex justify-between mb-4">
               <img
-                className="border-main-100 border-2 w-5/12"
+                className="border-main-100 border-2 w-30"
                 src={volume.cover}
                 alt={`Cover of ${book_title}`}
               />
