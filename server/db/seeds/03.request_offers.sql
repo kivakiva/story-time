@@ -36,7 +36,7 @@ insert into request_offers (request_id, reader_id, offer_text, created_at) value
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (21, 5, 'I just dug up my thirty year-old copy of the book after watching Dominion - very excited to read again.', '2021-02-10 11:29:32');
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (21, 7, 'Big Michael Chrichton fan - I have most of his books. Want to read the whole trilogy', '2021-02-10 11:29:32');
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (22, 8, 'i am in Montreal and would love to meet up to read on weekends :)', '2021-02-10 11:29:32');
-insert into request_offers (request_id, reader_id, offer_text, created_at) values (22, 10, 'I cannot meet up in person, but I am also in Montreal', '2021-02-10 11:29:32');
+insert into request_offers (request_id, reader_id, offer_text, created_at) values (24, 2, 'I cannot meet up in person, but I am also in Montreal', '2021-02-10 11:29:32');
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (23, 4, 'love, love, LOVE, this series!!! And Henry Cabill :) are you free Wednesdays?', '2021-02-10 11:29:32');
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (23, 9, 'I have the box set. Prefer to read online, but can also meet in person in downtown TO', '2021-02-10 11:29:32');
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (24, 2, 'Hi. I am available to meet in person. Do you have a copy of the book?', '2021-02-10 11:29:32');
