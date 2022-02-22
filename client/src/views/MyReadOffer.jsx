@@ -60,15 +60,15 @@ const SingleReadOffer = (offer) => {
     }
   };
   return (
-    <Link className="grow max-w-md " to={`/listen/${request_id}`}>
-      <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-3 shadow-xl justify-between">
-        <div className="flex flex-col mr-2 items-start items-center">
+    <Link className="grow max-w-md" to={`/listen/${request_id}`}>
+      <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-5 shadow-xl justify-between flex items-start">
+        <div className="flex flex-col items-center w-7/12 mr-5">
           <div className="avatar">
             <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img src={listener.image_url} alt="listener" />
             </div>
           </div>
-          <div>{conditionalReadingMessage(state)}</div>
+          <div className="mt-4">{conditionalReadingMessage(state)}</div>
           <p className="pb-2 text-lg mb-2 font-semibold ">{listener.name}</p>
           <div className="badge my-2">
             <b>{capitalize(state)}</b>
@@ -79,7 +79,7 @@ const SingleReadOffer = (offer) => {
             <figure>
               {cover ? (
                 <img
-                  className="pl-3 py-3"
+                  className=""
                   src={cover}
                   alt={`Cover of ${request.book_title}`}
                 />
@@ -88,7 +88,7 @@ const SingleReadOffer = (offer) => {
               )}
             </figure>
           </div>
-          <div>{conditionalCancelButton(state)}</div>
+          <div className="mt-2 text-sm">{conditionalCancelButton(state)}</div>
         </div>
       </div>
     </Link>

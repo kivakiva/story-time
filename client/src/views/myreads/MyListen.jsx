@@ -73,15 +73,15 @@ const Listen = (request) => {
   };
 
   return (
-    <Link className="grow max-w-md " to={`/listen/${id}`}>
-      <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-3 shadow-xl justify-between">
-        <div className="flex flex-col mr-2 items-start items-center">
+    <Link className="grow max-w-md" to={`/listen/${id}`}>
+      <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-5 shadow-xl justify-between">
+        <div className="flex flex-col mr-2 items-center">
           <div>
             <figure>
               <div className={`badge ${badgeColour} rounded-b-none`}>
                 {reqStatus}
               </div>
-              <img className="pb-3" src={cover} alt={`${book_title}`} />
+              <img className="mb-4" src={cover} alt={`${book_title}`} />
             </figure>
           </div>
           {reqStatus !== "cancelled" && (
@@ -112,9 +112,9 @@ const Listen = (request) => {
             "you cancelled this request"
           )
         ) : (
-          <div className="flex items-end flex-col justify-start text-center m-2 my-3 p-3">
-            <div className="avatar">
-              <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+          <div className="flex flex-col justify-start items-center w-1/2">
+            <div className="avatar mt-1">
+              <div className="w-24 h-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                 <img
                   src={
                     reader.image_url
@@ -125,7 +125,7 @@ const Listen = (request) => {
                 />
               </div>
             </div>
-            <div className="mt-2">
+            <div className="mt-4">
               <b>{reader.name && capitalize(reader.name)}</b>
             </div>
             <div className="text-center">
