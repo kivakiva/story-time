@@ -10,13 +10,15 @@ const SingleReadOffer = (offer) => {
   const [request, setRequest] = useState({});
   const [listenerId, setListenerId] = useState("");
   const [cover, setCover] = useState("");
-
+  console.log(offer);
   const { request_id, state, created_at } = offer;
 
   useEffect(() => {
     axios.get(`../listens/${request_id}`).then((res) => {
       setRequest(res.data.response.request);
       setListenerId(res.data.response.request.listener_id);
+      console.log("the request of the offer");
+      console.log(res.data.response.request);
     });
   }, [request_id]);
 
@@ -44,7 +46,7 @@ const SingleReadOffer = (offer) => {
   }, [request]);
 
   const conditionalReadingMessage = (state) => {
-    if (state === "accepted") {
+    if (state === "active") {
       return "You are reading to";
     } else if (state === "completed") {
       return "You read to";
@@ -53,7 +55,7 @@ const SingleReadOffer = (offer) => {
     }
   };
   const conditionalCancelButton = (state) => {
-    if (state === "pending" || state === "accepted") {
+    if (state === "pending" || state === "active") {
       return <button className="btn btn-active">Cancel</button>;
     } else {
       return <Timeago date={created_at} />;
@@ -84,7 +86,7 @@ const SingleReadOffer = (offer) => {
                   alt={`Cover of ${request.book_title}`}
                 />
               ) : (
-                <div>No cover</div>
+                <div>No cover for {request.book_title}</div>
               )}
             </figure>
           </div>

@@ -84,7 +84,7 @@ const Listen = (request) => {
               <img className="mb-4" src={cover} alt={`${book_title}`} />
             </figure>
           </div>
-          {reqStatus !== "cancelled" && (
+          {reqStatus !== "cancelled" && reqStatus !== "completed" && (
             <button
               className="btn btn-active"
               onClick={(e) => {
