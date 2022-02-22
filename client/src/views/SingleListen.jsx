@@ -43,33 +43,29 @@ const SingleListen = ({ id, request_text, book_title, listener_id }) => {
     <>
       {!error ? (
         <Link className="min-w-full" to={`/listen/${id}`}>
-          <div className="click-shadow card border-solid border-main-100 border flex flex-col bg-base-300 m-2 my-3 p-1 shadow-xl">
-            <div className="flex justify-between">
-              <figure className="mt-3 ml-3 " style={{ width: "10rem" }}>
-                <img
-                  className="border-main-100 border border-2"
-                  src={volume.cover}
-                  alt={`Cover of ${book_title}`}
-                />
-              </figure>
-              <div className="my-3 ml-1 mr-3 text-right">
+          <div className="click-shadow card border-solid border-main-100 border flex flex-col bg-base-300 shadow-xl p-4 my-3 mx-2">
+            <div className="flex justify-between mb-4">
+              <img
+                className="border-main-100 border-2 w-5/12"
+                src={volume.cover}
+                alt={`Cover of ${book_title}`}
+              />
+              <div className="text-right ml-4">
                 <h3 style={{ color: "#005B45" }} className="card-title mb-0">
                   {volume.title}
                 </h3>
-                <p className="pb-3 font-semibold">by {volume.author}</p>
+                <p className="font-semibold">by {volume.author}</p>
                 <p className="text-right">
                   <span className="badge badge-accent font-semibold">
                     {listener.name}
                   </span>
-                  <span className="flex justify-end py-2">
+                  <span className="flex justify-end">
                     {renderRating(listener.listener_rating)}
                   </span>
                 </p>
               </div>
             </div>
-            {request_text && (
-              <p className="text-right p-2 m-1">"{request_text}"</p>
-            )}
+            {request_text && <p className="text-right">"{request_text}"</p>}
           </div>
         </Link>
       ) : (
