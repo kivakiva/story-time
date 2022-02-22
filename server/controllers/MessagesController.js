@@ -26,12 +26,13 @@ const create = (req, res) => {
   const message = req.body.message_text;
   const recipient_id = req.body.recipient_id;
   const sender_id = req.body.sender_id;
-  MessagesModel.create(sender_id, recipient_id, message)
+  const customization = req.body.customization ? req.body.customization : null;
+  MessagesModel.create({ sender_id, recipient_id, message, customization })
     .then(() => {
       return res.status(201).send("message created!");
     })
     .catch((err) => {
-      console.log(err.message)
+      console.log(err.message);
     });
 };
 
