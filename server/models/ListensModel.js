@@ -10,7 +10,9 @@ const create = ({ user_id, request_text, book_title, online, in_person }) => {
 };
 
 const findAll = () => {
-  return db.query("SELECT * FROM requests").then((result) => result.rows);
+  return db
+    .query("SELECT * FROM requests ORDER BY created_at DESC")
+    .then((result) => result.rows);
 };
 
 const findByID = (id) => {
