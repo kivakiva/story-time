@@ -56,7 +56,7 @@ const SingleListen = ({ id, request_text, book_title, listener_id }) => {
                 </h3>
                 <p className="font-semibold">by {volume.author}</p>
                 <p className="text-right">
-                  <span className="badge badge-accent font-semibold">
+                  <span className="badge badge-accent font-semibold mt-3">
                     {listener.name}
                   </span>
                   <span className="flex justify-end">
