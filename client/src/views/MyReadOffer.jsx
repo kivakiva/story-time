@@ -84,7 +84,7 @@ const SingleReadOffer = (offer) => {
                   alt={`Cover of ${request.book_title}`}
                 />
               ) : (
-                <div>:w</div>
+                <div>No cover</div>
               )}
             </figure>
           </div>

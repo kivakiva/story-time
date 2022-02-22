@@ -49,11 +49,13 @@ const Listen = (request) => {
 
   useEffect(() => {
     if (reqStatus === "pending") {
+      console.log("pending");
       axios
         .get(`listens/${id}`)
         .then((res) => {
-          if (res.offers) {
-            setOffersCount(res.offers.length);
+          const offers = res.data.response.offers;
+          if (offers) {
+            setOffersCount(offers.length);
           }
         })
         .catch((err) => console.log(err));
