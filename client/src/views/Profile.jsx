@@ -185,22 +185,28 @@ const Profile = (props) => {
           </div>
         )}
         <h2 className="card-title">{profile.name}</h2>
-        <h2>{profile.email}</h2>
+        {/* <h2>{profile.email}</h2> */}
         <div className="m-4">
           <div className="flex items-center w-48 justify-between">
-            <h2>reads: {profile.accepted_reads}</h2>
+            <h2 className="font-bold">
+              <span className="w-16 inline-block text-left">Reads:</span>{" "}
+              {profile.accepted_reads}
+            </h2>
             {profile.reader_rating && (
               <StarRating rating={profile.reader_rating}></StarRating>
             )}
           </div>
           <div className="flex items-center w-48 justify-between">
-            <h2>listens: {profile.accepted_listens}</h2>
+            <h2 className="font-bold">
+              <span className="w-16 inline-block text-left">Listens:</span>{" "}
+              {profile.accepted_listens}
+            </h2>
             {profile.listener_rating && (
               <StarRating rating={profile.listener_rating}></StarRating>
             )}
           </div>
         </div>
-        {profile.intro && <p>"{profile.intro}"</p>}
+        {profile.intro && <p className="m-2">"{profile.intro}"</p>}
         <p className="m-4">
           Member since {new Date(profile.created_at).toDateString()}
         </p>
