@@ -9,14 +9,13 @@ const getAllByPartnerID = (sender_id, recipient_id) => {
     .then((results) => results.rows);
 };
 
-const create = (sender_id, recipient_id, message) => {
+const create = ({ sender_id, recipient_id, message, customization }) => {
   const date_created = new Date();
   console.log(sender_id, recipient_id, message);
-  return db
-    .query(
-      "INSERT INTO messages (message_text, sender_id, recipient_id, created_at) VALUES ($1, $2, $3, $4)",
-      [message, sender_id, recipient_id, date_created]
-    )
+  return db.query(
+    "INSERT INTO messages (message_text, sender_id, recipient_id, created_at, customization) VALUES ($1, $2, $3, $4, $5)",
+    [message, sender_id, recipient_id, date_created, customization]
+  );
 };
 
 const getAllByUserID = (userID) => {
