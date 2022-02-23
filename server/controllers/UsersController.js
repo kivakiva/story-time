@@ -160,8 +160,6 @@ const getByID = async (req, res) => {
         offer.state = "completed";
       } else if (request.request_offer_id === offer.id) {
         offer.state = "active";
-        console.log("REQUEST IN THE DB: ");
-        console.log(request);
       } else if (!request.request_offer_id) {
         offer.state = "pending";
       } else {
