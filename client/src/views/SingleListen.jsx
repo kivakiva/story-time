@@ -59,7 +59,7 @@ const SingleListen = ({ id, request_text, book_title, listener_id }) => {
                   <span className="badge badge-accent font-semibold mt-3">
                     {listener.name}
                   </span>
-                  <span className="flex justify-end">
+                  <span className="flex justify-end pt-2">
                     {renderRating(listener.listener_rating)}
                   </span>
                 </p>
