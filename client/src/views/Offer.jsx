@@ -45,17 +45,16 @@ const Offer = (props) => {
 
       const listener_name = listener_res.data.user.name;
       const reader_name = reader_res.data.user.name;
-      const message = (
-        <b>
-          `${listener_name} has accepted ${reader_name}'s offer to read $
-          {book_title}`
-        </b>
-      );
+      const message = `${listener_name} has accepted ${reader_name}'s offer to read`;
 
       const messageData = {
         sender_id: listener_id,
         recipient_id: reader_id,
         message_text: message,
+        customization: {
+          mode: "accepted-offer",
+          data: { book_title, listener_name, reader_name },
+        },
       };
 
       await axios({

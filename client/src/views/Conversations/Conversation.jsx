@@ -109,6 +109,7 @@ const Conversation = (props) => {
         message_text: message,
         created_at: new Date(),
         id: Math.random(),
+        customization: null,
       };
 
       // 4.2 - SEND Msg + Save to DB
