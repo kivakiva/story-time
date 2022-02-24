@@ -33,16 +33,18 @@ const SearchBar = (props) => {
   };
   useEffect(() => {
     if (volumes.length > 0) {
-      const parsedVolumes = volumes.map((volume, index) => {
-        return (
-          <SearchSuggestion
-            key={index}
-            {...volume}
-            index={index}
-            selected={selected}
-          />
-        );
-      });
+      const parsedVolumes = volumes
+        .filter((volume) => volume.title)
+        .map((volume, index) => {
+          return (
+            <SearchSuggestion
+              key={index}
+              {...volume}
+              index={index}
+              selected={selected}
+            />
+          );
+        });
       setSuggestions(parsedVolumes);
     }
   }, [volumes, selected]);

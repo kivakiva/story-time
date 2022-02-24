@@ -5,7 +5,7 @@ const SearchSuggestion = (props) => {
   const [isSelected, setIsSelected] = useState(false);
   const totalChar = 35;
   const remainingChar = totalChar - author.length;
-  let titleAbbr = title.slice();
+  let titleAbbr = title ? title.slice() : "";
   if (title.length > remainingChar) {
     titleAbbr = title.slice(0, remainingChar).concat(`...  `);
   }
