@@ -9,4 +9,4 @@
 
 ## screenshots
 
-!["screenshot of application](/storytime light crop.gif "Our application)
+!["screenshot of application](/storytime light crop.gif)
