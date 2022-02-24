@@ -4,6 +4,8 @@ import { useState, useContext, useEffect } from "react";
 import ListenContext from "../../context/listenContext";
 import Error from "../shared/Error";
 import axios from "axios";
+import Search from "../Search/Search";
+import SearchResult from "../Search/SearchResult";
 
 const ListenNewOrEdit = (props) => {
   const { pathname } = useLocation();
@@ -18,6 +20,7 @@ const ListenNewOrEdit = (props) => {
 
   // user_id, request_text, book_title, online, in_person
   const [book_title, setBook_title] = useState("");
+  const [selectedBook, setSelectedBook] = useState({});
   const [request_text, setRequest_text] = useState("");
   const [online, setOnline] = useState(false);
   const [in_person, setIn_person] = useState(false);
@@ -67,7 +70,6 @@ const ListenNewOrEdit = (props) => {
       setError("Please enter a book title");
       return;
     }
-
     axios({
       method: mode === "new" ? "post" : "put", // new vs edit
       url: `/listens/${mode !== "new" ? requestID : ""}`, // new vs edit
@@ -86,6 +88,11 @@ const ListenNewOrEdit = (props) => {
       })
       .catch((err) => console.log(err.message));
   };
+  useEffect(() => {
+    if (selectedBook.title) {
+      setBook_title(selectedBook.title);
+    }
+  }, [selectedBook]);
 
   return listenerID == userID || mode === "new" ? (
     <div className="flex flex-col items-center p-8">
@@ -93,80 +100,76 @@ const ListenNewOrEdit = (props) => {
         <h2 className="card-title">
           <i className="fa-solid fa-headphones mr-2"></i> My Listening Request
         </h2>
+        {!book_title && <Search setBook_title={setSelectedBook} />}
 
-        <div className="form-control w-full max-w-xs">
-          <label className="label mt-4">Book Title</label>
-          <input
-            type="text"
-            className="input input-bordered w-full max-w-xs"
-            value={book_title}
-            placeholder=""
-            onChange={bookTitleChangeHandler}
-            autoFocus
-          />
+        {book_title && (
+          <>
+            <SearchResult {...selectedBook} />
+            <div className="form-control w-full max-w-xs">
+              <label className="label mt-4">My Request Message</label>
+              <textarea
+                className="textarea h-24 textarea-bordered"
+                value={request_text}
+                onChange={requestTextChangeHandler}
+              ></textarea>
 
-          <label className="label mt-4">My Request Message</label>
-          <textarea
-            className="textarea h-24 textarea-bordered"
-            value={request_text}
-            onChange={requestTextChangeHandler}
-          ></textarea>
+              {(mode === "new" || editQueried) && (
+                <div className="w-48 my-6">
+                  <div className="flex items-center  justify-between my-2">
+                    <label className="label">In Person</label>
+                    <div className="flex items-center">
+                      <input
+                        defaultChecked={in_person}
+                        onClick={inPersonChangeHandler}
+                        type="checkbox"
+                        className="toggle active"
+                        value={in_person}
+                      />
+                      <i
+                        className={`fa-solid fa-person-walking text-3xl ml-3 w-4 ${
+                          !in_person && "opacity-20"
+                        }`}
+                      ></i>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between my-2">
+                    <label className="label">Online</label>
+                    <div className="flex items-center">
+                      <input
+                        defaultChecked={online}
+                        onClick={onlineChangeHandler}
+                        type="checkbox"
+                        className="toggle"
+                        value={online}
+                      />
 
-          {(mode === "new" || editQueried) && (
-            <div className="w-48 my-6">
-              <div className="flex items-center  justify-between my-2">
-                <label className="label">In Person</label>
-                <div className="flex items-center">
-                  <input
-                    defaultChecked={in_person}
-                    onClick={inPersonChangeHandler}
-                    type="checkbox"
-                    className="toggle active"
-                    value={in_person}
-                  />
-                  <i
-                    className={`fa-solid fa-person-walking text-3xl ml-3 w-4 ${
-                      !in_person && "opacity-20"
-                    }`}
-                  ></i>
+                      <i
+                        className={`fa-solid fa-phone text-xl ml-3 w-4 ${
+                          !online && "opacity-20"
+                        }`}
+                      ></i>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center justify-between my-2">
-                <label className="label">Online</label>
-                <div className="flex items-center">
-                  <input
-                    defaultChecked={online}
-                    onClick={onlineChangeHandler}
-                    type="checkbox"
-                    className="toggle"
-                    value={online}
-                  />
+              )}
 
-                  <i
-                    className={`fa-solid fa-phone text-xl ml-3 w-4 ${
-                      !online && "opacity-20"
-                    }`}
-                  ></i>
-                </div>
+              {error && <Error error={error}></Error>}
+              <div className="flex flex-col">
+                <button className="btn btn-outline m-2" onClick={submitHandler}>
+                  {mode === "edit" ? "Save Edit" : "Submit Request"}
+                </button>
+                <button
+                  className="btn btn-outline m-2"
+                  aria-pressed="true"
+                  onClick={() => navigate(-1)}
+                >
+                  <ImCancelCircle className="inline-block mr-2" />
+                  {mode === "edit" ? "Discard Changes" : "Cancel Request"}
+                </button>
               </div>
             </div>
-          )}
-
-          {error && <Error error={error}></Error>}
-          <div className="flex flex-col">
-            <button className="btn btn-outline m-2" onClick={submitHandler}>
-              {mode === "edit" ? "Save Edit" : "Submit Request"}
-            </button>
-            <button
-              className="btn btn-outline m-2"
-              aria-pressed="true"
-              onClick={() => navigate(-1)}
-            >
-              <ImCancelCircle className="inline-block mr-2" />
-              {mode === "edit" ? "Discard Changes" : "Cancel Request"}
-            </button>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </div>
   ) : (

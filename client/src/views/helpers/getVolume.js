@@ -12,9 +12,11 @@ const getVolume = (title) => {
       }
       const title = baseKey.volumeInfo.title;
       const author = baseKey.volumeInfo.authors[0];
-      const maturityRating = baseKey.volumeInfo.categories.maturityRating
-        ? baseKey.volumeInfo.categories.maturityRating
-        : false;
+      const maturityRating =
+        baseKey.volumeInfo.categories &&
+        baseKey.volumeInfo.categories.maturityRating
+          ? baseKey.volumeInfo.categories.maturityRating
+          : false;
       const language = baseKey.volumeInfo.language
         ? baseKey.volumeInfo.language
         : "en";

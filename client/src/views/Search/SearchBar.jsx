@@ -14,8 +14,6 @@ const SearchBar = (props) => {
     if (volumes.length > 0) {
       getVolumes(volumes[selected].title)
         .then((volumes) => {
-          console.log("volumes");
-          console.log(volumes);
           setSearchResults(volumes);
         })
         .catch((err) => console.log(err));
@@ -63,7 +61,7 @@ const SearchBar = (props) => {
   return (
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="flex flex-col mx-10">
+        <div className="flex flex-col ">
           <input
             className="text-center"
             type="text"
@@ -72,11 +70,11 @@ const SearchBar = (props) => {
             onChange={(e) => handleSearch(e)}
             onKeyDown={(e) => navigateSelected(e)}
           />
-          <div>{suggestions}</div>
+          <div className="pb-4">{suggestions}</div>
         </div>
-        <button className="btn btn-primary mt-3">
+        {/* <button className="btn btn-primary mt-3">
           <input type="submit" value="Submit" />
-        </button>
+        </button> */}
       </form>
     </div>
   );
