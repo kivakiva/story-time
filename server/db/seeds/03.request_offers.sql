@@ -41,3 +41,5 @@ insert into request_offers (request_id, reader_id, offer_text, created_at) value
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (23, 9, 'I have the box set. Prefer to read online, but can also meet in person in downtown TO', '2021-02-10 11:29:32');
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (24, 2, 'Hi. I am available to meet in person. Do you have a copy of the book?', '2021-02-10 11:29:32');
 insert into request_offers (request_id, reader_id, offer_text, created_at) values (24, 7, 'Hi - I cannot meet in person, but I am very free to read online for the next week.', '2021-02-10 11:29:32');
+insert into request_offers (request_id, reader_id, offer_text, created_at) values (25, 6, 'Happy to read this book!', '2021-10-10 11:29:32');
+insert into request_offers (request_id, reader_id, offer_text, created_at) values (26, 7, 'Love Agatha Christie!', '2021-10-10 11:29:32');
