@@ -4,7 +4,7 @@ require("dotenv").config();
 const cookieSession = require("cookie-session");
 
 // Web server config
-const PORT = process.env.PORT || 8079;
+const PORT = process.env.PORT || 80;
 const morgan = require("morgan");
 const express = require("express");
 
