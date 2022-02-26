@@ -6,7 +6,7 @@ import App from "./App";
 import MyReads from "./views/MyReads";
 import PublicListens from "./views/PublicListens";
 import Conversations from "./views/Conversations/Conversations";
-import Conversation from "./views/Conversations/Conversation";
+// import Conversation from "./views/Conversations/Conversation";
 import Profile from "./views/Profile";
 import ReadExpand from "./views/myreads/ReadExpand";
 import ListenExpand from "./views/myreads/ListenExpand";
@@ -30,10 +30,10 @@ ReactDOM.render(
               <Route index element={<PublicListens />} />
               <Route path="myreads" element={<MyReads />} />
               <Route path="conversations" element={<Conversations />} />
-              <Route
+              {/* <Route
                 path="conversations/:conversation_id"
                 element={<Conversation />}
-              />
+              /> */}
               <Route path="profile" element={<Profile />} />
               <Route
                 path="listen/create"
