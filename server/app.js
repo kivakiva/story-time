@@ -1,5 +1,6 @@
 // load .env data into process.env
 require("dotenv").config();
+const cors = require("cors");
 
 const cookieSession = require("cookie-session");
 
@@ -13,6 +14,7 @@ const { webSocketComponent } = require("./webSocketComponent");
 
 const app = express();
 
+app.use(cors())
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
