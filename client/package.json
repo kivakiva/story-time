@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy": "https://storytime-listen-and-read.herokuapp.com/api",
+  "proxy": "https://storytime-server.herokuapp.com/api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
