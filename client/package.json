@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy": "http://localhost:80/api",
+  "proxy": "https://storytime-server.herokuapp.com/api",
   "comments": {
     "proxyHost":"https://storytime-server.herokuapp.com/api",
     "proxyLocal": "http://localhost:80/api"

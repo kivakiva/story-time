@@ -10,7 +10,7 @@ const morgan = require("morgan");
 const express = require("express");
 
 // P2P server
-const { webSocketComponent } = require("./webSocketComponent");
+// const { webSocketComponent } = require("./webSocketComponent");
 
 const app = express();
 
@@ -44,4 +44,4 @@ app.listen(PORT, () => {
 });
 
 // P2P chat server
-webSocketComponent(app);
+// webSocketComponent(app);
