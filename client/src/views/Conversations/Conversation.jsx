@@ -7,11 +7,13 @@ import io from "socket.io-client";
 import axios from "axios";
 
 // CONNECT to WebSocket
-const socket = io.connect("https://storytime-server.herokuapp.com");
+// const socket = io.connect("http://localhost:3001");
 
 const Conversation = (props) => {
   const [messagesData, setMessagesData] = useState([]);
   const userID = localStorage.getItem("userID");
+  const [socket, setSocket] = useState(io.connect("http://localhost:3001"));
+  
   const {
     message,
     setMessage,

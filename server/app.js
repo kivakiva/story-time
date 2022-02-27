@@ -49,10 +49,10 @@ app.listen(PORT, () => {
 const server = require("http").createServer(app);
 app.use(cors());
 const io = require("socket.io")(server, {
-  // cors: {
-  //   origin: `http://localhost:3000`,
-  //   methods: ["GET", "POST"],
-  // },
+  cors: {
+    origin: `*`,
+    methods: ["GET", "POST"],
+  },
 });
 io.on("connection", (client) => {
   // client.on("event", (data) => {
