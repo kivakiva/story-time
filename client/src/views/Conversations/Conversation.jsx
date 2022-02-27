@@ -6,13 +6,12 @@ import MessageContext from "../../context/messageContext";
 import io from "socket.io-client";
 import axios from "axios";
 
-// const socket = io.connect("http://localhost:3001");
+// CONNECT to WebSocket
+const socket = io.connect("http://localhost:3001");
 
 const Conversation = (props) => {
   const [messagesData, setMessagesData] = useState([]);
   const userID = localStorage.getItem("userID");
-  const [socket, setSocket] = useState();
-
   const {
     message,
     setMessage,
@@ -31,13 +30,6 @@ const Conversation = (props) => {
     image_url: "",
     id: "",
   });
-
-  useEffect(() => {
-    // CONNECT to WebSocket
-    setSocket(io.connect("http://localhost:3001"));
-
-    return socket.close();
-  }, []);
 
   //1. ON PAGE LOAD - GET convoInfo
   useEffect(() => {

@@ -2,21 +2,21 @@ const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
 
-// const CLIENT_PORT = process.env.PORT || 3000;
-const PORT = process.env.PORT || 3000;
+const CLIENT_PORT = process.env.PORT || 3000;
+const WEB_SOCKET_PORT = process.env.PORT || 3001;
 
 const webSocketComponent = (app) => {
-  // app.use(cors());
+  app.use(cors());
 
   const server = http.createServer(app);
 
   // ALLOW INCOMING from Client PORT
-  // const io = new Server(server, {
-  //   cors: {
-  //     origin: `http://localhost:${CLIENT_PORT}`,
-  //     methods: ["GET", "POST"],
-  //   },
-  // });
+  const io = new Server(server, {
+    cors: {
+      origin: `http://localhost:${CLIENT_PORT}`,
+      methods: ["GET", "POST"],
+    },
+  });
 
   // ON CONNECTION TO SERVER...
   io.on("connection", (socket) => {
@@ -40,8 +40,8 @@ const webSocketComponent = (app) => {
   });
 
   // SERVER port
-  server.listen(PORT, () => {
-    console.log("Messenger Server Running on PORT 3001");
+  server.listen(WEB_SOCKET_PORT, () => {
+    console.log(`Messenger Server Running on PORT ${WEB_SOCKET_PORT}`);
   });
 };
 

@@ -10,7 +10,7 @@ const DevLogin = () => {
 
   useEffect(() => {
     axios
-      .get(`https://storytime-server.herokuapp.com/api/users/devlog/${userID}`)
+      .get(`/users/devlog/${userID}`)
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("userID", res.data.cookies.userID);

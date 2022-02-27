@@ -44,4 +44,4 @@ app.listen(PORT, () => {
 });
 
 // P2P chat server
-// webSocketComponent(app);
+webSocketComponent(app);

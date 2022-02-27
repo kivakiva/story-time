@@ -1,6 +1,10 @@
 {
   "name": "client",
-  "proxy": "https://storytime-server.herokuapp.com/api",
+  "proxy": "http://localhost:80/api",
+  "comments": {
+    "proxyHost":"https://storytime-server.herokuapp.com/api",
+    "proxyLocal": "http://localhost:80/api"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
