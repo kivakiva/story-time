@@ -14,7 +14,7 @@ const express = require("express");
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -45,3 +45,17 @@ app.listen(PORT, () => {
 
 // P2P chat server
 // webSocketComponent(app);
+
+const server = require("http").createServer();
+const io = require("socket.io")(server);
+io.on("connection", (client) => {
+  client.on("event", (data) => {
+    /* … */
+  });
+  client.on("disconnect", () => {
+    /* … */
+  });
+});
+server.listen(3001, () => {
+  console.log('WebSocket listening on PORT 3001')
+});
