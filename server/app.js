@@ -39,9 +39,9 @@ app.use("/api/ratings", ratingsRoutes);
 app.use("/api/reads", readsRoutes);
 app.use("/api/listens", listensRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Example app listening on port ${PORT}`);
+// });
 
 // P2P chat server
 // webSocketComponent(app);
@@ -74,8 +74,8 @@ io.on("connection", (client) => {
     /* … */
   });
 });
-server.listen(3001, () => {
-  console.log(`WebSocket listening on PORT 3001`);
+server.listen(PORT, () => {
+  console.log(`WebSocket listening on PORT ${PORT}`);
 });
 
 // const CLIENT_PORT = process.env.PORT || 3000;

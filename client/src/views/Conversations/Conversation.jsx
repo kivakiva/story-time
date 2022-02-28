@@ -12,8 +12,10 @@ import axios from "axios";
 const Conversation = (props) => {
   const [messagesData, setMessagesData] = useState([]);
   const userID = localStorage.getItem("userID");
-  const [socket, setSocket] = useState(io.connect("https://storytime-server.herokuapp.com"));
-  
+  const [socket, setSocket] = useState(
+    io.connect("https://storytime-server.herokuapp.com:3000")
+  );
+
   const {
     message,
     setMessage,
