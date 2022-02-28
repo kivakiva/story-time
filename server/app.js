@@ -74,8 +74,8 @@ io.on("connection", (client) => {
     /* … */
   });
 });
-server.listen(PORT, () => {
-  console.log(`WebSocket listening on PORT ${PORT}`);
+server.listen(3001, () => {
+  console.log(`WebSocket listening on PORT 3001`);
 });
 
 // const CLIENT_PORT = process.env.PORT || 3000;
