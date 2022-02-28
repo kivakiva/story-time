@@ -67,6 +67,7 @@ io.on("connection", (client) => {
   // send to all chat members (except sender)
   client.on("send_message", (data) => {
     client.to(data.room).emit("receive_message", data);
+    console.log(data.message_text)
   });
 
   client.on("disconnect", () => {
