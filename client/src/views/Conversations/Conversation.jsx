@@ -73,8 +73,8 @@ const Conversation = (props) => {
 
     // CONNECT to WebSocket
     setSocket(() => {
-      return io.connect("https://storytime-server.herokuapp.com"); // heroku host
-      // return io.connect("http://localhost:80"); //localhost
+      // return io.connect("https://storytime-server.herokuapp.com"); // heroku host
+      return io.connect("http://localhost:80"); //localhost
     });
 
     // close WebSocket on cleanup

@@ -4,7 +4,7 @@ require("dotenv").config();
 const cookieSession = require("cookie-session");
 
 // Web server config
-const PORT = process.env.PORT || 80;
+const SERVER_PORT = process.env.PORT || 80;
 const morgan = require("morgan");
 const express = require("express");
 
@@ -76,6 +76,6 @@ io.on("connection", (client) => {
 });
 
 // because we're using WebSockets, we can replace our typical "app.listen" with the new server we created:
-server.listen(PORT, () => {
-  console.log(`WebSocket listening on PORT ${PORT}`);
+server.listen(SERVER_PORT, () => {
+  console.log(`WebSocket listening on PORT ${SERVER_PORT}`);
 });
