@@ -21,7 +21,7 @@ function Footer(props) {
   };
 
   return (
-    <nav className="footer fixed flex items-center justify-around border-main-100 border-t bottom-0 bg-base-100 gap-2 h-20">
+    <nav className="footer fixed flex items-center justify-around border-main-100 border-t bottom-0 bg-base-100 gap-2 h-20 w-full">
       {chatOpen ? (
         <MessageInput />
       ) : (

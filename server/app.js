@@ -54,7 +54,6 @@ const io = socketIO(server, {
 
 // ON CONNECTION TO SERVER...
 io.on("connection", (client) => {
-
   // join a room
   client.on("join_room", (room) => {
     client.join(room);
@@ -64,9 +63,6 @@ io.on("connection", (client) => {
   // send to all chat members (except sender)
   client.on("send_message", (data) => {
     client.to(data.room).emit("receive_message", data);
-    console.log(
-      `message recieved via WebSocket and sending back to others: ${data.message_text}`
-    );
   });
 
   // disconnect

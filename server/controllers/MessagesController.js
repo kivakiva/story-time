@@ -1,5 +1,4 @@
 // db queries
-const UsersModel = require("../models/UsersModel");
 const MessagesModel = require("../models/MessagesModel");
 
 const getAllByUserID = (req, res) => {
@@ -11,7 +10,7 @@ const getAllByUserID = (req, res) => {
 
   MessagesModel.getAllByUserID(userID)
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       return res.status(200).send(result);
     })
     .catch((err) => {
