@@ -1,7 +1,6 @@
 import Message from "./Message";
-import { Link } from "react-router-dom";
 
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MessageContext from "../../context/messageContext";
 import io from "socket.io-client";
 import axios from "axios";
@@ -9,11 +8,7 @@ import axios from "axios";
 const Conversation = (props) => {
   const [messagesData, setMessagesData] = useState([]);
   const userID = localStorage.getItem("userID");
-
-  // CONNECT to WebSocket
-  const [socket, setSocket] = useState(() => {
-    return io.connect("https://storytime-server.herokuapp.com");
-  });
+  const [socket, setSocket] = useState();
 
   const {
     message,
@@ -34,7 +29,7 @@ const Conversation = (props) => {
     id: "",
   });
 
-  //1. ON PAGE LOAD - GET convoInfo
+  //1. ON PAGE LOAD - GET convoInfo & create WebSocket Connection
   useEffect(() => {
     let sender_name;
     let recipient_name;
@@ -75,33 +70,48 @@ const Conversation = (props) => {
       .catch((err) => {
         console.log(err.message);
       });
+
+    // CONNECT to WebSocket
+    setSocket(() => {
+      return io.connect("https://storytime-server.herokuapp.com"); // heroku host
+      // return io.connect("http://localhost:80"); //localhost
+    });
+
+    // close WebSocket on cleanup
+    return () => {
+      setSocket((prevSocket) => prevSocket.close());
+    };
   }, []);
 
   // 2. ON PAGE LOAD - JOIN convo room & load messages
   useEffect(() => {
-    socket.emit("join_room", convoInfo.id); // Join room
+    if (socket) {
+      socket.emit("join_room", convoInfo.id); // Join room
 
-    // load messages ONLY when we have recipient ID
-    if (convoInfo.recipient_id) {
-      axios // get messages
-        .get(`/messages/${convoInfo.recipient_id}`)
-        .then((result) => {
-          setMessagesData(result.data);
-        })
-        .catch((err) => console.log(err.message));
+      // load messages ONLY when we have recipient ID
+      if (convoInfo.recipient_id) {
+        axios // get messages
+          .get(`/messages/${convoInfo.recipient_id}`)
+          .then((result) => {
+            setMessagesData(result.data);
+          })
+          .catch((err) => console.log(err.message));
+      }
     }
   }, [convoInfo]);
 
   // 3. RECURRING - RECEIVE incoming messages
   useEffect(() => {
-    socket.on("receive_message", (msgData) => {
-      setMessagesData((list) => [...list, msgData]);
-    });
+    if (socket) {
+      socket.on("receive_message", (msgData) => {
+        setMessagesData((list) => [...list, msgData]);
+      });
+    }
   }, [socket]);
 
   // 4. RECURRING - SEND outgoing messages
   const messageSubmitHandler = async () => {
-    if (message !== "") {
+    if (message !== "" && socket) {
       // 4.1 - SETUP Msg Data
       const messageData = {
         room: convoInfo.id,

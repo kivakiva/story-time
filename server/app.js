@@ -41,17 +41,21 @@ app.use("/api/ratings", ratingsRoutes);
 app.use("/api/reads", readsRoutes);
 app.use("/api/listens", listensRoutes);
 
-// P2P chat server
+// P2P chat server via Socket IO
 const server = http.createServer(app);
 
 app.use(cors());
 const io = socketIO(server, {
   cors: {
-    origin: `*`,
+    origin: `*`, // allows access from anywhere
     methods: ["GET", "POST"],
   },
 });
+
+// ON CONNECTION TO SERVER...
 io.on("connection", (client) => {
+
+  // join a room
   client.on("join_room", (room) => {
     client.join(room);
     console.log(`User with ID: ${client.id} joined room: ${room}`);
@@ -65,12 +69,13 @@ io.on("connection", (client) => {
     );
   });
 
+  // disconnect
   client.on("disconnect", () => {
     console.log("User Disconnected", client.id);
   });
 });
 
-// because we're using WebSockets, we can replace our typical "app.listen" with:
+// because we're using WebSockets, we can replace our typical "app.listen" with the new server we created:
 server.listen(PORT, () => {
   console.log(`WebSocket listening on PORT ${PORT}`);
 });

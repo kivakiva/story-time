@@ -43,7 +43,7 @@ const getAllByPartnerID = (req, res) => {
 
   MessagesModel.getAllByPartnerID(sender_id, recipient_id)
     .then((result) => {
-      console.log(result);
+      // console.log(result); // log entire message history in current chat
       return res.status(200).send(result);
     })
     .catch((err) => err.message);
