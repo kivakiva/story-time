@@ -8,14 +8,14 @@ const UserRatingModal = ({ whoToRate, listenID, updateRating }) => {
   const handleSubmit = async () => {
     try {
       if (whoToRate === "reader") {
-        await axios.post("/ratings/readers", {
+        await axios.post("/api/ratings/readers", {
           rating,
           request_id: listenID,
         });
       }
 
       if (whoToRate === "listener") {
-        await axios.post("/ratings/listeners", {
+        await axios.post("/api/ratings/listeners", {
           rating,
           request_id: listenID,
         });

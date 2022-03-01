@@ -42,7 +42,7 @@ const ListenNewOrEdit = (props) => {
   // if edit then query current request
   useEffect(() => {
     if (mode === "edit") {
-      axios.get(`/listens/${requestID}`).then((res) => {
+      axios.get(`/api/listens/${requestID}`).then((res) => {
         const request = res.data.response.request;
         setBook_title(request.book_title);
         setRequest_text(request.request_text);
@@ -70,7 +70,7 @@ const ListenNewOrEdit = (props) => {
 
     axios({
       method: mode === "new" ? "post" : "put", // new vs edit
-      url: `/listens/${mode !== "new" ? requestID : ""}`, // new vs edit
+      url: `/api/listens/${mode !== "new" ? requestID : ""}`, // new vs edit
       headers: {},
       data: {
         action: mode === "edit" ? "UPDATE" : "", // new vs edit

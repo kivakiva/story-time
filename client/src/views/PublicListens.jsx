@@ -12,7 +12,7 @@ const PublicListens = () => {
 
   useEffect(() => {
     axios
-      .get(`../listens`)
+      .get(`/api/listens`)
       .then((res) => {
         setAllListens([...res.data.readRequests]);
         setError("");

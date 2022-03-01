@@ -15,7 +15,7 @@ const SingleListenRating = ({ whoToRate, listenID }) => {
   useEffect(() => {
     if (whoToRate === "reader") {
       axios
-        .get(`/ratings/readers/listens/${listenID}`)
+        .get(`/api/ratings/readers/listens/${listenID}`)
         .then((res) => {
           if (res.data.reader_rating) {
             setRating(res.data.reader_rating.rating);
@@ -33,7 +33,7 @@ const SingleListenRating = ({ whoToRate, listenID }) => {
   useEffect(() => {
     if (whoToRate === "listener") {
       axios
-        .get(`/ratings/listeners/listens/${listenID}`)
+        .get(`/api/ratings/listeners/listens/${listenID}`)
         .then((res) => {
           if (res.data.listener_rating) {
             setRating(res.data.listener_rating.rating);

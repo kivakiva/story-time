@@ -15,7 +15,7 @@ const MyReads = (props) => {
 
   useEffect(() => {
     axios
-      .get(`../users/${userID}`)
+      .get(`/api/users/${userID}`)
       .then((res) => {
         setMyReads([...res.data.user.all_request_offers]);
         setMyListens([...res.data.user.all_read_requests]);
@@ -29,10 +29,6 @@ const MyReads = (props) => {
       });
   }, [userID, error]);
 
-  // useEffect(() => {
-  //   console.log("change to myListens");
-  //   console.log(myListens);
-  // }, [myListens]);
   const listenTab = () => {
     return currentTab === "listening" ? "bg-base-200" : "";
   };

@@ -47,7 +47,7 @@ const ListenExpand = () => {
 
     const fetchData = async () => {
       try {
-        const requestRes = await axios.get(`/listens/${listenId}`);
+        const requestRes = await axios.get(`/api/listens/${listenId}`);
         const { request, offers } = requestRes.data.response;
         setListen(request);
 
@@ -60,19 +60,19 @@ const ListenExpand = () => {
           request.request_offer_id &&
           (request.reader_id === userID || request.listener_id === userID)
         ) {
-          const offer = await axios.get(`../reads/${request.request_offer_id}`);
+          const offer = await axios.get(`/api/reads/${request.request_offer_id}`);
           setChosenOffer(offer.data.offer);
         }
 
-        const listenerInfo = await axios.get(`/users/${request.listener_id}`);
+        const listenerInfo = await axios.get(`/api/users/${request.listener_id}`);
         setListener(listenerInfo.data.user);
         if (request.reader_id) {
-          const readerInfo = await axios.get(`/users/${request.reader_id}`);
+          const readerInfo = await axios.get(`/api/users/${request.reader_id}`);
           setReader(readerInfo.data.user);
         }
 
         if (userID) {
-          const loggedInUserInfo = await axios.get(`/users/${userID}`);
+          const loggedInUserInfo = await axios.get(`/api/users/${userID}`);
           setLoggedInUser(JSON.stringify(loggedInUserInfo.data.user));
           getOffer(loggedInUserInfo.data.user, request);
         }
@@ -135,7 +135,7 @@ const ListenExpand = () => {
 
   const cancelReading = async () => {
     try {
-      await axios.put(`/listens/${listen.id}`, {
+      await axios.put(`/api/listens/${listen.id}`, {
         action: "CANCEL",
         who_cancelled_id: userID,
       });
@@ -150,7 +150,7 @@ const ListenExpand = () => {
 
   const completeReading = async () => {
     try {
-      await axios.put(`/listens/${listen.id}`, {
+      await axios.put(`/api/listens/${listen.id}`, {
         action: "COMPLETE",
       });
       setError("");

@@ -46,12 +46,12 @@ const Conversation = (props) => {
 
     // 1.2 get the rest of the convoInfo using sender & recipient IDs
     axios
-      .get(`/users/${convoInfo.sender_id}`)
+      .get(`/api/users/${convoInfo.sender_id}`)
       .then((result) => {
         sender_name = result.data.user.name;
       })
       .then(() => {
-        return axios.get(`/users/${recipient_id}`).then((result) => {
+        return axios.get(`/api/users/${recipient_id}`).then((result) => {
           recipient_name = result.data.user.name;
           image_url = result.data.user.image_url;
 
@@ -73,8 +73,7 @@ const Conversation = (props) => {
 
     // CONNECT to WebSocket
     setSocket(() => {
-      // return io.connect("https://storytime-server.herokuapp.com"); // heroku host
-      return io.connect("http://localhost:80"); //localhost
+      return io.connect("/"); // connect to backend home route
     });
 
     // close WebSocket on cleanup
@@ -91,7 +90,7 @@ const Conversation = (props) => {
       // load messages ONLY when we have recipient ID
       if (convoInfo.recipient_id) {
         axios // get messages
-          .get(`/messages/${convoInfo.recipient_id}`)
+          .get(`/api/messages/${convoInfo.recipient_id}`)
           .then((result) => {
             setMessagesData(result.data);
           })
@@ -129,7 +128,7 @@ const Conversation = (props) => {
       // Save to DB
       axios({
         method: "post",
-        url: "/messages",
+        url: "/api/messages",
         headers: {},
         data: messageData,
       }).catch((err) => console.log(err.message));
