@@ -168,10 +168,10 @@ const Conversation = (props) => {
     ));
   }
   return (
-    <div className="w-screen">
+    <div className="w-full">
       <div className="fixed left-0 top-0 bg-base-100 z-9 w-full h-24 "></div>
-      <div className="fixed left-0 top-24 z-9 w-full h-28 bg-gradient-to-b from-base-100 via-base-100 to-transparent"></div>
-      <div className="fixed left-0 right-0 flex items-start justify-start px-6">
+      <div className="fixed top-24 z-9 w-full h-28 bg-gradient-to-b from-base-100 via-base-100 to-transparent"></div>
+      <div className="fixed flex items-start justify-start px-6">
         {convoInfo.image_url && (
           <img
             className="border w-28 h-28 rounded-full object-cover ml-2 mt-1 mr-4 ring ring-primary ring-offset-base-100 ring-offset-2"

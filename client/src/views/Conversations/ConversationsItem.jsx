@@ -5,14 +5,14 @@ const ConversationItem = (props) => {
 
   return (
     <Link to={`${convoID}`} className="flex flex-col items-center w-full">
-      <div className="card w-100 bg-base-100 shadow-xl border flex flex-row items-center p-4 m-1 w-11/12">
+      <div className="card bg-base-100 shadow-xl border flex flex-row items-center p-4 m-1 w-11/12">
         <div className="avatar">
           <div className="w-20 h-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 mr-2">
             <img alt="" src={image_url} />
           </div>
         </div>
-        <div className="flex flex-col self-start text-left container">
-          <div>
+        <div className="flex flex-col self-start text-left ml-4">
+          <div className="">
             <b>{name}</b>
           </div>
           <div className="break-words">
@@ -21,7 +21,7 @@ const ConversationItem = (props) => {
               : `${message_text.substring(0, 35)}...`}
           </div>
         </div>
-        <div className="flex justify-self-end text-sm">
+        <div className="flex text-sm ml-auto">
           <Timeago
             // formatter shows 'just now' instead of counting seconds
             formatter={(value, unit, suffix) => {
