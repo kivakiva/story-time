@@ -6,15 +6,14 @@ import MessageContext from "../../context/messageContext";
 import io from "socket.io-client";
 import axios from "axios";
 
-// CONNECT to WebSocket
-// const socket = io.connect("http://localhost:3001");
-
 const Conversation = (props) => {
   const [messagesData, setMessagesData] = useState([]);
   const userID = localStorage.getItem("userID");
-  const [socket, setSocket] = useState(
-    io.connect("https://storytime-server.herokuapp.com:3000")
-  );
+
+  // CONNECT to WebSocket
+  const [socket, setSocket] = useState(() => {
+    return io.connect("https://storytime-server.herokuapp.com");
+  });
 
   const {
     message,
@@ -74,7 +73,6 @@ const Conversation = (props) => {
         });
       })
       .catch((err) => {
-        // console.log("AXIOS REQUEST FAIL");
         console.log(err.message);
       });
   }, []);
@@ -97,7 +95,6 @@ const Conversation = (props) => {
   // 3. RECURRING - RECEIVE incoming messages
   useEffect(() => {
     socket.on("receive_message", (msgData) => {
-      // console.log("RECEIVING MESSAGE!");
       setMessagesData((list) => [...list, msgData]);
     });
   }, [socket]);
