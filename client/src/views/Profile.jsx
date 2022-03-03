@@ -26,7 +26,7 @@ const Profile = (props) => {
     }
     if (saved && userID) {
       axios
-        .get(`/users/${userID}`)
+        .get(`/api/users/${userID}`)
         .then((result) => {
           setProfile({ ...result.data.user });
           setSaved(false);
@@ -70,7 +70,7 @@ const Profile = (props) => {
   const saveProfile = () => {
     axios({
       method: "put",
-      url: `/users/${localStorage.getItem("userID")}`,
+      url: `/api/users/${localStorage.getItem("userID")}`,
       headers: {},
       data: {
         image_url: imgURL,

@@ -127,7 +127,6 @@ const getByID = async (req, res) => {
 
   try {
     const user = await UsersModel.findByID(id);
-    console.log("1. user email => ", user.email);
 
     if (!user) {
       return res.status(404).send({ message: "User not found" });
@@ -184,20 +183,19 @@ const getByID = async (req, res) => {
         intro: user.intro,
       },
     };
+
+    // When accessing user info as another user
     if (userID !== Number(id)) {
-      console.log("ERROR, userID do NOT match id");
-      console.log(userID, id);
       return res.status(200).send(response);
     }
 
+    // When accessing user info is same user
     response.user = {
       ...response.user,
       email: user.email,
       all_read_requests: allReadRequests,
       all_request_offers: allRequestOffers,
     };
-
-    console.log("2. user email => ", response.user.email);
 
     return res.status(200).send(response);
   } catch (err) {

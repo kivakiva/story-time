@@ -29,7 +29,7 @@ const Login = () => {
   const login = () => {
     axios({
       method: "post",
-      url: `users/login`,
+      url: `/api/users/login`,
       headers: {},
       data: {
         email,
@@ -51,7 +51,7 @@ const Login = () => {
   const register = () => {
     axios({
       method: "post",
-      url: `users/signup`,
+      url: `/api/users/signup`,
       headers: {},
       data: {
         name,

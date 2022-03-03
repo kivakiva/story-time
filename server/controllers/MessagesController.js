@@ -1,5 +1,4 @@
 // db queries
-const UsersModel = require("../models/UsersModel");
 const MessagesModel = require("../models/MessagesModel");
 
 const getAllByUserID = (req, res) => {
@@ -11,7 +10,7 @@ const getAllByUserID = (req, res) => {
 
   MessagesModel.getAllByUserID(userID)
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       return res.status(200).send(result);
     })
     .catch((err) => {
@@ -43,7 +42,7 @@ const getAllByPartnerID = (req, res) => {
 
   MessagesModel.getAllByPartnerID(sender_id, recipient_id)
     .then((result) => {
-      console.log(result);
+      // console.log(result); // log entire message history in current chat
       return res.status(200).send(result);
     })
     .catch((err) => err.message);

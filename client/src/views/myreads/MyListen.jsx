@@ -1,5 +1,5 @@
 import capitalize from "../helpers/capitalize";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getVolume from "../helpers/getVolume";
 import axios from "axios";
@@ -14,6 +14,8 @@ const Listen = (request) => {
   const { id, book_title, reader_id, listener_id } = request;
   const userID = localStorage.getItem("userID");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (book_title) {
       getVolume(book_title)
@@ -23,7 +25,7 @@ const Listen = (request) => {
         .catch((err) => console.log(err));
       if (reader_id) {
         axios
-          .get(`users/${reader_id}`)
+          .get(`/api/users/${reader_id}`)
           .then((res) => {
             const user = res.data.user;
             setReader(user);
@@ -51,7 +53,7 @@ const Listen = (request) => {
     if (reqStatus === "pending") {
       console.log("pending");
       axios
-        .get(`listens/${id}`)
+        .get(`/api/listens/${id}`)
         .then((res) => {
           const offers = res.data.response.offers;
           if (offers) {
@@ -67,13 +69,13 @@ const Listen = (request) => {
       action: "CANCEL",
       who_cancelled_id: userID,
     };
-    axios.put(`listens/${requestId}`, cancel);
+    axios.put(`/api/listens/${requestId}`, cancel);
     //ensure component re-renders:
     setIsCancelled(true);
   };
 
   return (
-    <Link className="grow max-w-md" to={`/listen/${id}`}>
+    <div className="grow max-w-md" onClick={() => navigate(`/listen/${id}`)}>
       <div className="click-shadow card border-solid border-stone-400 border card-side bg-base-300 m-2 my-3 p-5 shadow-xl justify-between">
         <div className="flex flex-col mr-2 items-center">
           <div>
@@ -132,20 +134,23 @@ const Listen = (request) => {
               {reqStatus === "active" ? "is reading to you." : "read to you."}
             </div>
             {reqStatus === "active" && (
-              <Link
-                to={
-                  listener_id < reader_id
-                    ? `/conversations/${listener_id}_${reader_id}`
-                    : `/conversations/${reader_id}_${listener_id}`
-                }
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(
+                    listener_id < reader_id
+                      ? `/conversations/${listener_id}_${reader_id}`
+                      : `/conversations/${reader_id}_${listener_id}`
+                  );
+                }}
               >
                 <i className="fa fa-commenting text-3xl" aria-hidden="true"></i>
-              </Link>
+              </div>
             )}
           </div>
         )}
       </div>
-    </Link>
+    </div>
   );
 };
 export default Listen;

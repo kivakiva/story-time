@@ -7,7 +7,6 @@ CREATE TABLE requests (
   in_person BOOLEAN NOT NULL DEFAULT false,
   listener_id INTEGER REFERENCES users (id) NOT NULL,
   reader_id INTEGER REFERENCES users (id) DEFAULT NULL,
-  request_offer_id INTEGER REFERENCES request_offers (id) DEFAULT NULL,
   created_at TIMESTAMP DEFAULT current_timestamp,
   accepted_at TIMESTAMP DEFAULT NULL,
   completed_at TIMESTAMP DEFAULT NULL,

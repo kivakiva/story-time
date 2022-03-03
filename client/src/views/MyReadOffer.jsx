@@ -10,14 +10,13 @@ const SingleReadOffer = (offer) => {
   const [request, setRequest] = useState({});
   const [listenerId, setListenerId] = useState("");
   const [cover, setCover] = useState("");
-  console.log(offer);
+  // console.log(offer);
   const { request_id, state, created_at } = offer;
 
   useEffect(() => {
-    axios.get(`../listens/${request_id}`).then((res) => {
+    axios.get(`/api/listens/${request_id}`).then((res) => {
       setRequest(res.data.response.request);
       setListenerId(res.data.response.request.listener_id);
-      console.log("the request of the offer");
       console.log(res.data.response.request);
     });
   }, [request_id]);
@@ -25,7 +24,7 @@ const SingleReadOffer = (offer) => {
   useEffect(() => {
     if (listenerId) {
       axios
-        .get(`../users/${listenerId}`)
+        .get(`/api/users/${listenerId}`)
         .then((res) => {
           setListener(res.data.user);
         })

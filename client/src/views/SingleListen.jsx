@@ -12,7 +12,7 @@ const SingleListen = ({ id, request_text, book_title, listener_id }) => {
 
   useEffect(() => {
     axios
-      .get(`../users/${listener_id}`)
+      .get(`/api/users/${listener_id}`)
       .then((res) => {
         setError("");
         setListener(res.data.user);
