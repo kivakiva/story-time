@@ -1,17 +1,15 @@
 import Message from "./Message";
-import { Link } from "react-router-dom";
 
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MessageContext from "../../context/messageContext";
 import io from "socket.io-client";
 import axios from "axios";
 
-// CONNECT to WebSocket
-const socket = io.connect("http://localhost:3001");
-
 const Conversation = (props) => {
   const [messagesData, setMessagesData] = useState([]);
   const userID = localStorage.getItem("userID");
+  const [socket, setSocket] = useState();
+
   const {
     message,
     setMessage,
@@ -31,7 +29,7 @@ const Conversation = (props) => {
     id: "",
   });
 
-  //1. ON PAGE LOAD - GET convoInfo
+  //1. ON PAGE LOAD - GET convoInfo & create WebSocket Connection
   useEffect(() => {
     let sender_name;
     let recipient_name;
@@ -48,12 +46,12 @@ const Conversation = (props) => {
 
     // 1.2 get the rest of the convoInfo using sender & recipient IDs
     axios
-      .get(`/users/${convoInfo.sender_id}`)
+      .get(`/api/users/${convoInfo.sender_id}`)
       .then((result) => {
         sender_name = result.data.user.name;
       })
       .then(() => {
-        return axios.get(`/users/${recipient_id}`).then((result) => {
+        return axios.get(`/api/users/${recipient_id}`).then((result) => {
           recipient_name = result.data.user.name;
           image_url = result.data.user.image_url;
 
@@ -70,37 +68,49 @@ const Conversation = (props) => {
         });
       })
       .catch((err) => {
-        // console.log("AXIOS REQUEST FAIL");
         console.log(err.message);
       });
+
+    // CONNECT to WebSocket
+    setSocket(() => {
+      return io.connect("/"); // connect to backend home route
+    });
+
+    // close WebSocket on cleanup
+    return () => {
+      setSocket((prevSocket) => prevSocket.close());
+    };
   }, []);
 
   // 2. ON PAGE LOAD - JOIN convo room & load messages
   useEffect(() => {
-    socket.emit("join_room", convoInfo.id); // Join room
+    if (socket) {
+      socket.emit("join_room", convoInfo.id); // Join room
 
-    // load messages ONLY when we have recipient ID
-    if (convoInfo.recipient_id) {
-      axios // get messages
-        .get(`/messages/${convoInfo.recipient_id}`)
-        .then((result) => {
-          setMessagesData(result.data);
-        })
-        .catch((err) => console.log(err.message));
+      // load messages ONLY when we have recipient ID
+      if (convoInfo.recipient_id) {
+        axios // get messages
+          .get(`/api/messages/${convoInfo.recipient_id}`)
+          .then((result) => {
+            setMessagesData(result.data);
+          })
+          .catch((err) => console.log(err.message));
+      }
     }
   }, [convoInfo]);
 
   // 3. RECURRING - RECEIVE incoming messages
   useEffect(() => {
-    socket.on("receive_message", (msgData) => {
-      // console.log("RECEIVING MESSAGE!");
-      setMessagesData((list) => [...list, msgData]);
-    });
+    if (socket) {
+      socket.on("receive_message", (msgData) => {
+        setMessagesData((list) => [...list, msgData]);
+      });
+    }
   }, [socket]);
 
   // 4. RECURRING - SEND outgoing messages
   const messageSubmitHandler = async () => {
-    if (message !== "") {
+    if (message !== "" && socket) {
       // 4.1 - SETUP Msg Data
       const messageData = {
         room: convoInfo.id,
@@ -118,7 +128,7 @@ const Conversation = (props) => {
       // Save to DB
       axios({
         method: "post",
-        url: "/messages",
+        url: "/api/messages",
         headers: {},
         data: messageData,
       }).catch((err) => console.log(err.message));
@@ -158,10 +168,10 @@ const Conversation = (props) => {
     ));
   }
   return (
-    <div className="w-screen">
+    <div className="w-full">
       <div className="fixed left-0 top-0 bg-base-100 z-9 w-full h-24 "></div>
-      <div className="fixed left-0 top-24 z-9 w-full h-28 bg-gradient-to-b from-base-100 via-base-100 to-transparent"></div>
-      <div className="fixed left-0 right-0 flex items-start justify-start px-6">
+      <div className="fixed top-24 z-9 w-full h-28 bg-gradient-to-b from-base-100 via-base-100 to-transparent"></div>
+      <div className="fixed flex items-start justify-start px-6">
         {convoInfo.image_url && (
           <img
             className="border w-28 h-28 rounded-full object-cover ml-2 mt-1 mr-4 ring ring-primary ring-offset-base-100 ring-offset-2"

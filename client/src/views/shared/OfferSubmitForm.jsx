@@ -14,7 +14,7 @@ const OfferSubmitForm = ({
     e.preventDefault();
 
     try {
-      await axios.post("/reads", { offer_text: msg, request_id });
+      await axios.post("/api/reads", { offer_text: msg, request_id });
       setError("");
       setIsOfferSubmitted(true);
       setTotalOffers((prev) => prev + 1);

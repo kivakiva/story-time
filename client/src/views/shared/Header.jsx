@@ -8,8 +8,8 @@ function Header() {
 
   return (
     <Fragment>
-      <div className="header z-10 bg-gradient-to-b from-base-100 via-base-100 to-transparent">
-        <div className="relative">
+      <div className="header fixed top-0 z-10 bg-gradient-to-b from-base-100 via-base-100 to-transparent">
+        <div className="relative w-full">
           {chatOpen && (
             <button
               className="absolute left-5 h-full"

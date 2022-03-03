@@ -15,7 +15,7 @@ const Offer = (props) => {
   useEffect(() => {
     const fetchReader = async () => {
       try {
-        const res = await axios.get(`/users/${reader_id}`);
+        const res = await axios.get(`/api/users/${reader_id}`);
         setReader(res.data.user);
       } catch (err) {
         console.log(err);
@@ -26,7 +26,7 @@ const Offer = (props) => {
 
   const acceptOffer = async () => {
     try {
-      await axios.put(`/listens/${request_id}`, {
+      await axios.put(`/api/listens/${request_id}`, {
         action: "ACCEPT",
         request_offer_id: id,
       });
@@ -40,8 +40,8 @@ const Offer = (props) => {
 
   const createMessage = async () => {
     try {
-      const listener_res = await axios.get(`/users/${listener_id}`);
-      const reader_res = await axios.get(`/users/${reader_id}`);
+      const listener_res = await axios.get(`/api/users/${listener_id}`);
+      const reader_res = await axios.get(`/api/users/${reader_id}`);
 
       const listener_name = listener_res.data.user.name;
       const reader_name = reader_res.data.user.name;
@@ -59,7 +59,7 @@ const Offer = (props) => {
 
       await axios({
         method: "post",
-        url: "/messages",
+        url: "/api/messages",
         headers: {},
         data: messageData,
       });

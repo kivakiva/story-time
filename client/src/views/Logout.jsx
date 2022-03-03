@@ -7,7 +7,7 @@ const Logout = () => {
 
   useEffect(() => {
     axios
-      .post(`../users/logout`)
+      .post(`/api/users/logout`)
       .then((res) => {
         localStorage.removeItem("userID");
         navigate("/");

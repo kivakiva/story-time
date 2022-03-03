@@ -33,13 +33,8 @@ const Conversations = (props) => {
     );
   };
 
-  // useEffect(() => {
-  //   console.log(lastMessages);
-  // }, [lastMessages]);
-
   useEffect(() => {
-    axios.get("/messages").then((results) => {
-      // console.log(results.data);
+    axios.get("/api/messages").then((results) => {
       populateLatesMessages(results.data);
     });
   }, []);
@@ -59,15 +54,3 @@ const Conversations = (props) => {
   );
 };
 export default Conversations;
-
-/*
-[
-  {
-    id: 63,
-    message_text: 'dh',
-    sender_id: 2,
-    recipient_id: 1,
-    created_at: 2022-02-18T07:31:05.514Z
-  },
-]
-*/

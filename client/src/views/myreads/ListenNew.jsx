@@ -54,7 +54,7 @@ const ListenNew = (props) => {
 
     axios({
       method: !edit ? "post" : "put",
-      url: `/listens/${edit ? request.id : ""}`,
+      url: `/api/listens/${edit ? request.id : ""}`,
       headers: {},
       data: {
         action: edit ? "UPDATE" : "",
@@ -71,7 +71,7 @@ const ListenNew = (props) => {
         console.log(response.data.request);
       })
       .then(() => {
-        return axios.get(`/users/${localStorage.getItem("userID")}`);
+        return axios.get(`/api/users/${localStorage.getItem("userID")}`);
       })
       .then((res) => {
         console.log(res.data.user.name);

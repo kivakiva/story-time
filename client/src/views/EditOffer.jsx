@@ -24,7 +24,7 @@ const EditOffer = () => {
   useEffect(() => {
     if (userID) {
       axios
-        .get(`/reads/${readId}`)
+        .get(`/api/reads/${readId}`)
         .then((res) => {
           setError("");
           setOfferText(res.data.offer.offer_text);
@@ -43,7 +43,7 @@ const EditOffer = () => {
 
   const submitHandler = () => {
     axios
-      .put(`/reads/${readId}`, { offer_text: offerText })
+      .put(`/api/reads/${readId}`, { offer_text: offerText })
       .then(() => {
         navigate(-1);
       })
