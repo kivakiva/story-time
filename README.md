@@ -13,7 +13,7 @@ Users can generate read requests for specific books and any reader can offer to 
 
 ## Contributors
 
-StoryTime was created by <a href="https://github.com/RReiso">@Ruta Reiso</a>, <a href="https://github.com/DonThePhan">@Donny Phan</a>, and <a href="https://github.com/kivakiva">@Adrian Kiva</a> as their final project for <a href="https://github.com/lighthouse-labs">Lighthouse Labs'</a> web development bootcamp in February 2022.
+StoryTime was created by <a href="https://github.com/RReiso">@Ruta Reisoglu</a>, <a href="https://github.com/DonThePhan">@Donny Phan</a>, and <a href="https://github.com/kivakiva">@Adrian Kiva</a> as their final project for <a href="https://github.com/lighthouse-labs">Lighthouse Labs'</a> web development bootcamp in February 2022.
 
 ## Story
 
@@ -23,7 +23,7 @@ Ruta had the first seed of the idea - wanting to use our final project to work o
 
 ## Tech stack
 
-The front end of this application uses React, is styled in DaisyUI, and is <a href="https://storytime-demo.netlify.app/">deployed</a> on Netlify. The back end uses express and PostreSQL and is deployed to Heroku. The chat component of the application uses websockets.
+The front end of this application uses React, is styled in DaisyUI, and is <a href="https://storytime-demo.netlify.app/">deployed</a> on Netlify. The back end uses Node.js, Express.js, and PostgreSQL. It is deployed to Heroku. The chat component of the application uses websockets.
 
 <br/>
 
@@ -44,7 +44,7 @@ To run the application locally and/or make any changes, follow these steps:
   4. Using the `.env.example` file within the `server` folder as a reference, populate the variables of your `.env` file as appropriate for your user credentials.
   5. You should have PostgreSQL <a href="https://www.postgresqltutorial.com/install-postgresql/">installed and running</a>.
   6. Still within the `server` folder, execute `npm run db:reset` from your command line. You should see printouts indicating the creation of several tables. If you do not, ensure psql is running and you have set the correct permissions for your `.env` file.
-  7. With the database populated, execture `npm run start` to serve it locally at the port specified in your `.env` file.
+  7. With the database populated, execture `npm start` to serve it locally at the port specified in your `.env` file.
   8. Navigate to `../client` and execute `npm install` followed by `npm start` to launch the React front-end of the application. Once it is up, it should automatically load `https://localhost:3000` in your default browser.
   9. Explore the application!
   10. Any changes you make to the application should now automatically load into the localhost version on save.
