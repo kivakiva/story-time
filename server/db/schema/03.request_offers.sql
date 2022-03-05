@@ -7,5 +7,5 @@ CREATE TABLE request_offers (
   created_at TIMESTAMP DEFAULT current_timestamp
 );
 
-ALTER TABLE requests 
-ADD COLUMN request_offer_id INTEGER REFERENCES request_offers (id) DEFAULT NULL;
+-- ALTER TABLE requests 
+-- ADD COLUMN request_offer_id INTEGER REFERENCES request_offers (id) DEFAULT NULL;

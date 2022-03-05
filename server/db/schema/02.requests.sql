@@ -5,6 +5,7 @@ CREATE TABLE requests (
   book_title VARCHAR(255) NOT NULL,
   online BOOLEAN NOT NULL DEFAULT true,
   in_person BOOLEAN NOT NULL DEFAULT false,
+  request_offer_id INTEGER REFERENCES request_offers (id) DEFAULT NULL,
   listener_id INTEGER REFERENCES users (id) NOT NULL,
   reader_id INTEGER REFERENCES users (id) DEFAULT NULL,
   created_at TIMESTAMP DEFAULT current_timestamp,
