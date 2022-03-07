@@ -220,13 +220,9 @@ const Profile = (props) => {
           Edit Profile
         </button>
 
-        <button
-          className="btn btn-active m-2"
-          role="button"
-          aria-pressed="true"
-        >
-          <Link to="/logout">Sign Out</Link>
-        </button>
+        <Link className="btn btn-active m-2" to="/logout">
+          Sign Out
+        </Link>
       </Fragment>
     );
   }
