@@ -14,7 +14,7 @@ const UpdateSubmissionButtons = ({ id, type }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const urlForServer = type === "offer" ? `/reads/${id}` : `/listens/${id}`;
+  const urlForServer = type === "offer" ? `/api/reads/${id}` : `/api/listens/${id}`;
   const urlForClient = type === "offer" ? `/read/${id}` : `/listen/${id}`;
 
   const deleteSubmition = async () => {
