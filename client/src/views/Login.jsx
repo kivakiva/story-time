@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Error from "./shared/Error";
 import { ImArrowRight } from "react-icons/im";
+import GuestLogin from "./GuestLogin";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -93,6 +94,13 @@ const Login = () => {
 
   return (
     <div className="flex flex-col pad-4 items-center justify-center mt-12">
+      <label
+        htmlFor="guest-login-modal"
+        className="btn btn-secondary modal-button m-1 mb-6"
+      >
+        Guest Login
+      </label>
+      <GuestLogin setError={setError} />
       <i className="fa-solid fa-book-open-reader text-9xl m-12"></i>
 
       {registering && (
@@ -156,22 +164,3 @@ const Login = () => {
 };
 
 export default Login;
-
-/*
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) DEFAULT NULL,
- */
-
-/*
-  id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  phone VARCHAR(20) NOT NULL,
-  image_url TEXT DEFAULT NULL,
-  password VARCHAR(255) DEFAULT NULL,
-  online BOOLEAN NOT NULL DEFAULT true,
-  in_person BOOLEAN NOT NULL DEFAULT false,
-  intro VARCHAR(255) DEFAULT NULL,
-  created_at TIMESTAMP DEFAULT current_timestamp
- */
