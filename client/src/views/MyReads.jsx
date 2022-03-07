@@ -42,10 +42,16 @@ const MyReads = (props) => {
   return (
     <main>
       <div className="mt-6 -mb-1">
-        <span onClick={() => listening()} className={`${tab} ${listenTab()}`}>
+        <span
+          onClick={() => listening()}
+          className={`cursor-pointer ${tab} ${listenTab()}`}
+        >
           <i className="fa-solid fa-headphones text-2xl mr-2"></i> Listening
         </span>
-        <span onClick={() => reading()} className={`${tab} ${readTab()}`}>
+        <span
+          onClick={() => reading()}
+          className={`cursor-pointer ${tab} ${readTab()}`}
+        >
           <i className="fa-solid fa-microphone text-2xl mr-2"></i> Reading
         </span>
       </div>
