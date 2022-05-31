@@ -5,7 +5,7 @@ const server = require("../../../app");
 chai.should();
 chai.use(chaiHttp);
 
-describe("UsersRouter", () => {
+describe("UsersRouter getAll function", () => {
   it("It should return all users for admin", (done) => {
     let agent = chai.request.agent(server);
     agent

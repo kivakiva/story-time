@@ -2,13 +2,14 @@ const db = require("../db"); // default import - index.js
 
 const create = ({ name, email, phone, image_url, password }) => {
   //TODO: Check if user with the given email already exists in the db, then:
-  console.log('in user models')
+  console.log("in user models");
   return db
     .query(
       "INSERT INTO users (name, email, phone, image_url, password) VALUES($1, $2, $3, $4, $5) RETURNING *",
       [name, email, phone, image_url, password]
     )
-    .then((result) => result.rows[0]).catch(err => console.log(err))
+    .then((result) => result.rows[0])
+    .catch((err) => console.log(err));
 };
 
 const findAll = () => {
@@ -24,6 +25,12 @@ const findByEmail = (email) => {
 const findByID = (id) => {
   return db
     .query("SELECT * FROM users WHERE id = $1", [id])
+    .then((result) => result.rows[0]);
+};
+
+const destroy = (id) => {
+  return db
+    .query("DELETE FROM users WHERE id = $1 RETURNING *", [id])
     .then((result) => result.rows[0]);
 };
 
@@ -48,5 +55,6 @@ module.exports = {
   findAll,
   findByEmail,
   findByID,
+  destroy,
   update,
 };
