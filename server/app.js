@@ -75,3 +75,5 @@ io.on("connection", (client) => {
 server.listen(SERVER_PORT, () => {
   console.log(`WebSocket listening on PORT ${SERVER_PORT}`);
 });
+
+module.exports = app;

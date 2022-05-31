@@ -4,7 +4,11 @@ const dbParams = require("../lib/db.js");
 const db = new Pool(dbParams);
 
 db.connect(() => {
-  console.log("Connected to the database");
+  if (process.env.NODE_ENV === "test") {
+    console.log("Connected to test db");
+  } else {
+    console.log("Connected to the database");
+  }
 });
 
 module.exports = db;
