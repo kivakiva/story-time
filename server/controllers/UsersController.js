@@ -189,7 +189,7 @@ const getByID = async (req, res) => {
       return res.status(200).send(response);
     }
 
-    // When accessing user info is same user
+    // When accessing user info as self
     response.user = {
       ...response.user,
       email: user.email,
