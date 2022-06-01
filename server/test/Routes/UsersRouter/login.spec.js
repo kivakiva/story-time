@@ -5,17 +5,17 @@ const server = require("../../../app");
 chai.should();
 chai.use(chaiHttp);
 
-describe("UsersRouter login function", () => {
+describe("UsersRouter POST '/login'", () => {
   it("It should log in user", (done) => {
     chai
       .request(server)
       .post("/api/users/login")
-      .send({ email: "ruta@example.com", password: "password" })
+      .send({ email: "user2@example.com", password: "password" })
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a("object");
         res.body.should.have.property("message").eql("Login successful");
-        res.body.should.have.property("cookies").deep.eql({ userID: 1 });
+        res.body.should.have.property("cookies").deep.eql({ userID: 2 });
         done();
       });
   });
@@ -67,7 +67,7 @@ describe("UsersRouter login function", () => {
     chai
       .request(server)
       .post("/api/users/login")
-      .send({ email: "ruta@example.com", password: "wrongpassword" })
+      .send({ email: "user2@example.com", password: "wrongpassword" })
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a("object");

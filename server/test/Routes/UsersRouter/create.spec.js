@@ -6,7 +6,7 @@ const UsersModel = require("../../../models/UsersModel");
 chai.should();
 chai.use(chaiHttp);
 
-describe("UsersRouter create function", () => {
+describe("UsersRouter POST '/signup'", () => {
   let userID;
   it("It should create a new user", (done) => {
     chai

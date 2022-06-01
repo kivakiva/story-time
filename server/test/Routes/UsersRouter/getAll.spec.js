@@ -5,7 +5,7 @@ const server = require("../../../app");
 chai.should();
 chai.use(chaiHttp);
 
-describe("UsersRouter getAll function", () => {
+describe("UsersRouter GET '/'", () => {
   it("It should return all users for admin", (done) => {
     let agent = chai.request.agent(server);
     agent
@@ -19,19 +19,10 @@ describe("UsersRouter getAll function", () => {
         res.body.should.have.property("message").eql("Users");
         res.body.users.length.should.equal(10);
         res.body.users[0].should.have.property("name");
-        res.body.users[0].name.should.equal("Ruta");
         res.body.users[0].should.have.property("email");
-        res.body.users[0].email.should.equal("ruta@example.com");
         res.body.users[0].should.have.property("phone");
-        res.body.users[0].phone.should.equal("+1 123-234-567");
         res.body.users[0].should.have.property("image_url");
-        res.body.users[0].image_url.should.equal(
-          "https://avatars.githubusercontent.com/u/73975409?v=4"
-        );
         res.body.users[0].should.have.property("intro");
-        res.body.users[0].intro.should.equal(
-          "The way to get started is to quit talking and begin doing."
-        );
         done();
       })
       .catch((err) => {

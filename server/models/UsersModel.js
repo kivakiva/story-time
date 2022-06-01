@@ -2,7 +2,6 @@ const db = require("../db"); // default import - index.js
 
 const create = ({ name, email, phone, image_url, password }) => {
   //TODO: Check if user with the given email already exists in the db, then:
-  console.log("in user models");
   return db
     .query(
       "INSERT INTO users (name, email, phone, image_url, password) VALUES($1, $2, $3, $4, $5) RETURNING *",

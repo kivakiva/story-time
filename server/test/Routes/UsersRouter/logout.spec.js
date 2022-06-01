@@ -5,7 +5,7 @@ const server = require("../../../app");
 chai.should();
 chai.use(chaiHttp);
 
-describe("UsersRouter logout function", () => {
+describe("UsersRouter POST '/logout'", () => {
   it("It should log out user", (done) => {
     chai
       .request(server)

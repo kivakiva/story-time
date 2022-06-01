@@ -48,7 +48,6 @@ const create = (req, res) => {
   UsersModel.create({ name, email, phone, image_url, password })
     .then((user) => {
       console.log("usersController -> account created");
-      console.log(user);
       req.session.userID = user.id;
       return res.status(201).send({ message: "User created!", user });
     })
@@ -209,6 +208,20 @@ const getByID = async (req, res) => {
 const update = (req, res) => {
   const { id } = req.params;
   const { name, email, image_url, intro } = req.body;
+  const { userID } = req.session;
+
+  if (!userID) {
+    return res.status(400).send({
+      message: "Must be logged in!",
+    });
+  }
+
+  // Allow updating only user's own info:
+  if (userID !== Number(id)) {
+    return res.status(400).send({
+      message: "User not authorized to update another user's profile",
+    });
+  }
 
   UsersModel.update({ id, image_url, name, email, intro })
     .then((user) => {
