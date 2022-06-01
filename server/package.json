@@ -7,7 +7,7 @@
     "start": "node app.js",
     "local": "./node_modules/.bin/nodemon -L",
     "db:reset": "node db/resetdb.js",
-    "testdb:reset": "node db/resettestdb.js",
+    "testdb:reset": "NODE_ENV=test node db/resetdb.js",
     "test": "NODE_ENV=test mocha --recursive --exit --timeout 10000"
   },
   "author": "",
