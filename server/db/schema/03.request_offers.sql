@@ -6,6 +6,3 @@ CREATE TABLE request_offers (
   offer_text TEXT DEFAULT NULL,
   created_at TIMESTAMP DEFAULT current_timestamp
 );
-
--- ALTER TABLE requests 
--- ADD COLUMN request_offer_id INTEGER REFERENCES request_offers (id) DEFAULT NULL;
