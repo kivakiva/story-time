@@ -8,7 +8,7 @@ Users can generate read requests for specific books and any reader can offer to 
  ---
  
  <p>
-  <img width="225" align='left' src="lightCrop.gif">
+  <img width="225" align='left' src="lightCrop.gif" style="margin-right: 10px; margin-top: 10px; border: 1px grey solid">
 </p>
 
 ## Contributors
@@ -21,7 +21,7 @@ This was an incredible learning experience for us as junior developers. We are o
 
 Ruta had the first seed of the idea - wanting to use our final project to work on an application to connect people during the pandemic. We then collectively built out the features that now exist.
 
-## Tech stack
+## Tech Stack
 
 The front end of this application uses React, is styled in DaisyUI, and is <a href="https://storytime-demo.netlify.app/">deployed</a> on Netlify. The back end uses Node.js, Express.js, and PostgreSQL. It is deployed to Heroku. The chat component of the application uses websockets.
 
