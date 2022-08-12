@@ -8,7 +8,7 @@ Users can generate read requests for specific books and any reader can offer to 
  ---
  
  <p>
-  <img width="225" align='left' src="lightCrop.gif" style="padding-right: 10px; padding-top: 10px">
+  <img width="225" align='left' src="lightCrop.gif" style="margin-right: 10px; margin-top: 10px; border: 1px grey solid">
 </p>
 
 ## Contributors
