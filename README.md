@@ -50,5 +50,3 @@ To run the application locally and/or make any changes, follow these steps:
 10. Any changes you make to the application should now automatically load into the localhost version on save.
 
 ---
-
-test
