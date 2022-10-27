@@ -35,7 +35,7 @@ const Message = (props) => {
   return (
     <div className="flex flex-col bg-base-100 w-full">
       <div
-        style={{ color: "#1B3D2F" }}
+        style={{ color: "#FFF" }}
         className={`p-3 mx-5 mt-6 border border-black mb-1 rounded-lg max-w-[65%] text-left break-words ${align()}`}
       >
         {message}
