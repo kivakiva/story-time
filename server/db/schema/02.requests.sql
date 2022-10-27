@@ -1,3 +1,9 @@
+-- create empty request_offers so requests can reference
+DROP TABLE IF EXISTS request_offers CASCADE;
+CREATE TABLE request_offers (
+  id SERIAL PRIMARY KEY NOT NULL
+);
+
 DROP TABLE IF EXISTS requests CASCADE;
 CREATE TABLE requests (
   id SERIAL PRIMARY KEY NOT NULL,
